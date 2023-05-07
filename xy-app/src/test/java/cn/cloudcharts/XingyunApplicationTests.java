@@ -11,9 +11,20 @@ import io.kubernetes.client.util.credentials.AccessTokenAuthentication;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
+
 @SpringBootTest
 class XingyunApplicationTests {
 
+    @Resource
+    DataSource dataSource;
+
+    @Test
+    void contextLoadsOne() throws Exception{
+        System.out.println("获取的数据库连接为:"+dataSource.getConnection());
+    }
     @Test
     void contextLoads(){
 

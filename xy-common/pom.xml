@@ -25,7 +25,7 @@
         <caffeine.version>2.9.2</caffeine.version>
         <jsonpath.version>2.7.0</jsonpath.version>
         <cglib.version>3.3.0</cglib.version>
-        <lombok.version>1.18.24</lombok.version>
+        <lombok.version>1.18.26</lombok.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <poi.version>4.1.2</poi.version>
         <velocity.version>2.3</velocity.version>
@@ -180,7 +180,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
+<!--            <version>${lombok.version}</version>-->
         </dependency>
 
         <dependency>
