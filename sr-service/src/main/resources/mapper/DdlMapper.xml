@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cloudcharts.olap.mapper.DdlMapper">
+
+    <update id="createTableBySql">
+        ${sql}
+    </update>
+
+
+    <update id="createUniqueTbl" parameterType="cn.cloudcharts.olap.model.CreateTableDTO">
+
+
+    </update>
+
+    <update id="createPrimaryTbl" parameterType="cn.cloudcharts.olap.model.CreateTableDTO">
+
+
+    </update>
+
+    <update id="createAggregateTbl" parameterType="cn.cloudcharts.olap.model.CreateTableDTO">
+
+    </update>
+
+    <update id="createDetailTbl" parameterType="cn.cloudcharts.olap.model.CreateTableDTO">
+
+        CREATE TABLE IF NOT EXISTS
+        <if test="dto.dbName != null and dto.dbName != ''">
+            ${dto.dbName}
+        </if>.${dto.tblName}  (
+        <foreach collection="dto.cols" item="item" separator="," index="index">
+        ${item.colName} ${item.colType}<if test="item.len != null and item.len != ''">(${item.len})</if> ${item.keyType}
+            <if test="item.notNull != null and item.notNull !=''">
+                NOT NULL
+            </if>
+            <if test="item.defaultVal != null and item.defaultVal !=''">
+                DEFAULT  ${item.defaultVal}
+            </if>
+            <if test="item.comment != null and item.comment !=''">
+                COMMENT  "${item.comment}"
+            </if>
+        </foreach>
+        )
+        ENGINE=olap
+        DUPLICATE KEY(${dto.keyDesc})
+        COMMENT  ${dto.comment}
+        <if test="dto.partition.partitionMode == null or dto.partition.partitionMode == '' or dto.partition.partitionMode='dominant'">
+            <if test="dto.partition.partitionDesc != null and dto.partition.partitionDesc != ''">
+                <choose>
+                    <when test="dto.partition.partitionDesc == 'LESS_THAN'">
+--                         PARTITION BY RANGE (k1, k2, ...)
+--                         (
+--                         PARTITION partition_name1 VALUES LESS THAN MAXVALUE|("value1", "value2", ...),
+--                         PARTITION partition_name2 VALUES LESS THAN MAXVALUE|("value1", "value2", ...)
+--                         ...
+--                         )
+                    </when>
+                    <when test="dto.partition.partitionDesc == 'Fixed_Range'">
+--                         PARTITION BY RANGE (k1, k2, k3, ...)
+--                         (
+--                         PARTITION partition_name1 VALUES [("k1-lower1", "k2-lower1", "k3-lower1",...), ("k1-upper1", "k2-upper1", "k3-upper1", ...)),
+--                         PARTITION partition_name2 VALUES [("k1-lower1-2", "k2-lower1-2", ...), ("k1-upper1-2", "k2-upper1-2", "k3-upper1-2", ...))
+--                         ...
+--                         )
+                    </when>
+                    <when test="dto.partition.partitionDesc == 'BATCH'">
+--                         PARTITION BY RANGE (pay_dt) (
+--                         START ("2021-01-01") END ("2021-01-04") EVERY (INTERVAL
+--                         1
+--                         day)
+--                         )
+                    </when>
+                    <otherwise>
+
+                    </otherwise>
+                </choose>
+            </if>
+        </if>
+        <if test="dto.partition.partitionMode != null and dto.partition.partitionMode != '' and dto.partition.partitionMode='recessive'">
+<!--           PARTITION BY date_trunc(<time_unit>,<partition_column_name>)-->
+<!--               PARTITION BY time_slice(<partition_column_name>,INTERVAL N <time_unit>[, boundary])-->
+        </if>
+
+        <if test="dto.distributedCols != null and dto.distributedCols !=''">
+            DISTRIBUTED BY HASH （${dto.distributedCols}）
+            <if test="dto.buckets != null and dto.buckets !=''">
+                BUCKETS ${dto.buckets}
+            </if>
+        </if>
+        <if test="dto.orderKeys != null and dto.orderKeys !=''">
+
+        </if>
+
+--         PROPERTIES (
+--         "storage_medium" = "[SSD|HDD]",
+--         [ "storage_cooldown_time" = "yyyy-MM-dd HH:mm:ss", ]
+--         [ "replication_num" = "3" ]
+--         )
+
+    </update>
+    <update id="createExternalTbl">
+
+    </update>
+    <update id="createTableLike">
+
+    </update>
+
+</mapper>

@@ -17,17 +17,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Column {
 
-    private String name;
+    private String colName;
 
     /**
      * 字段类型
      */
-    private ColumnTypeEnums type;
+    private ColumnTypeEnums colType;
 
     /**
-     * 字段长度，默认100
+     * 取值范围
+     * DECIMAL类型输入[precision,scale],以逗号分割
      */
-    private Integer len;
+    private String len;
 
     /**
      * 字段默认值 ''
@@ -40,12 +41,14 @@ public class Column {
     private String comment;
 
     /**
-     * 聚合类型 key | agg_type
+     * 聚合类型，如果不指定，则该列为 key 列。否则，该列为 value 列。
+     * key | agg_type
      */
     private String keyType;
 
     /**
      * NOT NULL
+     * 列数据是否允许为 NULL
      */
-    private String nullType;
+    private String notNull;
 }

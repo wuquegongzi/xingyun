@@ -8,13 +8,16 @@ package cn.cloudcharts.olap.enums;
  * @date 2023/5/616:16
  */
 public enum PartitionModeEnums {
+
     /**
-     * 动态分区
+     * 显性
+     * 参见：cn.cloudcharts.olap.enums.PartitionDescEnums
      */
-    _dynamic,
+    dominant,
     /**
-     * 静态分区
+     * 隐性
+     * 使用表达式
      */
-    _static,
+    recessive
 
 }

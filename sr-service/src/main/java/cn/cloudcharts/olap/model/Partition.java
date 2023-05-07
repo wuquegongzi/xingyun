@@ -1,5 +1,6 @@
 package cn.cloudcharts.olap.model;
 
+import cn.cloudcharts.olap.enums.PartitionDescEnums;
 import cn.cloudcharts.olap.enums.PartitionModeEnums;
 import cn.cloudcharts.olap.enums.PartitionTimeUnitEnums;
 import cn.cloudcharts.olap.enums.PartitionFuncTypeEnums;
@@ -21,10 +22,15 @@ import java.util.List;
 @NoArgsConstructor
 public class Partition {
 
+
     /**
-     * 分区模式
+     * 分区模式，默认显性
      */
     private PartitionModeEnums partitionMode;
+    /**
+     * 分区方式
+     */
+    private PartitionDescEnums partitionDesc;
 
     /**
      * 分区类型 Round-Robin、Range、List、Hash
