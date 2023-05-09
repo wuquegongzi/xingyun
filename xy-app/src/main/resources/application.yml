@@ -5,7 +5,7 @@ spring:
   # mysql 配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.217.232:9030/ssb?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
+    url: jdbc:mysql://192.168.217.232:9030/ssb?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
     username: root
     password:
     type: com.zaxxer.hikari.HikariDataSource

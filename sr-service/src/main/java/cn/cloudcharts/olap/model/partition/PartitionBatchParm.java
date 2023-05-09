@@ -1,4 +1,4 @@
-package cn.cloudcharts.olap.model;
+package cn.cloudcharts.olap.model.partition;
 
 import cn.cloudcharts.olap.enums.PartitionIntervalNTypeEnums;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PartitionExpression {
+public class PartitionBatchParm {
 
 
     private String start;

@@ -1,9 +1,7 @@
-package cn.cloudcharts.olap.model;
+package cn.cloudcharts.olap.model.partition;
 
 import cn.cloudcharts.olap.enums.PartitionDescEnums;
 import cn.cloudcharts.olap.enums.PartitionModeEnums;
-import cn.cloudcharts.olap.enums.PartitionTimeUnitEnums;
-import cn.cloudcharts.olap.enums.PartitionFuncTypeEnums;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +26,7 @@ public class Partition {
      */
     private PartitionModeEnums partitionMode;
     /**
-     * 分区方式
+     * 显性分区方式
      */
     private PartitionDescEnums partitionDesc;
 
@@ -39,28 +37,26 @@ public class Partition {
     private String partitionType;
 
     /**
-     * 分区函数
+     * 分区列,多个以逗号分割
      */
-    private PartitionFuncTypeEnums partitionFuncType;
+    private String partitionCols;
 
     /**
-     * 分区粒度
+     * 显性分区-lessthan 参数
      */
-    private PartitionTimeUnitEnums partitionTimeUnit;
-
+    private List<PartitionLessThanParm> partitionLessThanParms;
     /**
-     * 分区列
+     * 显性分区-fixed range 参数
      */
-    private String partitionColumnName;
-
+    private List<PartitionFixedRangeParm> partitionFixedRangeParms;
     /**
-     * 分区表达式
+     * 显性分区-批量创建分区
      */
-    private List<PartitionExpression> partitionExpressions;
-
-
-
-
+    private PartitionBatchParm partitionBatchParm;
+    /**
+     * 隐式分区-动态函数表达式方式
+     */
+    private PartitionExpressionParm partitionExpressionParm;
 
 
 }

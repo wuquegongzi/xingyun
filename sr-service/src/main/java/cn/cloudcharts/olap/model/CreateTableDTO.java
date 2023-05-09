@@ -1,5 +1,6 @@
 package cn.cloudcharts.olap.model;
 
+import cn.cloudcharts.olap.model.partition.Partition;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;

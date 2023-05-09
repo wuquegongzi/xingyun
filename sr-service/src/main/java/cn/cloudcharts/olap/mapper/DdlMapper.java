@@ -2,7 +2,11 @@ package cn.cloudcharts.olap.mapper;
 
 import cn.cloudcharts.olap.model.CreateTableDTO;
 import cn.cloudcharts.olap.model.CreateTableLikeDTO;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author wuque
@@ -11,10 +15,13 @@ import org.apache.ibatis.annotations.Param;
  * @description: DDL相关
  * @date 2023/5/614:22
  */
+@Mapper
 public interface DdlMapper {
 
 
 //    int alterDatabase();
+
+    List<Map> showResources();
 
     /**
      * 创建明细模型

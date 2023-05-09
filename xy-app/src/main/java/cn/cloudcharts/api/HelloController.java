@@ -3,6 +3,7 @@ package cn.cloudcharts.api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 /**
  * @author wuque
  * @title: HelloController
@@ -17,4 +18,5 @@ public class HelloController {
     String home() {
         return "你好，星云!";
     }
+
 }
