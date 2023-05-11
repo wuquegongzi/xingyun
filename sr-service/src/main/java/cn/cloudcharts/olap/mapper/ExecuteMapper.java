@@ -1,11 +1,15 @@
 package cn.cloudcharts.olap.mapper;
 
+import cn.cloudcharts.common.exception.ServiceException;
+import cn.cloudcharts.common.utils.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.SqlSessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 
 import java.sql.*;
 import java.util.*;
@@ -26,12 +30,14 @@ public class ExecuteMapper {
     private SqlSessionTemplate sqlSessionTemplate;
 
     public List<String> execute(String sql){
-        log.info(PREFIX_LOG+"执行sql脚本:"+sql);
+        log.info(PREFIX_LOG+"execute script:"+sql);
+        if(StringUtils.isEmpty(sql)){
+            throw new ServiceException("Execution script cannot be empty");
+        }
 
-        //TODO 切割SQL
+        String sqls[] = sql.split(";");
 
         //SQL解析，判断SQL类型
-
         List<String> list = new LinkedList<String>();
 
         PreparedStatement pst = null;
@@ -39,9 +45,26 @@ public class ExecuteMapper {
         ResultSet result = null;
 
         try {
-            Connection connection = session.getConnection();
-            pst = connection.prepareStatement(sql);
+            Connection conn = session.getConnection();
+            Statement statement = conn.createStatement();
+
+            pst = conn.prepareStatement(sql);
+
+            for (int i = 0; i < sqls.length; i++) {
+                String sqlTemp = sqls[i];
+
+
+            }
+
+            pst.addBatch();
+            pst.setFetchSize(10000);
+            pst.setQueryTimeout(3000);
+            //TODO 支持动态参数
+//            pst.setString(1, "value1");
+
             result = pst.executeQuery();
+
+
             //获得结果集结构信息,元数据
             ResultSetMetaData md = result.getMetaData();
             int columnCount = md.getColumnCount();   //获得列数

@@ -1,7 +1,9 @@
 package cn.cloudcharts.olap.mapper;
 
+import cn.cloudcharts.olap.model.Column;
 import cn.cloudcharts.olap.model.CreateTableDTO;
 import cn.cloudcharts.olap.model.CreateTableLikeDTO;
+import cn.cloudcharts.olap.model.ddl.TableColumn;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -67,6 +69,10 @@ public interface DdlMapper {
 
     int createTableBySql(@Param("sql") String sql);
 
+
+    List<TableColumn> queryAllColumns(@Param("table") String table);
+
+    String addColumns(@Param("table") String table, @Param("columns")  List<Column> columns);
 
 
 

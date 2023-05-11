@@ -140,4 +140,18 @@
         SHOW RESOURCES
     </select>
 
+    <select id="queryAllColumns" resultType="cn.cloudcharts.olap.model.ddl.TableColumn">
+        SHOW FULL COLUMNS FROM ${table}
+    </select>
+
+    <select id="addColumns" resultType="java.lang.String">
+        ALTER TABLE ${table} ADD COLUMN
+        <foreach collection="columns" item="item" open="(" separator="," close=")">
+            ${item.colName} ${item.colType}
+            <if test="item.keyType !=null">
+                ${item.keyType}
+            </if>
+        </foreach>
+    </select>
+
 </mapper>

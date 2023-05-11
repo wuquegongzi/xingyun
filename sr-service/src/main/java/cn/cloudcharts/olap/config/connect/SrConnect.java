@@ -1,10 +1,9 @@
-package cn.cloudcharts.olap.connect;
+package cn.cloudcharts.olap.config.connect;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -19,7 +18,7 @@ import java.util.Properties;
  * @description: Starrocks JDBC连接器
  * @date 2023/5/517:46
  */
-
+@Deprecated
 @Slf4j
 //@Component
 public class SrConnect {

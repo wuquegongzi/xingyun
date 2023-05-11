@@ -87,6 +87,8 @@
         <module>xy-common</module>
         <module>k8s-service</module>
         <module>sr-service</module>
+        <module>oss-service</module>
+<!--        <module>sdk</module>-->
     </modules>
 
 
