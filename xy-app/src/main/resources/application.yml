@@ -9,6 +9,7 @@ spring:
     username: root
     password:
     type: com.zaxxer.hikari.HikariDataSource
+    query.limit: 1000
     hikari:
       maximum-pool-size: 15
       minimum-idle: 5

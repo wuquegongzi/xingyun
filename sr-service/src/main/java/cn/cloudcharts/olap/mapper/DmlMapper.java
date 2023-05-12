@@ -18,6 +18,6 @@ public interface DmlMapper {
 
     List<String> getTableList();
 
-    List<Map> execQuery(@Param("sql") String sql);
+    List<Map> execQuery(Map map);
 
 }

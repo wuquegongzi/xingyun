@@ -9,8 +9,9 @@
     </select>
 
     <select id="execQuery"
+            parameterType="java.util.Map"
             resultType="java.util.Map">
-        ${sql}
+        select t.* from (${sql}) as t limit ${maxVal}
     </select>
 
 

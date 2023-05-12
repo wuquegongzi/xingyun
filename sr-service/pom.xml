@@ -15,6 +15,10 @@
             <groupId>cn.cloudcharts</groupId>
             <artifactId>xy-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.cloudcharts</groupId>
+            <artifactId>parser-starrocks</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -39,4 +43,17 @@
         </dependency>
 
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
