@@ -12,7 +12,7 @@
     <groupId>cn.cloudcharts</groupId>
     <artifactId>xy-app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>xingyun-app</name>
+    <name>xy-app</name>
     <description>星云 APP</description>
     <properties>
         <java.version>17</java.version>

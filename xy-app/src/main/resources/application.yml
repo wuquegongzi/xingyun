@@ -23,6 +23,19 @@ mybatis-plus:
     use-generated-keys: true
   mapper-locations: classpath*:mapper/**/*Mapper.xml
 
+springdoc:
+  swagger-ui:
+    enabled: true
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+
+
+
+
+
+
+
 ##https://github.com/brettwooldridge/HikariCP/wiki/MySQL-Configuration
 #olap:
 #  type: starrocks

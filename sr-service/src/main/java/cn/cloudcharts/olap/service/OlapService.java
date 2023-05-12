@@ -77,7 +77,11 @@ public class OlapService {
         map.put("sql",sql);
         map.put("maxVal",maxVal);
 
-        return dmlMapper.execQuery(map);
+        try {
+            return dmlMapper.execQuery(map);
+        } catch (Exception e) {
+            throw new ServiceException(e.getLocalizedMessage());
+        }
     }
 
 
