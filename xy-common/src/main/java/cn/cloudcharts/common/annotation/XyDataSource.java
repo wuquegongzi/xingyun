@@ -16,10 +16,10 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface DataSource
+public @interface XyDataSource
 {
     /**
      * 切换数据源名称
      */
-    public DataSourceType value() default DataSourceType.MASTER;
+    public DataSourceType value() default DataSourceType.OLAP;
 }

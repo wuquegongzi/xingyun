@@ -37,7 +37,7 @@ public class ExecuteMapper {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
-    @Value("${spring.datasource.query.limit:1000}")
+    @Value("${spring.datasource.olap.query.limit:1000}")
     private int maxVal;
 
     //TODO 分布式

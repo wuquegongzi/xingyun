@@ -4,16 +4,39 @@ server:
 spring:
   # mysql 配置
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.217.232:9030/ssb?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
-    username: root
-    password:
-    type: com.zaxxer.hikari.HikariDataSource
-    query.limit: 1000
-    hikari:
-      maximum-pool-size: 15
-      minimum-idle: 5
-      idle-timeout: 30000
+    olap:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://192.168.217.232:9030/ssb?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+      username: root
+      password:
+      type: com.zaxxer.hikari.HikariDataSource
+      query.limit: 1000
+      hikari:
+        maximum-pool-size: 15
+        minimum-idle: 5
+        idle-timeout: 30000
+    rdbms:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://192.168.217.232:9030/xingyun?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+      username: root
+      password:
+      type: com.zaxxer.hikari.HikariDataSource
+      query.limit: 1000
+      hikari:
+        maximum-pool-size: 15
+        minimum-idle: 5
+        idle-timeout: 30000
+    logdb:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://192.168.217.232:9030/logdb?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+      username: root
+      password:
+      type: com.zaxxer.hikari.HikariDataSource
+      query.limit: 1000
+      hikari:
+        maximum-pool-size: 15
+        minimum-idle: 5
+        idle-timeout: 30000
   # mybatis-plus 配置
 mybatis-plus:
   configuration:

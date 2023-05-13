@@ -8,12 +8,15 @@ package cn.cloudcharts.common.enums;
 public enum DataSourceType
 {
     /**
-     * 主库
+     * OLAP
      */
-    MASTER,
-
+    OLAP,
     /**
-     * 从库
+     * 日志库
      */
-    SLAVE
+    LOGDB,
+    /**
+     * 事务关系型数据库
+     */
+    RDBMS,
 }
