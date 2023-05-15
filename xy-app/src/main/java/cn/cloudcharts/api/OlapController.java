@@ -2,6 +2,7 @@ package cn.cloudcharts.api;
 
 import cn.cloudcharts.common.core.domain.R;
 import cn.cloudcharts.olap.model.CreateTableDTO;
+import cn.cloudcharts.olap.service.ExecuteService;
 import cn.cloudcharts.olap.service.OlapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ public class OlapController {
 
     @Autowired
     OlapService olapService;
+    @Autowired
+    ExecuteService executeService;
 
     /**
      *  向导建表
@@ -60,7 +63,7 @@ public class OlapController {
      */
     @GetMapping("/execute")
     public R execute(@RequestParam(name="sql") String sql){
-        return R.ok(olapService.execute(sql));
+        return R.ok(executeService.execute(sql));
     }
 
 

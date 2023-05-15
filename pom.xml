@@ -76,12 +76,12 @@
            </dependency>
            <dependency>
                <groupId>cn.cloudcharts</groupId>
-               <artifactId>sr-service</artifactId>
+               <artifactId>starrocks-service</artifactId>
                <version>1.0-SNAPSHOT</version>
            </dependency>
            <dependency>
                <groupId>cn.cloudcharts</groupId>
-               <artifactId>oss-service</artifactId>
+               <artifactId>dfs-service</artifactId>
                <version>1.0-SNAPSHOT</version>
            </dependency>
            <dependency>
@@ -97,9 +97,10 @@
         <module>xy-app</module>
         <module>xy-common</module>
         <module>k8s-service</module>
-        <module>sr-service</module>
-        <module>oss-service</module>
+        <module>starrocks-service</module>
+        <module>dfs-service</module>
         <module>sql-parser</module>
+        <module>flink-service</module>
         <!--        <module>sdk</module>-->
     </modules>
 

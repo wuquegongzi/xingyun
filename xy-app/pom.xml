@@ -35,7 +35,7 @@
 
         <dependency>
             <groupId>cn.cloudcharts</groupId>
-            <artifactId>sr-service</artifactId>
+            <artifactId>starrocks-service</artifactId>
         </dependency>
 
         <dependency>
