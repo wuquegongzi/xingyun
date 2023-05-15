@@ -1,6 +1,6 @@
-package cn.cloudcharts.k8sservice.service.impl;
+package cn.cloudcharts.k8s.service.impl;
 
-import cn.cloudcharts.k8sservice.service.K8sService;
+import cn.cloudcharts.k8s.service.K8sService;
 import org.springframework.stereotype.Service;
 
 /**

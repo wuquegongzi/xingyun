@@ -1,4 +1,4 @@
-package cn.cloudcharts.k8sservice.service;
+package cn.cloudcharts.k8s.service;
 
 /**
  * @author wuque

@@ -3,18 +3,16 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.cloudcharts</groupId>
-        <artifactId>xingyun</artifactId>
+        <artifactId>flink-service</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>flink-service</artifactId>
-    <packaging>pom</packaging>
+    <groupId>cn.cloudcharts.flink</groupId>
+    <artifactId>flink17-service</artifactId>
+    <packaging>jar</packaging>
 
-    <name>flink-service</name>
+    <name>flink17-service</name>
     <url>http://maven.apache.org</url>
-    <modules>
-        <module>flink17-service</module>
-    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
