@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xingyun-app
+  namespace: hs-dev
+  labels:
+    app: xingyun-app
+spec:
+  replicas: 1 # 指定副本数为1,即单实例部署
+  selector:
+    matchLabels:
+      app: xingyun-app # 根据标签选择器找到要部署的Pod
+  template:
+    metadata:
+      labels:
+        app: xingyun-app # 标签选择器同样适用于模板元数据
+    spec:
+      imagePullSecrets:
+        # 此处填写秘钥的名称
+        - name: harbor190
+      containers:
+        - name: xingyun-app # Pod名称必须与容器名称相同，且在模板元数据中指定了标签选择器，因此容器会自动匹配到相应的Pod上
+          image: 192.168.216.190:80/xingyun-dev/xingyun:v1.0 # 指定使用的镜像名称和版本号。这里使用了之前推送到Docker Hub上的镜像
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+            limits:
+              cpu: 100m
+              memory: 1024M
+          ports:
+            - containerPort: 18088
+              name: xingyun-app
+      restartPolicy: Always
