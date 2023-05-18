@@ -1,0 +1,25 @@
+DROP TABLE IF EXISTS `xingyun_database`;
+CREATE TABLE `xingyun_database`  (
+                                     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+                                     `tenant_id` int(11) NOT NULL DEFAULT 1 COMMENT 'tenant id',
+                                     `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'database name',
+                                     `group_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT 'Default' COMMENT 'database belong group name',
+                                     `type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'database type',
+                                     `ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'database ip',
+                                     `port` int(11) NULL DEFAULT NULL COMMENT 'database port',
+                                     `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'database url',
+                                     `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'username',
+                                     `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'password',
+                                     `note` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'note',
+                                     `flink_config` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT 'Flink configuration',
+                                     `flink_template` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT 'Flink template',
+                                     `db_version` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'version，such as: 11g of oracle ，2.2.3 of hbase',
+                                     `status` tinyint(1) NULL DEFAULT NULL COMMENT 'heartbeat status',
+                                     `health_time` datetime(0) NULL DEFAULT NULL COMMENT 'last heartbeat time of trigger',
+                                     `heartbeat_time` datetime(0) NULL DEFAULT NULL COMMENT 'last heartbeat time',
+                                     `enabled` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'is enable',
+                                     `create_time` datetime(0) NULL DEFAULT NULL COMMENT 'create time',
+                                     `update_time` datetime(0) NULL DEFAULT NULL COMMENT 'update time',
+                                     PRIMARY KEY (`id`) USING BTREE,
+                                     UNIQUE INDEX `database_un_idx1`(`name`, `tenant_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'database management' ROW_FORMAT = Dynamic;

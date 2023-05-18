@@ -3,14 +3,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.cloudcharts</groupId>
-        <artifactId>sql-parser</artifactId>
+        <artifactId>xingyun</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>parser-starrocks</artifactId>
+    <groupId>cn.cloudcharts.log</groupId>
+    <artifactId>log-service</artifactId>
     <packaging>jar</packaging>
 
-    <name>parser-starrocks</name>
+    <name>log-service</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -18,22 +19,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>cn.cloudcharts</groupId>
-            <artifactId>xingyun-common</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.calcite</groupId>
-            <artifactId>calcite-core</artifactId>
-            <version>${calcite.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.calcite</groupId>
-            <artifactId>calcite-server</artifactId>
-            <version>${calcite.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

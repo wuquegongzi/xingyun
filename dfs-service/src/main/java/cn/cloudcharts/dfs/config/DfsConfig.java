@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 @Configuration
 @ComponentScan(value= "cn.cloudcharts.dfs")
-@PropertySource("classpath:datasource_default.properties")
+@PropertySource("classpath:dfs_default.properties")
 public class DfsConfig {
 
     @Value("${dfs.namenode.url}")

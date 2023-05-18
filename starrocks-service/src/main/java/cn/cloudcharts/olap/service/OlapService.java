@@ -1,8 +1,7 @@
 package cn.cloudcharts.olap.service;
 
-import cn.cloudcharts.common.annotation.XyDataSource;
-import cn.cloudcharts.common.enums.DataSourceType;
 import cn.cloudcharts.common.exception.ServiceException;
+import cn.cloudcharts.core.ds.DBIdentifier;
 import cn.cloudcharts.olap.mapper.DdlMapper;
 import cn.cloudcharts.olap.mapper.DmlMapper;
 import cn.cloudcharts.olap.model.CreateTableDTO;
@@ -30,11 +29,11 @@ public class OlapService {
     @Autowired
     DmlMapper dmlMapper;
 
-    @Value("${spring.datasource.olap.query.limit:1000}")
+    @Value("${spring.datasource.olap.query.limit:100}")
     private int maxVal;
 
-    @XyDataSource(value = DataSourceType.OLAP)
     public boolean createTbl(CreateTableDTO dto) {
+        DBIdentifier.setDbCode("1");
 
         if("1".equals(dto.getTblType())){ //外表
           return ddlMapper.createExternalTbl(dto) > 0;
@@ -65,6 +64,9 @@ public class OlapService {
     }
 
     public  List<String>  getTableList() {
+
+        DBIdentifier.setDbCode("1");
+
         return dmlMapper.getTableList();
     }
 

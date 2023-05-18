@@ -2,7 +2,6 @@ package cn.cloudcharts.olap.service;
 
 import cn.cloudcharts.common.exception.ServiceException;
 import cn.cloudcharts.common.utils.StringUtils;
-import cn.cloudcharts.dfs.DfsService;
 import cn.cloudcharts.sqlparser.SqlPaser;
 import cn.cloudcharts.sqlparser.starrocks.StarrocksParser;
 import cn.hutool.core.lang.UUID;
@@ -13,9 +12,8 @@ import org.apache.commons.compress.utils.Lists;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.SqlSessionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 
 import java.sql.*;
@@ -29,15 +27,15 @@ import java.util.concurrent.ConcurrentHashMap;
  * @description: 原生JDBC调用
  * @date 2023/5/820:29
  */
-@Component
+@Service
 @Slf4j
 public class ExecuteService {
     private static final String PREFIX_LOG = "【ExecuteMapper】";
 
-    @Autowired
+//    @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
-    @Autowired
-    private DfsService dfsService;
+//    @Autowired
+//    private DfsService dfsService;
 
 
     @Value("${spring.datasource.olap.query.limit:1000}")

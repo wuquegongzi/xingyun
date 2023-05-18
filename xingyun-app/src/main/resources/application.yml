@@ -1,0 +1,41 @@
+server:
+  port: 8088
+
+spring:
+  datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://192.168.216.154:31984/xingyun?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+      username: root
+      password: 1qaz2wsx
+      type: com.zaxxer.hikari.HikariDataSource
+      query.limit: 1000
+      hikari:
+        maximum-pool-size: 15
+        minimum-idle: 5
+        idle-timeout: 30000
+
+# mybatis-plus 配置
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    use-generated-keys: true
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+
+
+# DFS config  type: hdfs、s3、local
+dfs:
+  type: hdfs
+  namenode.url: hdfs://lake-node3:8020
+  namespace: /xingyun
+  path.separator: /
+
+
+springdoc:
+  swagger-ui:
+    enabled: true
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+
