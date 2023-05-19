@@ -1,9 +1,9 @@
 package cn.cloudcharts.api.admin;
 
 
-import cn.cloudcharts.admin.entity.Database;
+import cn.cloudcharts.admin.model.entity.Database;
 import cn.cloudcharts.admin.service.IDatabaseService;
-import cn.cloudcharts.api.admin.request.DataBaseRequest;
+import cn.cloudcharts.admin.model.request.DataBaseRequest;
 import cn.cloudcharts.core.domain.R;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -27,7 +27,7 @@ public class DatabaseController {
     @Autowired
     IDatabaseService databaseService;
 
-    @GetMapping(value ="/list")
+    @PostMapping(value ="/list")
     public R<PageInfo> list(@RequestBody DataBaseRequest dataBaseRequest){
 
         PageHelper.startPage(dataBaseRequest.getPageNum(), dataBaseRequest.getPageSize());

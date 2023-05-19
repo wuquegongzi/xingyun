@@ -11,9 +11,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-/**
- *
- */
 public class SQLManager implements SQLManagerMBean {
 
 	private static final Logger _logger = LoggerFactory.getLogger(SQLManager.class);

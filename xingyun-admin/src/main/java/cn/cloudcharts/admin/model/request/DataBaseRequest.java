@@ -1,4 +1,4 @@
-package cn.cloudcharts.api.admin.request;
+package cn.cloudcharts.admin.model.request;
 
 import cn.cloudcharts.core.domain.BasePage;
 import lombok.AllArgsConstructor;

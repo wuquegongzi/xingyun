@@ -100,7 +100,7 @@ public class CustomSQL implements ApplicationContextAware {
 		}
 
 		SQLManager manager = new SQLManager();
-		register("cn.worken.common.bee:type=SQLStat", manager);
+		register("cn.cloudcharts.common.bee:type=SQLStat", manager);
 	}
 
 	private ObjectName register(String name, Object mbean) {

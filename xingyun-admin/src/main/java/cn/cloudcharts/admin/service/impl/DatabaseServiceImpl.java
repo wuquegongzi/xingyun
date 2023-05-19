@@ -1,6 +1,6 @@
 package cn.cloudcharts.admin.service.impl;
 
-import cn.cloudcharts.admin.entity.Database;
+import cn.cloudcharts.admin.model.entity.Database;
 import cn.cloudcharts.admin.mapper.DatabaseMapper;
 import cn.cloudcharts.admin.service.IDatabaseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

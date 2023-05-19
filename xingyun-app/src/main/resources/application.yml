@@ -3,11 +3,11 @@ server:
 
 spring:
   datasource:
+      type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql://192.168.216.154:31984/xingyun?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
       username: root
       password: 1qaz2wsx
-      type: com.zaxxer.hikari.HikariDataSource
       query.limit: 1000
       hikari:
         maximum-pool-size: 15
@@ -22,6 +22,20 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     use-generated-keys: true
   mapper-locations: classpath*:mapper/**/*Mapper.xml
+
+# PageHelper插件的配置
+pagehelper:
+#  helper-dialect: mysql  #指定数据库类型。不配置的话pageHelper也会自动检测
+  # 分页合理化参数配置
+  reasonable: true
+  # 支持通过 Mapper 接口参数来传递分页参数
+  support-methods-arguments: true
+  # 默认每页条数
+  default-page-size: 10
+  # 默认第一页
+  default-page-num: 1
+  params: #默认值为pageNum=pageNum;pageSize=pageSize;count=countSql;reasonable=reasonable;pageSizeZero=pageSizeZero。
+
 
 
 # DFS config  type: hdfs、s3、local
