@@ -1,7 +1,6 @@
 package cn.cloudcharts.olap.service;
 
 import cn.cloudcharts.common.exception.ServiceException;
-import cn.cloudcharts.core.ds.DBIdentifier;
 import cn.cloudcharts.olap.mapper.DdlMapper;
 import cn.cloudcharts.olap.mapper.DmlMapper;
 import cn.cloudcharts.olap.model.CreateTableDTO;
@@ -33,7 +32,6 @@ public class OlapService {
     private int maxVal;
 
     public boolean createTbl(CreateTableDTO dto) {
-        DBIdentifier.setDbCode("1");
 
         if("1".equals(dto.getTblType())){ //外表
           return ddlMapper.createExternalTbl(dto) > 0;
@@ -64,8 +62,6 @@ public class OlapService {
     }
 
     public  List<String>  getTableList() {
-
-        DBIdentifier.setDbCode("1");
 
         return dmlMapper.getTableList();
     }
