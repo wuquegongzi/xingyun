@@ -1,8 +1,8 @@
-package cn.cloudcharts.admin.service.impl;
+package cn.cloudcharts.service.impl;
 
-import cn.cloudcharts.admin.model.entity.Database;
-import cn.cloudcharts.admin.mapper.DatabaseMapper;
-import cn.cloudcharts.admin.service.IDatabaseService;
+import cn.cloudcharts.model.entity.Database;
+import cn.cloudcharts.mapper.DatabaseMapper;
+import cn.cloudcharts.service.IDatabaseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

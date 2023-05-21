@@ -1,9 +1,9 @@
-package cn.cloudcharts.api.admin;
+package cn.cloudcharts.api;
 
 
-import cn.cloudcharts.admin.model.entity.Database;
-import cn.cloudcharts.admin.service.IDatabaseService;
-import cn.cloudcharts.admin.model.request.DataBaseRequest;
+import cn.cloudcharts.model.entity.Database;
+import cn.cloudcharts.service.IDatabaseService;
+import cn.cloudcharts.model.request.DataBaseRequest;
 import cn.cloudcharts.core.domain.R;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

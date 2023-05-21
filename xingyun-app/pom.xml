@@ -30,17 +30,12 @@
 
         <dependency>
             <groupId>cn.cloudcharts</groupId>
+            <artifactId>xingyun-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.cloudcharts</groupId>
             <artifactId>k8s-service</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.cloudcharts</groupId>
-            <artifactId>starrocks-service</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>cn.cloudcharts</groupId>
-            <artifactId>xingyun-admin</artifactId>
         </dependency>
 
         <dependency>
@@ -62,10 +57,39 @@
             <optional>true</optional>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
+        <!-- mybaits-plus 代码生成器 -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.9.2</version>
         </dependency>
 
     </dependencies>

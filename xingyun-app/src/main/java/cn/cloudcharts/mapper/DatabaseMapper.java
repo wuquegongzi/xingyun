@@ -1,6 +1,6 @@
-package cn.cloudcharts.admin.mapper;
+package cn.cloudcharts.mapper;
 
-import cn.cloudcharts.admin.model.entity.Database;
+import cn.cloudcharts.model.entity.Database;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
