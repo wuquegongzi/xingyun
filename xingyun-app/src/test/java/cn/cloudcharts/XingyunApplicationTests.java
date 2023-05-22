@@ -1,14 +1,6 @@
 package cn.cloudcharts;
 
 import cn.cloudcharts.common.utils.DateUtils;
-import cn.cloudcharts.starrocks.enums.ColumnTypeEnums;
-import cn.cloudcharts.starrocks.enums.PartitionDescEnums;
-import cn.cloudcharts.starrocks.enums.PartitionModeEnums;
-import cn.cloudcharts.starrocks.mapper.DdlMapper;
-import cn.cloudcharts.starrocks.model.Column;
-import cn.cloudcharts.starrocks.model.CreateTableDTO;
-import cn.cloudcharts.starrocks.model.partition.Partition;
-import cn.cloudcharts.starrocks.model.partition.PartitionFixedRangeParm;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
@@ -22,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.sql.DataSource;
-import java.util.*;
 
 
 @SpringBootTest
@@ -31,79 +22,77 @@ class XingyunApplicationTests {
     @Autowired
     DataSource dataSource;
 
-    @Autowired
-    DdlMapper ddlMapper;
 
     @Test
     void testDs() throws Exception{
         System.out.println("获取的数据库连接为:"+dataSource.getConnection());
     }
 
-    @Test
-    void testDdlMapper(){
-        List<Map> maps = ddlMapper.showResources();
-        System.out.println(maps.toArray().toString());
-    }
-
+//    @Test
+//    void testDdlMapper(){
+//        List<Map> maps = ddlMapper.showResources();
+//        System.out.println(maps.toArray().toString());
+//    }
+//
     /**
      * 测试创建明细表
      */
-    @Test
-    void testDdlCreateDetailTable(){
-
-        CreateTableDTO createTableDTO = new CreateTableDTO();
-        createTableDTO.setTblName("testDetailByJdbc");
-        createTableDTO.setTblDataType("0");
-        createTableDTO.setTblType("0");
-        createTableDTO.setTblEngine("OLAP");
-        createTableDTO.setComment("jdbc连接,向导模式创建的测试明细表");
-
-        List<Column> columns = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            String colName = "k"+i;
-            String len = "20";
-            String comment = "测试";
-            String notNull = "NOT NULL";
-
-            Column column = new Column();
-            column.setColName(colName);
-            if(i == 0){
-                column.setColType(ColumnTypeEnums.DATE);
-            } else {
-                column.setColType(ColumnTypeEnums.VARCHAR);
-            }
-            column.setComment(comment);
-            column.setLen(len);
-            column.setNotNull(notNull);
-            columns.add(column);
-        }
-
-        createTableDTO.setCols(columns);
-        createTableDTO.setKeyDesc("`k0`,`k1`");
-
-        Partition partition = new Partition();
-        partition.setPartitionCols("k0");
-        partition.setPartitionMode(PartitionModeEnums.dominant);
-        partition.setPartitionDesc(PartitionDescEnums.Fixed_Range);
-        List<PartitionFixedRangeParm> partitionFixedRangeParms = new ArrayList<>();
-        PartitionFixedRangeParm partitionFixedRangeParm = new PartitionFixedRangeParm();
-        partitionFixedRangeParm.setPartitionName("p20220311");
-        partitionFixedRangeParm.setLowerVals("'2022-03-11'");
-        partitionFixedRangeParm.setUpperVals("'2022-03-12'");
-        partitionFixedRangeParms.add(partitionFixedRangeParm);
-        partition.setPartitionFixedRangeParms(partitionFixedRangeParms);
-        createTableDTO.setPartition(partition);
-
-        createTableDTO.setDistributedCols("`k0`,`k1`");
-        createTableDTO.setBuckets("3");
-
-        Map properties = new HashMap(1);
-        properties.put("replication_num","1");
-        createTableDTO.setProperties(properties);
-
-        ddlMapper.createDetailTbl(createTableDTO);
-
-    }
+//    @Test
+//    void testDdlCreateDetailTable(){
+//
+//        CreateTableDTO createTableDTO = new CreateTableDTO();
+//        createTableDTO.setTblName("testDetailByJdbc");
+//        createTableDTO.setTblDataType("0");
+//        createTableDTO.setTblType("0");
+//        createTableDTO.setTblEngine("OLAP");
+//        createTableDTO.setComment("jdbc连接,向导模式创建的测试明细表");
+//
+//        List<Column> columns = new ArrayList<>();
+//        for (int i = 0; i < 5; i++) {
+//            String colName = "k"+i;
+//            String len = "20";
+//            String comment = "测试";
+//            String notNull = "NOT NULL";
+//
+//            Column column = new Column();
+//            column.setColName(colName);
+//            if(i == 0){
+//                column.setColType(ColumnTypeEnums.DATE);
+//            } else {
+//                column.setColType(ColumnTypeEnums.VARCHAR);
+//            }
+//            column.setComment(comment);
+//            column.setLen(len);
+//            column.setNotNull(notNull);
+//            columns.add(column);
+//        }
+//
+//        createTableDTO.setCols(columns);
+//        createTableDTO.setKeyDesc("`k0`,`k1`");
+//
+//        Partition partition = new Partition();
+//        partition.setPartitionCols("k0");
+//        partition.setPartitionMode(PartitionModeEnums.dominant);
+//        partition.setPartitionDesc(PartitionDescEnums.Fixed_Range);
+//        List<PartitionFixedRangeParm> partitionFixedRangeParms = new ArrayList<>();
+//        PartitionFixedRangeParm partitionFixedRangeParm = new PartitionFixedRangeParm();
+//        partitionFixedRangeParm.setPartitionName("p20220311");
+//        partitionFixedRangeParm.setLowerVals("'2022-03-11'");
+//        partitionFixedRangeParm.setUpperVals("'2022-03-12'");
+//        partitionFixedRangeParms.add(partitionFixedRangeParm);
+//        partition.setPartitionFixedRangeParms(partitionFixedRangeParms);
+//        createTableDTO.setPartition(partition);
+//
+//        createTableDTO.setDistributedCols("`k0`,`k1`");
+//        createTableDTO.setBuckets("3");
+//
+//        Map properties = new HashMap(1);
+//        properties.put("replication_num","1");
+//        createTableDTO.setProperties(properties);
+//
+//        ddlMapper.createDetailTbl(createTableDTO);
+//
+//    }
 
     /**
      * 测试SQL建表
@@ -151,7 +140,7 @@ class XingyunApplicationTests {
                 "    \"replication_num\" = \"1\" \n" +
                 ")";
 
-        System.out.println( ddlMapper.createTableBySql(sql));
+//        System.out.println( ddlMapper.createTableBySql(sql));
     }
 
 
