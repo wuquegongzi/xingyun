@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cloudcharts.starrocks.mapper.DmlMapper">
+
+    <select id="getTableList" resultType="java.lang.String">
+        show tables
+    </select>
+
+    <select id="execQuery"
+            parameterType="java.util.Map"
+            resultType="java.util.Map">
+        select t.* from (${sql}) as t limit ${maxVal}
+    </select>
+
+
+</mapper>

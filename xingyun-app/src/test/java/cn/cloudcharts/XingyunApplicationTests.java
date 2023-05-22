@@ -1,14 +1,14 @@
 package cn.cloudcharts;
 
 import cn.cloudcharts.common.utils.DateUtils;
-import cn.cloudcharts.olap.enums.ColumnTypeEnums;
-import cn.cloudcharts.olap.enums.PartitionDescEnums;
-import cn.cloudcharts.olap.enums.PartitionModeEnums;
-import cn.cloudcharts.olap.mapper.DdlMapper;
-import cn.cloudcharts.olap.model.Column;
-import cn.cloudcharts.olap.model.CreateTableDTO;
-import cn.cloudcharts.olap.model.partition.Partition;
-import cn.cloudcharts.olap.model.partition.PartitionFixedRangeParm;
+import cn.cloudcharts.starrocks.enums.ColumnTypeEnums;
+import cn.cloudcharts.starrocks.enums.PartitionDescEnums;
+import cn.cloudcharts.starrocks.enums.PartitionModeEnums;
+import cn.cloudcharts.starrocks.mapper.DdlMapper;
+import cn.cloudcharts.starrocks.model.Column;
+import cn.cloudcharts.starrocks.model.CreateTableDTO;
+import cn.cloudcharts.starrocks.model.partition.Partition;
+import cn.cloudcharts.starrocks.model.partition.PartitionFixedRangeParm;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.*;
 

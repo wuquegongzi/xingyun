@@ -1,8 +1,11 @@
 package cn.cloudcharts.common.utils.sql;
 
-
+import cn.cloudcharts.common.utils.AssertUtil;
 import cn.cloudcharts.common.utils.StringUtils;
 import cn.cloudcharts.common.exception.UtilException;
+
+import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * sql操作工具类
@@ -59,4 +62,60 @@ public class SqlUtil
             }
         }
     }
+
+
+    private static final String SEMICOLON = ";";
+
+    public static String[] getStatements(String sql) {
+        return getStatements(sql, SEMICOLON);
+    }
+
+    public static String[] getStatements(String sql, String sqlSeparator) {
+        if (AssertUtil.isNullString(sql)) {
+            return new String[0];
+        }
+
+        String[] splits = sql.replace(";\r\n", ";\n").split(sqlSeparator);
+        String lastStatement = splits[splits.length - 1].trim();
+        if (lastStatement.endsWith(SEMICOLON)) {
+            splits[splits.length - 1] = lastStatement.substring(0, lastStatement.length() - 1);
+        }
+
+        return splits;
+    }
+
+    public static String removeNote(String sql) {
+
+        if (AssertUtil.isNotNullString(sql)) {
+            // Remove the special-space characters
+            sql = sql.replaceAll("\u00A0", " ").replaceAll("[\r\n]+", "\n");
+            // Remove annotations Support '--aa' , '/**aaa*/' , '//aa' , '#aaa'
+            Pattern p = Pattern.compile("(?ms)('(?:''|[^'])*')|--.*?$|//.*?$|/\\*.*?\\*/|#.*?$|");
+            String presult = p.matcher(sql).replaceAll("$1");
+            return presult.trim();
+        }
+        return sql;
+    }
+
+    public static String replaceAllParam(String sql, String name, String value) {
+        return sql.replaceAll("\\$\\{" + name + "\\}", value);
+    }
+
+    /**
+     * replace sql context with values params, map's key is origin variable express by `${key}`,
+     * value is replacement. for example, if key="name", value="replacement", and sql is "${name}",
+     * the result will be "replacement".
+     *
+     * @param sql sql context
+     * @param values replacement
+     * @return replace variable result
+     */
+    public static String replaceAllParam(String sql, Map<String, String> values) {
+        for (Map.Entry<String, String> entry : values.entrySet()) {
+            sql = replaceAllParam(sql, entry.getKey(), entry.getValue());
+        }
+        return sql;
+    }
+
+
 }

@@ -96,7 +96,7 @@
         <module>log-service</module>
         <module>xingyun-common</module>
         <module>xingyun-app</module>
-        <module>xingyun-metadata</module>
+        <module>xingyun-starrocks</module>
     </modules>
 
 
