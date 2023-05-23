@@ -1,7 +1,6 @@
 package cn.cloudcharts.starrocks.metadata.driver;
 
 import cn.cloudcharts.common.utils.AssertUtil;
-import cn.cloudcharts.starrocks.model.Column;
 import cn.cloudcharts.starrocks.model.result.JdbcSelectResult;
 import cn.hutool.core.util.ObjectUtil;
 import com.zaxxer.hikari.HikariConfig;
@@ -11,9 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.PrintWriter;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Properties;
 
 /**
@@ -49,6 +45,9 @@ public abstract class AbstractDriver implements Driver {
         }
     }
 
+    public boolean canHandle(String type) {
+        return AssertUtil.isEqualsIgnoreCase(getType(), type);
+    }
 
     @Override
     public String test() {

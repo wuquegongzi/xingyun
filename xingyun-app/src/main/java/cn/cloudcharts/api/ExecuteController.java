@@ -1,27 +1,41 @@
 package cn.cloudcharts.api;
 
-//import cn.cloudcharts.core.domain.R;
-//import cn.cloudcharts.olap.model.CreateTableDTO;
-//import cn.cloudcharts.olap.service.ExecuteService;
-//import cn.cloudcharts.olap.service.OlapService;
+import cn.cloudcharts.core.domain.R;
+import cn.cloudcharts.model.dto.SqlDTO;
+import cn.cloudcharts.service.ExecuteService;
+import cn.cloudcharts.starrocks.model.result.JdbcSelectResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
 /**
  * @author wuque
- * @title: HelloController
+ * @title: ExecuteController
  * @projectName xingyun
  * @description:  OLAP 操作接口
  * @date 2023/5/417:45
  */
-@RestController("/olap")
-public class OlapController {
+@RestController("/exec")
+public class ExecuteController {
 
-//    @Autowired
-//    OlapService olapService;
-//    @Autowired
-//    ExecuteService executeService;
+    @Autowired
+    ExecuteService executeService;
+
+
+    /**
+     * 执行SQL脚本
+     * @param sqlDTO
+     * @return
+     */
+    @PostMapping("/executeSql")
+    public R<JdbcSelectResult> executeSql(@RequestBody SqlDTO sqlDTO){
+        return R.ok(executeService.executeCommonSql(sqlDTO));
+    }
+
+    @GetMapping("/cancel")
+    public R<Boolean> cancel(@RequestParam String jobId) {
+        return R.ok(executeService.cancel(jobId), "停止成功");
+    }
 
 //    /**
 //     *  向导建表
@@ -51,20 +65,7 @@ public class OlapController {
 //        return R.ok(olapService.getTableList());
 //    }
 //
-//    @GetMapping("/queryBySql")
-//    public R query(@RequestParam(name="sql") String sql){
-//        return R.ok(olapService.query(sql));
-//    }
-//
-//    /**
-//     *
-//     * @param sql
-//     * @return
-//     */
-//    @GetMapping("/execute")
-//    public R execute(@RequestParam(name="sql") String sql){
-//        return R.ok(executeService.execute(sql));
-//    }
+
 
 
 

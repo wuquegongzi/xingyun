@@ -20,12 +20,13 @@ import java.util.Map;
  * @description:
  * @date 2023/5/1210:52
  */
-@Service
+//@Service
+@Deprecated
 public class OlapService {
 
-    @Autowired
+//    @Autowired
     DdlMapper ddlMapper;
-    @Autowired
+//    @Autowired
     DmlMapper dmlMapper;
 
     @Value("${spring.datasource.olap.query.limit:100}")

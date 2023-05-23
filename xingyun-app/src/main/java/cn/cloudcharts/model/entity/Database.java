@@ -1,5 +1,6 @@
 package cn.cloudcharts.model.entity;
 
+import cn.cloudcharts.starrocks.metadata.driver.DriverConfigPO;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -89,6 +90,11 @@ public class Database implements Serializable {
 
     @ApiModelProperty("db code")
     private String code;
+
+    public DriverConfigPO getDriverConfig() {
+        return new DriverConfigPO(getName(), type, url, username, password);
+    }
+
 
 
 }

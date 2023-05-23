@@ -1,8 +1,11 @@
 package cn.cloudcharts.starrocks.metadata.driver;
 
+import cn.cloudcharts.common.utils.AssertUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Map;
 
 /**
  * @author wuque
@@ -25,4 +28,21 @@ public class DriverConfigPO {
     private String password;
 
 
+    public DriverConfigPO(String name, String type, String url, String username, String password) {
+        this.name = name;
+        this.type = type;
+        this.url = url;
+        this.username = username;
+        this.password = password;
+    }
+
+    public static DriverConfigPO build(Map<String, String> confMap) {
+        AssertUtil.isNull(confMap, "数据源配置不能为空");
+        return new DriverConfigPO(
+                confMap.get("name"),
+                confMap.get("type"),
+                confMap.get("url"),
+                confMap.get("username"),
+                confMap.get("password"));
+    }
 }

@@ -23,6 +23,11 @@ public class StarRocksDriver extends AbstractDriver{
     }
 
     @Override
+    public String getType() {
+        return "StarRocks";
+    }
+
+    @Override
     public boolean execute(String sql) throws Exception {
         AssertUtil.checkNullString(sql, "Sql 语句为空");
         try (Statement statement = conn.get().createStatement()) {

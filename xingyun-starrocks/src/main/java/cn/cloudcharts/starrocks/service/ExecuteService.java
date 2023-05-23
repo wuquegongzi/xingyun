@@ -27,8 +27,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * @description: 原生JDBC调用
  * @date 2023/5/820:29
  */
-@Service
+//@Service
 @Slf4j
+@Deprecated
 public class ExecuteService {
     private static final String PREFIX_LOG = "【ExecuteMapper】";
 

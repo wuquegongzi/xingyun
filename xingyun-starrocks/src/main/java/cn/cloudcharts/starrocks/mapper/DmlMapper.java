@@ -12,7 +12,8 @@ import java.util.Map;
  * @description: DML操作
  * @date 2023/5/818:58
  */
-@Mapper
+//@Mapper
+@Deprecated
 public interface DmlMapper {
 
     List<String> getTableList();

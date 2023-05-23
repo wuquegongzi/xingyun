@@ -17,7 +17,8 @@ import java.util.Map;
  * @description: DDL相关
  * @date 2023/5/614:22
  */
-@Mapper
+//@Mapper
+@Deprecated
 public interface DdlMapper {
 
 

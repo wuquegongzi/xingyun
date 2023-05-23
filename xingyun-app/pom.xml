@@ -32,6 +32,10 @@
             <groupId>cn.cloudcharts</groupId>
             <artifactId>xingyun-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>cn.cloudcharts</groupId>
+            <artifactId>xingyun-starrocks</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>cn.cloudcharts</groupId>

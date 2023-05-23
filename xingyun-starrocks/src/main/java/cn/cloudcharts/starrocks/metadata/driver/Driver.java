@@ -6,6 +6,7 @@ import cn.cloudcharts.starrocks.model.result.SqlExplainResult;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.ServiceLoader;
 
 /**
  * @author wuque
@@ -18,8 +19,13 @@ public interface Driver extends AutoCloseable{
 
     static Optional<Driver> get(DriverConfigPO config) {
         AssertUtil.checkNotNull(config, "数据源配置不能为空");
-        Driver driver = new StarRocksDriver();
-        return Optional.of(driver.setDriverConfig(config));
+        ServiceLoader<Driver> drivers = ServiceLoader.load(Driver.class);
+        for (Driver driver : drivers) {
+            if (driver.canHandle(config.getType())) {
+                return Optional.of(driver.setDriverConfig(config));
+            }
+        }
+        return Optional.empty();
     }
 
 
@@ -48,6 +54,10 @@ public interface Driver extends AutoCloseable{
             return driver.connect();
         }
     }
+
+    boolean canHandle(String type);
+
+    String getType();
 
     Driver setDriverConfig(DriverConfigPO config);
 
