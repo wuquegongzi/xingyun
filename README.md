@@ -6,9 +6,9 @@
 
 ----
 
+API 访问地址：
+
 [springdoc api](http://localhost:8088/swagger-ui/index.html): [http://localhost:8088/swagger-ui/index.html](http://localhost:8088/swagger-ui/index.html)
-
-
 
 ----
 
@@ -22,7 +22,8 @@
 6. (可选)Hadoop3
 
 ----
+详细说明：
 
-启动类： xingyun-app/cn.cloudcharts.XingyunApplication
-应用代码生成工具：xingyun-app/cn.cloudcharts.generator.FastAutoGeneratorTest
+- 启动类： xingyun-app/cn.cloudcharts.XingyunApplication
+- 应用代码生成工具：xingyun-app/cn.cloudcharts.generator.FastAutoGeneratorTest
 
