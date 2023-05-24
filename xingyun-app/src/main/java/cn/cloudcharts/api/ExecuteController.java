@@ -32,10 +32,6 @@ public class ExecuteController {
         return R.ok(executeService.executeCommonSql(sqlDTO));
     }
 
-    @GetMapping("/cancel")
-    public R<Boolean> cancel(@RequestParam String jobId) {
-        return R.ok(executeService.cancel(jobId), "停止成功");
-    }
 
 //    /**
 //     *  向导建表

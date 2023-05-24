@@ -1,5 +1,6 @@
 package cn.cloudcharts.starrocks.metadata.driver;
 
+import cn.cloudcharts.common.exception.ServiceException;
 import cn.cloudcharts.common.utils.AssertUtil;
 import cn.cloudcharts.starrocks.model.result.JdbcSelectResult;
 import cn.cloudcharts.starrocks.model.result.SqlExplainResult;
@@ -52,6 +53,17 @@ public interface Driver extends AutoCloseable{
             return driver;
         } else {
             return driver.connect();
+        }
+    }
+
+    static Driver buildUnconnected(DriverConfigPO config) {
+        synchronized (Driver.class) {
+            Optional<Driver> optionalDriver = Driver.get(config);
+            if (!optionalDriver.isPresent()) {
+                throw new ServiceException(
+                        "缺少数据源类型【" + config.getType() + "】的依赖，请在 lib 下添加对应的扩展依赖");
+            }
+            return optionalDriver.get();
         }
     }
 

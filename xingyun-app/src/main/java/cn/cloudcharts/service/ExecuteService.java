@@ -1,6 +1,5 @@
 package cn.cloudcharts.service;
 
-import cn.cloudcharts.core.domain.R;
 import cn.cloudcharts.model.dto.SqlDTO;
 import cn.cloudcharts.starrocks.model.result.JdbcSelectResult;
 
@@ -15,5 +14,4 @@ public interface ExecuteService {
 
     JdbcSelectResult executeCommonSql(SqlDTO sqlDTO);
 
-    boolean cancel(String jobId);
 }

@@ -2,7 +2,6 @@ package cn.cloudcharts.service.impl;
 
 import cn.cloudcharts.common.exception.ServiceException;
 import cn.cloudcharts.common.utils.AssertUtil;
-import cn.cloudcharts.core.domain.R;
 import cn.cloudcharts.model.dto.SqlDTO;
 import cn.cloudcharts.model.entity.Database;
 import cn.cloudcharts.service.ExecuteService;
@@ -43,11 +42,5 @@ public class ExecuteServiceImpl implements ExecuteService {
         return selectResult;
     }
 
-    @Override
-    public boolean cancel(String jobId) {
-
-
-        return false;
-    }
 
 }

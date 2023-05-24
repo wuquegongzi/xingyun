@@ -17,6 +17,7 @@ public class BasePage {
     }
 
     public void setPageNum(int pageNum) {
+        pageNum = pageNum > 0 ? pageNum : 1;
         this.pageNum = pageNum;
     }
 
@@ -25,6 +26,7 @@ public class BasePage {
     }
 
     public void setPageSize(int pageSize) {
+        pageSize = pageSize > 0 ? pageSize : 10;
         this.pageSize = pageSize;
     }
 }

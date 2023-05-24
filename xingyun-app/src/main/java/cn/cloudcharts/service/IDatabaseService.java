@@ -13,4 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IDatabaseService extends IService<Database> {
 
+    String testConnect(Database database);
+
+    boolean saveOrUpdateDataBase(Database database);
 }
