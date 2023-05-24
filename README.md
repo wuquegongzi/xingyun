@@ -44,7 +44,7 @@ API 访问地址：
   "type": "StarRocks",
   "ip": "192.168.217.232",
   "port": 9030,
-  "url": "jdbc:mysql://192.168.217.232:9030/delta?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true",
+  "url": "jdbc:mysql://192.168.217.232:9030?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true",
   "username": "root",
   "password": "",
   "note": "string",
@@ -66,7 +66,7 @@ API 访问地址：
   -H 'accept: */*' \
   -H 'Content-Type: application/json' \
   -d '{
-  "statement": "show tables;",
+  "statement": "show catalogs;",
   "databaseId": 1,
   "maxRowNum": 100
 }'
