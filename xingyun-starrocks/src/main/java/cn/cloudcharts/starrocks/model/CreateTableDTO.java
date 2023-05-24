@@ -36,7 +36,7 @@ public class CreateTableDTO {
     @ApiModelProperty(value = "表注释")
     private String comment;
     @ApiModelProperty(value = "表字段信息")
-    private List<Column> cols;
+    private List<SrColumn> cols;
     @ApiModelProperty(value =
             "明细模型排序键-duplicateKeys;" +
             "聚合模型聚合维度列-aggregateKeys;" +

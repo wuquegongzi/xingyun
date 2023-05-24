@@ -2,6 +2,8 @@ package cn.cloudcharts.starrocks.metadata.driver;
 
 import cn.cloudcharts.common.utils.AssertUtil;
 import cn.cloudcharts.common.utils.sql.SqlUtil;
+import cn.cloudcharts.starrocks.metadata.convert.ITypeConvert;
+import cn.cloudcharts.starrocks.metadata.convert.StarRocksTypeConvert;
 import cn.cloudcharts.starrocks.model.result.JdbcSelectResult;
 import cn.cloudcharts.starrocks.model.result.SqlExplainResult;
 
@@ -20,6 +22,11 @@ public class StarRocksDriver extends AbstractDriver{
     @Override
     String getDriverClass() {
         return "com.mysql.cj.jdbc.Driver";
+    }
+
+    @Override
+    public ITypeConvert getTypeConvert() {
+        return new StarRocksTypeConvert();
     }
 
     @Override

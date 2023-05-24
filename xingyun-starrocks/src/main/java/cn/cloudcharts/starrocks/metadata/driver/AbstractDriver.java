@@ -1,6 +1,8 @@
 package cn.cloudcharts.starrocks.metadata.driver;
 
 import cn.cloudcharts.common.utils.AssertUtil;
+import cn.cloudcharts.starrocks.metadata.convert.ITypeConvert;
+import cn.cloudcharts.starrocks.metadata.pojo.Column;
 import cn.cloudcharts.starrocks.model.result.JdbcSelectResult;
 import cn.hutool.core.util.ObjectUtil;
 import com.zaxxer.hikari.HikariConfig;
@@ -10,6 +12,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.PrintWriter;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -78,16 +83,15 @@ public abstract class AbstractDriver implements Driver {
         if (null == dataSource) {
             synchronized (this.getClass()) {
                 if (null == dataSource) {
-                    HikariDataSource ds = new HikariDataSource();
-                    createDataSource(ds, config);
-                    this.dataSource = ds;
+
+                    this.dataSource = createDataSource(config);
                 }
             }
         }
         return dataSource;
     }
 
-    protected void createDataSource(HikariDataSource ds, DriverConfigPO config) {
+    protected HikariDataSource createDataSource(DriverConfigPO config) {
 
         Properties properties = new Properties();
         properties.setProperty("driverClassName", getDriverClass());
@@ -115,8 +119,8 @@ public abstract class AbstractDriver implements Driver {
         logger.info( "{},初始化配置文件成功.....",config.toString());
 
         HikariConfig hikariConfig = new HikariConfig(properties);
-        ds = new HikariDataSource(hikariConfig);
 
+        return new HikariDataSource(hikariConfig);
     }
 
     @Override
@@ -147,11 +151,62 @@ public abstract class AbstractDriver implements Driver {
 
     @Override
     public JdbcSelectResult query(String sql, Integer limit) {
+
         if (AssertUtil.isNull(limit)) {
             limit = 100;
         }
 
-        return null;
+        JdbcSelectResult result = new JdbcSelectResult();
+        List<LinkedHashMap<String, Object>> datas = new ArrayList<>();
+        List<Column> columns = new ArrayList<>();
+        List<String> columnNameList = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        ResultSet results = null;
+        int count = 0;
+        try {
+            preparedStatement = conn.get().prepareStatement(sql);
+            results = preparedStatement.executeQuery();
+            if (AssertUtil.isNull(results)) {
+                close(preparedStatement, results);
+                return result;
+            }
+            ResultSetMetaData metaData = results.getMetaData();
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                columnNameList.add(metaData.getColumnLabel(i));
+                Column column = new Column();
+                column.setName(metaData.getColumnLabel(i));
+                column.setType(metaData.getColumnTypeName(i));
+                column.setAutoIncrement(metaData.isAutoIncrement(i));
+                column.setNullable(metaData.isNullable(i) == 0 ? false : true);
+                columns.add(column);
+            }
+            result.setColumns(columnNameList);
+
+            while (results.next()) {
+                LinkedHashMap<String, Object> data = new LinkedHashMap<>();
+                for (int i = 0; i < columns.size(); i++) {
+                    data.put(
+                            columns.get(i).getName(),
+                            getTypeConvert()
+                                    .convertValue(
+                                            results,
+                                            columns.get(i).getName(),
+                                            columns.get(i).getType())
+                    );
+                }
+                datas.add(data);
+                count++;
+                if (count >= limit) {
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            result.error(e.getMessage());
+        } finally {
+            close(preparedStatement, results);
+            result.setRowData(datas);
+            return result;
+        }
     }
 
 
@@ -163,6 +218,21 @@ public abstract class AbstractDriver implements Driver {
             res = statement.executeUpdate(sql);
         }
         return res;
+    }
+
+    public abstract ITypeConvert getTypeConvert();
+
+    public void close(PreparedStatement preparedStatement, ResultSet results) {
+        try {
+            if (null != results) {
+                results.close();
+            }
+            if (null != preparedStatement) {
+                preparedStatement.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

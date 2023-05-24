@@ -7,19 +7,10 @@ import io.kubernetes.client.openapi.Configuration;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.util.Config;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 
-/**
- * @author wuque
- * @title: K8sServiceImpl
- * @projectName xingyun
- * @description:
- * @date 2023/5/419:18
- */
-@Service
 public class K8sServiceImpl implements K8sService {
 
     private CoreV1Api api;

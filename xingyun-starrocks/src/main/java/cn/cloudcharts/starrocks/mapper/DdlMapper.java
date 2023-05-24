@@ -1,10 +1,9 @@
 package cn.cloudcharts.starrocks.mapper;
 
-import cn.cloudcharts.starrocks.model.Column;
+import cn.cloudcharts.starrocks.model.SrColumn;
 import cn.cloudcharts.starrocks.model.CreateTableDTO;
 import cn.cloudcharts.starrocks.model.CreateTableLikeDTO;
 import cn.cloudcharts.starrocks.model.ddl.TableColumn;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -73,7 +72,7 @@ public interface DdlMapper {
 
     List<TableColumn> queryAllColumns(@Param("table") String table);
 
-    String addColumns(@Param("table") String table, @Param("columns")  List<Column> columns);
+    String addColumns(@Param("table") String table, @Param("columns")  List<SrColumn> columns);
 
 
 
