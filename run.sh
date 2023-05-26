@@ -1,7 +1,7 @@
 #!/bin/sh
 # ./datac.sh start 启动 stop 停止 restart 重启 status 状态
-AppName=xy-app-0.0.1-SNAPSHOT.jar
-profiles=test
+AppName=xingyun-app.jar
+profiles=dev
 
 # JVM参数
 JVM_OPTS="-Dspring.profiles.active=$profiles -Dname=$AppName  -Duser.timezone=Asia/Shanghai -Xms512m -Xmx2048m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError -XX:+PrintGCDateStamps  -XX:+PrintGCDetails -XX:NewRatio=1 -XX:SurvivorRatio=30 -XX:+UseParallelGC -XX:+UseParallelOldGC"

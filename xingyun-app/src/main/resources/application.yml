@@ -5,9 +5,9 @@ spring:
   datasource:
       type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/xingyun?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+      url: jdbc:mysql://192.168.217.35:31533/xingyun?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
       username: root
-      password: 1qaz@wsx
+      password: 1qaz2wsx
       query.limit: 1000
       hikari:
         maximum-pool-size: 15

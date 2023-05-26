@@ -1,8 +1,8 @@
-# xingyun-hs-v1-sdk
+# xingyun-sdk
 
 星云 SpringDoc API
 - API version: 1.0.0
-  - Build date: 2023-05-12T19:05:53+08:00[Asia/Shanghai]
+  - Build date: 2023-05-26T11:49:41.855+08:00[Asia/Shanghai]
 
 星云 SpringDoc Application
 
@@ -38,8 +38,8 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-  <groupId>org.openapitools</groupId>
-  <artifactId>xingyun-hs-v1-sdk</artifactId>
+  <groupId>cn.cloudcharts</groupId>
+  <artifactId>xingyun-sdk</artifactId>
   <version>1.0.0</version>
   <scope>compile</scope>
 </dependency>
@@ -51,12 +51,12 @@ Add this dependency to your project's build file:
 
 ```groovy
   repositories {
-    mavenCentral()     // Needed if the 'xingyun-hs-v1-sdk' jar has been published to maven central.
-    mavenLocal()       // Needed if the 'xingyun-hs-v1-sdk' jar has been published to the local maven repo.
+    mavenCentral()     // Needed if the 'xingyun-sdk' jar has been published to maven central.
+    mavenLocal()       // Needed if the 'xingyun-sdk' jar has been published to the local maven repo.
   }
 
   dependencies {
-     implementation "org.openapitools:xingyun-hs-v1-sdk:1.0.0"
+     implementation "cn.cloudcharts:xingyun-sdk:1.0.0"
   }
 ```
 
@@ -70,7 +70,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/xingyun-hs-v1-sdk-1.0.0.jar`
+* `target/xingyun-sdk-1.0.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -80,23 +80,24 @@ Please follow the [installation](#installation) instruction and execute the foll
 ```java
 
 // Import classes:
-import cn.cloudcharts.hs.olap.client.ApiClient;
-import cn.cloudcharts.hs.olap.client.ApiException;
-import cn.cloudcharts.hs.olap.client.Configuration;
-import cn.cloudcharts.hs.olap.client.models.*;
-import cn.cloudcharts.hs.olap.client.api.HelloControllerApi;
+import cn.cloudcharts.xingyun.client.ApiClient;
+import cn.cloudcharts.xingyun.client.ApiException;
+import cn.cloudcharts.xingyun.client.Configuration;
+import cn.cloudcharts.xingyun.client.models.*;
+import cn.cloudcharts.xingyun.client.api.DatabaseControllerApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:8088");
+    defaultClient.setBasePath("http://192.168.217.140:8088");
 
-    HelloControllerApi apiInstance = new HelloControllerApi(defaultClient);
+    DatabaseControllerApi apiInstance = new DatabaseControllerApi(defaultClient);
+    Database database = new Database(); // Database | 
     try {
-      String result = apiInstance.home();
+      R result = apiInstance.add(database);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling HelloControllerApi#home");
+      System.err.println("Exception when calling DatabaseControllerApi#add");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -109,29 +110,32 @@ public class Example {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost:8088*
+All URIs are relative to *http://192.168.217.140:8088*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DatabaseControllerApi* | [**add**](docs/DatabaseControllerApi.md#add) | **POST** /database/add | 
+*DatabaseControllerApi* | [**callList**](docs/DatabaseControllerApi.md#callList) | **POST** /database/list | 
+*DatabaseControllerApi* | [**getOneById**](docs/DatabaseControllerApi.md#getOneById) | **POST** /database/getOneById | 
+*DatabaseControllerApi* | [**saveOrUpdate**](docs/DatabaseControllerApi.md#saveOrUpdate) | **PUT** /database | 
+*DatabaseControllerApi* | [**testConnect**](docs/DatabaseControllerApi.md#testConnect) | **POST** /database/testConnect | 
+*ExecuteControllerApi* | [**executeSql**](docs/ExecuteControllerApi.md#executeSql) | **POST** /executeSql | 
 *HelloControllerApi* | [**home**](docs/HelloControllerApi.md#home) | **GET** / | 
-*OlapControllerApi* | [**createTbl**](docs/OlapControllerApi.md#createTbl) | **POST** /createTbl | 
-*OlapControllerApi* | [**createTbl1**](docs/OlapControllerApi.md#createTbl1) | **POST** /createTblBySql | 
-*OlapControllerApi* | [**execute**](docs/OlapControllerApi.md#execute) | **GET** /execute | 
-*OlapControllerApi* | [**getTableList**](docs/OlapControllerApi.md#getTableList) | **GET** /getTableList | 
-*OlapControllerApi* | [**query**](docs/OlapControllerApi.md#query) | **GET** /queryBySql | 
-*OlapControllerApi* | [**queryAllColumns**](docs/OlapControllerApi.md#queryAllColumns) | **GET** /queryAllColumns | 
 
 
 ## Documentation for Models
 
- - [Column](docs/Column.md)
- - [CreateTableDTO](docs/CreateTableDTO.md)
- - [Partition](docs/Partition.md)
- - [PartitionBatchParm](docs/PartitionBatchParm.md)
- - [PartitionExpressionParm](docs/PartitionExpressionParm.md)
- - [PartitionFixedRangeParm](docs/PartitionFixedRangeParm.md)
- - [PartitionLessThanParm](docs/PartitionLessThanParm.md)
+ - [DataBaseRequest](docs/DataBaseRequest.md)
+ - [Database](docs/Database.md)
+ - [DriverConfigPO](docs/DriverConfigPO.md)
+ - [JdbcSelectResult](docs/JdbcSelectResult.md)
+ - [PageInfoObject](docs/PageInfoObject.md)
  - [R](docs/R.md)
+ - [RDatabase](docs/RDatabase.md)
+ - [RJdbcSelectResult](docs/RJdbcSelectResult.md)
+ - [RPageInfoObject](docs/RPageInfoObject.md)
+ - [RVoid](docs/RVoid.md)
+ - [SqlDTO](docs/SqlDTO.md)
 
 
 <a id="documentation-for-authorization"></a>

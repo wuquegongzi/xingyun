@@ -9,15 +9,16 @@ https://github.com/OpenAPITools/openapi-generator
 java -jar openapi-generator-cli-6.6.0.jar help
 
 # 构建客户端代碼生成命令：
-cd docs
+cd xingyun-docs
 
 java -jar openapi-generator-cli-6.6.0.jar generate \
--i http://localhost:8088/v3/api-docs \
+-i http://192.168.217.140:8088/v3/api-docs \
 -g java \
---api-package cn.cloudcharts.hs.olap.client.api \
--t ../sdk/xingyun-hs-v1-sdk/src/main/java \
---additional-properties artifactId=xingyun-hs-v1-sdk,hideGenerationTimestamp:true \
--o ../sdk/xingyun-hs-v1-sdk
+--api-package cn.cloudcharts.xingyun.client.api \
+--model-package cn.cloudcharts.xingyun.client.model \
+-t ../../xingyun-sdk/xingyun-sdk-v1/src/main/resources \
+--additional-properties groupId=cn.cloudcharts,artifactId=xingyun-sdk,hideGenerationTimestamp:true \
+-o ../../xingyun-sdk/xingyun-sdk-v1
 
 ## 在线 OpenAPI 生成器
 ### 以下是公共在线服务：

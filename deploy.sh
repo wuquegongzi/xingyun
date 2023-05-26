@@ -4,7 +4,7 @@
 mvn clean package -DskipTests -U -X && \
 
 # 上传
-scp xy-app/target/xy-app-0.0.1-SNAPSHOT.jar root@app1:/opt/app/xy-app.jar && \
+scp xingyun-app/target/xingyun-app-0.0.1-SNAPSHOT.jar root@k7:/data/app/xingyun/xingyun-app.jar && \
 
 # 远程重启
-ssh root@n1 "cd /opt/app; sh run.sh restart"
+ssh root@k7 "cd /data/app/xingyun; bash run.sh restart"

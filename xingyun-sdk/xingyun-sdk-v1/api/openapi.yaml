@@ -1,0 +1,689 @@
+openapi: 3.0.1
+info:
+  description: 星云 SpringDoc Application
+  title: 星云 SpringDoc API
+  version: 1.0.0
+servers:
+- description: Generated server url
+  url: http://192.168.217.140:8088
+paths:
+  /database:
+    put:
+      operationId: saveOrUpdate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Database'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RVoid'
+          description: OK
+      tags:
+      - database-controller
+      x-content-type: application/json
+      x-accepts: '*/*'
+  /executeSql:
+    post:
+      operationId: executeSql
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SqlDTO'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RJdbcSelectResult'
+          description: OK
+      tags:
+      - execute-controller
+      x-content-type: application/json
+      x-accepts: '*/*'
+  /database/testConnect:
+    post:
+      operationId: testConnect
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Database'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/R'
+          description: OK
+      tags:
+      - database-controller
+      x-content-type: application/json
+      x-accepts: '*/*'
+  /database/list:
+    post:
+      operationId: list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataBaseRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RPageInfoObject'
+          description: OK
+      tags:
+      - database-controller
+      x-content-type: application/json
+      x-accepts: '*/*'
+  /database/getOneById:
+    post:
+      operationId: getOneById
+      parameters:
+      - explode: true
+        in: query
+        name: id
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/RDatabase'
+          description: OK
+      tags:
+      - database-controller
+      x-accepts: '*/*'
+  /database/add:
+    post:
+      operationId: add
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Database'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/R'
+          description: OK
+      tags:
+      - database-controller
+      x-content-type: application/json
+      x-accepts: '*/*'
+  /:
+    get:
+      operationId: home
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: OK
+      tags:
+      - hello-controller
+      x-accepts: '*/*'
+components:
+  schemas:
+    Database:
+      example:
+        note: note
+        heartbeatTime: 2000-01-23T04:56:07.000+00:00
+        driverConfig:
+          password: password
+          port: 5
+          ip: ip
+          name: name
+          type: type
+          url: url
+          username: username
+        dbVersion: dbVersion
+        ip: ip
+        updateTime: 2000-01-23T04:56:07.000+00:00
+        flinkTemplate: flinkTemplate
+        type: type
+        url: url
+        flinkConfig: flinkConfig
+        enabled: true
+        groupName: groupName
+        password: password
+        port: 1
+        healthTime: 2000-01-23T04:56:07.000+00:00
+        createTime: 2000-01-23T04:56:07.000+00:00
+        tenantId: 6
+        name: name
+        id: 0
+        username: username
+        status: true
+      properties:
+        id:
+          format: int32
+          type: integer
+        tenantId:
+          format: int32
+          type: integer
+        name:
+          type: string
+        groupName:
+          type: string
+        type:
+          type: string
+        ip:
+          type: string
+        port:
+          format: int32
+          type: integer
+        url:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        note:
+          type: string
+        flinkConfig:
+          type: string
+        flinkTemplate:
+          type: string
+        dbVersion:
+          type: string
+        status:
+          type: boolean
+        healthTime:
+          format: date-time
+          type: string
+        heartbeatTime:
+          format: date-time
+          type: string
+        enabled:
+          type: boolean
+        createTime:
+          format: date-time
+          type: string
+        updateTime:
+          format: date-time
+          type: string
+        driverConfig:
+          $ref: '#/components/schemas/DriverConfigPO'
+      type: object
+    DriverConfigPO:
+      example:
+        password: password
+        port: 5
+        ip: ip
+        name: name
+        type: type
+        url: url
+        username: username
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        ip:
+          type: string
+        port:
+          format: int32
+          type: integer
+        url:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+      type: object
+    RVoid:
+      example:
+        msg: msg
+        exception: exception
+        code: 0
+        data: "{}"
+        action: action
+        timestamp: 6
+        executeTime: 1
+      properties:
+        code:
+          format: int32
+          type: integer
+        msg:
+          type: string
+        data:
+          type: object
+        timestamp:
+          format: int64
+          type: integer
+        executeTime:
+          format: int64
+          type: integer
+        exception:
+          type: string
+        action:
+          type: string
+      type: object
+    SqlDTO:
+      example:
+        maxRowNum: 6
+        statement: statement
+        databaseId: 0
+      properties:
+        statement:
+          type: string
+        databaseId:
+          format: int32
+          type: integer
+        maxRowNum:
+          format: int32
+          type: integer
+      type: object
+    JdbcSelectResult:
+      example:
+        msg: msg
+        exception: exception
+        code: 6
+        data: "{}"
+        columns:
+        - columns
+        - columns
+        total: 5
+        statusList:
+        - "{}"
+        - "{}"
+        limit: 7
+        action: action
+        rowData:
+        - key: "{}"
+        - key: "{}"
+        page: 2
+        timestamp: 1
+        executeTime: 5
+      properties:
+        code:
+          format: int32
+          type: integer
+        msg:
+          type: string
+        data:
+          type: object
+        timestamp:
+          format: int64
+          type: integer
+        executeTime:
+          format: int64
+          type: integer
+        exception:
+          type: string
+        action:
+          type: string
+        columns:
+          items:
+            type: string
+          type: array
+        rowData:
+          items:
+            additionalProperties:
+              type: object
+            type: object
+          type: array
+        total:
+          format: int32
+          type: integer
+        page:
+          format: int32
+          type: integer
+        limit:
+          format: int32
+          type: integer
+        statusList:
+          items:
+            type: object
+          type: array
+          writeOnly: true
+      type: object
+    RJdbcSelectResult:
+      example:
+        msg: msg
+        exception: exception
+        code: 0
+        data:
+          msg: msg
+          exception: exception
+          code: 6
+          data: "{}"
+          columns:
+          - columns
+          - columns
+          total: 5
+          statusList:
+          - "{}"
+          - "{}"
+          limit: 7
+          action: action
+          rowData:
+          - key: "{}"
+          - key: "{}"
+          page: 2
+          timestamp: 1
+          executeTime: 5
+        action: action
+        timestamp: 9
+        executeTime: 3
+      properties:
+        code:
+          format: int32
+          type: integer
+        msg:
+          type: string
+        data:
+          $ref: '#/components/schemas/JdbcSelectResult'
+        timestamp:
+          format: int64
+          type: integer
+        executeTime:
+          format: int64
+          type: integer
+        exception:
+          type: string
+        action:
+          type: string
+      type: object
+    R:
+      example:
+        msg: msg
+        exception: exception
+        code: 0
+        data: "{}"
+        action: action
+        timestamp: 6
+        executeTime: 1
+      properties:
+        code:
+          format: int32
+          type: integer
+        msg:
+          type: string
+        data:
+          type: object
+        timestamp:
+          format: int64
+          type: integer
+        executeTime:
+          format: int64
+          type: integer
+        exception:
+          type: string
+        action:
+          type: string
+      type: object
+    DataBaseRequest:
+      example:
+        note: note
+        heartbeatTime: heartbeatTime
+        dbVersion: dbVersion
+        ip: ip
+        pageSize: 6
+        updateTime: updateTime
+        type: type
+        pageNum: 0
+        url: url
+        enabled: true
+        groupName: groupName
+        password: password
+        port: 5
+        healthTime: healthTime
+        createTime: createTime
+        tenantId: 5
+        name: name
+        id: 1
+        username: username
+        status: true
+      properties:
+        pageNum:
+          format: int32
+          type: integer
+        pageSize:
+          format: int32
+          type: integer
+        id:
+          format: int32
+          type: integer
+        tenantId:
+          format: int32
+          type: integer
+        name:
+          type: string
+        groupName:
+          type: string
+        type:
+          type: string
+        ip:
+          type: string
+        port:
+          format: int32
+          type: integer
+        url:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        note:
+          type: string
+        dbVersion:
+          type: string
+        status:
+          type: boolean
+        healthTime:
+          type: string
+        heartbeatTime:
+          type: string
+        enabled:
+          type: boolean
+        createTime:
+          type: string
+        updateTime:
+          type: string
+      type: object
+    PageInfoObject:
+      example:
+        startRow: 2
+        navigatepageNums:
+        - 7
+        - 7
+        prePage: 3
+        hasNextPage: true
+        nextPage: 2
+        pageSize: 5
+        endRow: 7
+        list:
+        - "{}"
+        - "{}"
+        pageNum: 1
+        navigatePages: 4
+        total: 6
+        navigateFirstPage: 1
+        pages: 9
+        size: 5
+        isLastPage: true
+        hasPreviousPage: true
+        navigateLastPage: 1
+        isFirstPage: true
+      properties:
+        total:
+          format: int64
+          type: integer
+        list:
+          items:
+            type: object
+          type: array
+        pageNum:
+          format: int32
+          type: integer
+        pageSize:
+          format: int32
+          type: integer
+        size:
+          format: int32
+          type: integer
+        startRow:
+          format: int64
+          type: integer
+        endRow:
+          format: int64
+          type: integer
+        pages:
+          format: int32
+          type: integer
+        prePage:
+          format: int32
+          type: integer
+        nextPage:
+          format: int32
+          type: integer
+        isFirstPage:
+          type: boolean
+        isLastPage:
+          type: boolean
+        hasPreviousPage:
+          type: boolean
+        hasNextPage:
+          type: boolean
+        navigatePages:
+          format: int32
+          type: integer
+        navigatepageNums:
+          items:
+            format: int32
+            type: integer
+          type: array
+        navigateFirstPage:
+          format: int32
+          type: integer
+        navigateLastPage:
+          format: int32
+          type: integer
+      type: object
+    RPageInfoObject:
+      example:
+        msg: msg
+        exception: exception
+        code: 0
+        data:
+          startRow: 2
+          navigatepageNums:
+          - 7
+          - 7
+          prePage: 3
+          hasNextPage: true
+          nextPage: 2
+          pageSize: 5
+          endRow: 7
+          list:
+          - "{}"
+          - "{}"
+          pageNum: 1
+          navigatePages: 4
+          total: 6
+          navigateFirstPage: 1
+          pages: 9
+          size: 5
+          isLastPage: true
+          hasPreviousPage: true
+          navigateLastPage: 1
+          isFirstPage: true
+        action: action
+        timestamp: 1
+        executeTime: 6
+      properties:
+        code:
+          format: int32
+          type: integer
+        msg:
+          type: string
+        data:
+          $ref: '#/components/schemas/PageInfoObject'
+        timestamp:
+          format: int64
+          type: integer
+        executeTime:
+          format: int64
+          type: integer
+        exception:
+          type: string
+        action:
+          type: string
+      type: object
+    RDatabase:
+      example:
+        msg: msg
+        exception: exception
+        code: 0
+        data:
+          note: note
+          heartbeatTime: 2000-01-23T04:56:07.000+00:00
+          driverConfig:
+            password: password
+            port: 5
+            ip: ip
+            name: name
+            type: type
+            url: url
+            username: username
+          dbVersion: dbVersion
+          ip: ip
+          updateTime: 2000-01-23T04:56:07.000+00:00
+          flinkTemplate: flinkTemplate
+          type: type
+          url: url
+          flinkConfig: flinkConfig
+          enabled: true
+          groupName: groupName
+          password: password
+          port: 1
+          healthTime: 2000-01-23T04:56:07.000+00:00
+          createTime: 2000-01-23T04:56:07.000+00:00
+          tenantId: 6
+          name: name
+          id: 0
+          username: username
+          status: true
+        action: action
+        timestamp: 6
+        executeTime: 1
+      properties:
+        code:
+          format: int32
+          type: integer
+        msg:
+          type: string
+        data:
+          $ref: '#/components/schemas/Database'
+        timestamp:
+          format: int64
+          type: integer
+        executeTime:
+          format: int64
+          type: integer
+        exception:
+          type: string
+        action:
+          type: string
+      type: object
+
