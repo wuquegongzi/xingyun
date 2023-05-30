@@ -86,7 +86,7 @@
            </dependency>
            <dependency>
                <groupId>cn.cloudcharts</groupId>
-               <artifactId>xingyun-starrocks</artifactId>
+               <artifactId>xingyun-metadata</artifactId>
                <version>1.0-SNAPSHOT</version>
            </dependency>
 <!--           <dependency>-->
@@ -106,7 +106,7 @@
         <module>log-service</module>
         <module>xingyun-common</module>
         <module>xingyun-app</module>
-        <module>xingyun-starrocks</module>
+        <module>xingyun-metadata</module>
     </modules>
 
 

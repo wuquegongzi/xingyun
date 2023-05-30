@@ -1,8 +1,7 @@
 package cn.cloudcharts.model.entity;
 
-import cn.cloudcharts.starrocks.metadata.driver.DriverConfigPO;
+import cn.cloudcharts.metadata.driver.DriverConfigPO;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;

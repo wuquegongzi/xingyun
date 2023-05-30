@@ -11,6 +11,7 @@ import org.apache.hadoop.fs.*;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,9 @@ public class HdfsUtils {
     private FileSystem fs;
 
     public HdfsUtils(String hdfsUri) throws IOException {
+        if(StringUtils.isEmpty(hdfsUri)){
+            throw new ServerException("请检查fs.defaultFS配置");
+        }
         config.set("fs.defaultFS", hdfsUri);
         fs = FileSystem.get(config);
     }

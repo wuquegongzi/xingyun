@@ -6,7 +6,7 @@ import cn.cloudcharts.mapper.DatabaseMapper;
 import cn.cloudcharts.service.IDatabaseService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import cn.cloudcharts.starrocks.metadata.driver.Driver;
+import cn.cloudcharts.metadata.driver.Driver;
 
 /**
  * <p>

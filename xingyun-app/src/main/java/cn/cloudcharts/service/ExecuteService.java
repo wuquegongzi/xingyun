@@ -1,7 +1,7 @@
 package cn.cloudcharts.service;
 
-import cn.cloudcharts.model.dto.SqlDTO;
-import cn.cloudcharts.starrocks.model.result.JdbcSelectResult;
+import cn.cloudcharts.model.request.SqlRequest;
+import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 
 /**
  * @author wuque
@@ -12,6 +12,6 @@ import cn.cloudcharts.starrocks.model.result.JdbcSelectResult;
  */
 public interface ExecuteService {
 
-    JdbcSelectResult executeCommonSql(SqlDTO sqlDTO);
+    JdbcSelectResult executeCommonSql(SqlRequest sqlRequest);
 
 }

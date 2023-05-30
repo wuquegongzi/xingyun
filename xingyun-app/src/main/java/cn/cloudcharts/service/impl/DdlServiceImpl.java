@@ -2,45 +2,44 @@ package cn.cloudcharts.service.impl;
 
 import cn.cloudcharts.common.exception.ServiceException;
 import cn.cloudcharts.common.utils.AssertUtil;
-import cn.cloudcharts.model.request.SqlRequest;
 import cn.cloudcharts.model.entity.Database;
-import cn.cloudcharts.service.ExecuteService;
+import cn.cloudcharts.service.DdlService;
 import cn.cloudcharts.service.IDatabaseService;
 import cn.cloudcharts.metadata.driver.Driver;
-import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
+import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * @author wuque
- * @title: ExecuteServiceImpl
+ * @title: DdlServiceImpl
  * @projectName xingyun
- * @description: 任务执行
- * @date 2023/5/2320:24
+ * @description: 建表DDL操作接口
+ * @date 2023/5/2919:39
  */
 @Service
-public class ExecuteServiceImpl implements ExecuteService {
+public class DdlServiceImpl implements DdlService {
 
     @Autowired
     private IDatabaseService databaseService;
 
-
     @Override
-    public JdbcSelectResult executeCommonSql(SqlRequest sqlRequest) {
-
-        Database database = databaseService.getById(sqlRequest.getDatabaseId());
+    public boolean createTbl(CreateTableDTO dto) {
+        Database database = databaseService.getById(dto.getDatabaseId());
         AssertUtil.isNull(database,"该数据源不存在，请检查！");
-        JdbcSelectResult selectResult;
 
+        boolean is = false;
         try {
             Driver driver = Driver.build(database.getDriverConfig());
-            selectResult = driver.executeSql(sqlRequest.getStatement(), sqlRequest.getMaxRowNum());
+            is = driver.createTbl(dto);
         } catch (Exception e) {
             throw new ServiceException(e.getMessage());
         }
-
-        return selectResult;
+        return is;
     }
 
-
+    @Override
+    public boolean createTbl(String sql) {
+        return false;
+    }
 }
