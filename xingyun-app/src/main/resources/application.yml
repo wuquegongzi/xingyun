@@ -39,11 +39,11 @@ pagehelper:
 
 
 # DFS config  type: hdfs、s3、local
-#dfs:
-#  type: hdfs
-#  namenode.url: hdfs://lake-node3:8020
-#  namespace: /xingyun
-#  path.separator: /
+dfs:
+  type: hdfs
+  namenode.url: hdfs://lake-node3:8020
+  namespace: /xingyun
+  path.separator: /
 
 
 springdoc:

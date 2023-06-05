@@ -2,7 +2,9 @@
 
 **星云-轻量化实时数仓**
 
-
+----
+检查启动状态：
+http://localhost:8088/actuator/health
 
 ----
 

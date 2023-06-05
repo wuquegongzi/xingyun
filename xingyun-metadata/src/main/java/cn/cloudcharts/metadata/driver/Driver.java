@@ -80,6 +80,14 @@ public interface Driver extends AutoCloseable{
 
     Driver connect();
 
+    /**
+     * 开启事务
+     * @return
+     */
+    Driver startTransaction();
+    void commit();
+    void rollback();
+
     @Override
     void close();
 
