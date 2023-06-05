@@ -9,6 +9,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +27,7 @@ import java.util.Properties;
  * @description:
  * @date 2023/5/2219:20
  */
+@Slf4j
 public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.Driver {
 
     protected static Logger logger = LoggerFactory.getLogger(AbstractDriver.class);
@@ -111,6 +113,10 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
         properties.setProperty("dataSource.cacheServerConfiguration", "true");
         properties.setProperty("dataSource.elideSetAutoCommits", "true");
         properties.setProperty("dataSource.maintainTimeStats", "false");
+        //数据库 28800
+        properties.setProperty("dataSource.maxLifetime", "400000");
+//        <!-- 一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟 -->
+        properties.setProperty("dataSource.idleTimeout", "30000");
 
         properties.put("dataSource.logWriter", new PrintWriter(System.out));
 
@@ -137,6 +143,50 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
             }
         }
         return this;
+    }
+
+    @Override
+    public Driver startTransaction() {
+        if (AssertUtil.isNull(conn.get())) {
+            try {
+                Class.forName(getDriverClass());
+                Connection connection = createDataSource().getConnection();
+                // 关闭自动提交
+                connection.setAutoCommit(false);
+                conn.set(connection);
+            } catch (ClassNotFoundException | SQLException e) {
+                log.error("开启事务异常", e);
+                throw new RuntimeException(e);
+            }
+        }
+        return this;
+    }
+
+    @Override
+    public void commit() {
+        try {
+            Connection connection = conn.get();
+            if(null != connection) {
+                connection.commit();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            log.error("提交事务异常", e);
+        }
+    }
+
+    @Override
+    public void rollback() {
+        try {
+            Connection connection = conn.get();
+            if(connection != null) {
+                //回滚事务
+                connection.rollback();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            log.error("回滚事务异常", e);
+        }
     }
 
     @Override
