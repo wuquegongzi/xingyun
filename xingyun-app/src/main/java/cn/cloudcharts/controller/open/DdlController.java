@@ -28,7 +28,8 @@ public class DdlController {
      */
     @PostMapping("/createTbl")
     public R createTbl(@RequestBody CreateTableDTO dto){
-       return R.ok(ddlService.createTbl(dto));
+
+        return R.ok(ddlService.createTbl(dto));
     }
 
     /**
@@ -36,8 +37,10 @@ public class DdlController {
      * @return
      */
     @PostMapping("/createTblBySql")
-    public R createTbl(@RequestParam(name="sql") String sql){
-        return R.ok(ddlService.createTbl(sql));
+    public R createTbl(@RequestParam(name="databaseId") Integer databaseId,
+                       @RequestParam(name="sql") String sql){
+
+        return R.ok(ddlService.createTbl(databaseId,sql));
     }
 
 }

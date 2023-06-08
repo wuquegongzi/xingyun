@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sqls>
+    <sql id="ddl.structTableColList" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+            select ${colName} from ${tableName}
+            where 1=1
+            <#if colVal??  && colVal != ""> ${colName} like '%${colVal}%' </#if>
+            limit ${rowNum}
+        ]]>
+    </sql>
+
+
+
+
+</sqls>

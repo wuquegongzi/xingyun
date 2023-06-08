@@ -13,5 +13,5 @@ public interface DdlService {
 
     boolean createTbl(CreateTableDTO dto);
 
-    boolean createTbl(String sql);
+    boolean createTbl(Integer databaseId, String sql);
 }

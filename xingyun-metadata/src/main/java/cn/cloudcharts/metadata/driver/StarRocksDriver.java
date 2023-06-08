@@ -4,6 +4,8 @@ import cn.cloudcharts.common.utils.AssertUtil;
 import cn.cloudcharts.common.utils.sql.SqlUtil;
 import cn.cloudcharts.metadata.convert.ITypeConvert;
 import cn.cloudcharts.metadata.convert.StarRocksTypeConvert;
+import cn.cloudcharts.metadata.ddl.IDdlOpertion;
+import cn.cloudcharts.metadata.ddl.StarRocksDdlOpertion;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import cn.cloudcharts.metadata.model.result.SqlExplainResult;
 
@@ -19,6 +21,11 @@ import java.util.List;
  * @date 2023/5/2219:19
  */
 public class StarRocksDriver extends AbstractDriver{
+    @Override
+    public IDdlOpertion getDdlOpertion() {
+        return new StarRocksDdlOpertion();
+    }
+
     @Override
     String getDriverClass() {
         return "com.mysql.cj.jdbc.Driver";
@@ -38,8 +45,7 @@ public class StarRocksDriver extends AbstractDriver{
     public boolean execute(String sql) throws Exception {
         AssertUtil.checkNullString(sql, "Sql 语句为空");
         try (Statement statement = conn.get().createStatement()) {
-            // logger.info("执行sql的连接id：" + ((DruidPooledConnection)
-            // conn).getTransactionInfo().getId());
+            logger.info("执行sql：{}" + sql);
             statement.execute(sql);
         }
         return true;

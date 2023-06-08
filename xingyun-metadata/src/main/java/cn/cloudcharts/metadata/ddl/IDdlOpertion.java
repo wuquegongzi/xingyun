@@ -1,5 +1,7 @@
 package cn.cloudcharts.metadata.ddl;
 
+import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
+
 /**
  * @author wuque
  * @title: IDdlOpertion
@@ -9,4 +11,5 @@ package cn.cloudcharts.metadata.ddl;
  */
 public interface IDdlOpertion {
 
+    String getCreateTableSqlFromTemplate(CreateTableDTO tableDTO);
 }

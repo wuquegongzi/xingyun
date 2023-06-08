@@ -32,7 +32,6 @@ public class ExecuteController {
         return R.ok(executeService.executeCommonSql(sqlRequest));
     }
 
-
 //    @GetMapping("/queryAllColumns")
 //    public R queryAllColumns(@RequestParam(name="table") String table){
 //        return R.ok(olapService.queryAllColumns(table));
@@ -43,8 +42,5 @@ public class ExecuteController {
 //        return R.ok(olapService.getTableList());
 //    }
 //
-
-
-
 
 }

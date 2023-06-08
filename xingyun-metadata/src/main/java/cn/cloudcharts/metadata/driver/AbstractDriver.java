@@ -1,12 +1,15 @@
 package cn.cloudcharts.metadata.driver;
 
+import cn.cloudcharts.common.support.CustomSQL;
 import cn.cloudcharts.common.utils.AssertUtil;
 import cn.cloudcharts.metadata.convert.ITypeConvert;
+import cn.cloudcharts.metadata.ddl.IDdlOpertion;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
 import cn.cloudcharts.metadata.model.result.ResultColumn;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.google.common.collect.Maps;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.PrintWriter;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * @author wuque
@@ -38,13 +38,14 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
 
     private HikariDataSource dataSource;
 
+    public abstract IDdlOpertion getDdlOpertion();
 
     abstract String getDriverClass();
 
     @Override
     public boolean isHealth() {
         try {
-            if (ObjectUtil.isEmpty(conn.get())) {
+            if (ObjectUtil.isNotEmpty(conn.get())) {
                 return !conn.get().isClosed();
             }
             return false;
@@ -114,9 +115,9 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
         properties.setProperty("dataSource.elideSetAutoCommits", "true");
         properties.setProperty("dataSource.maintainTimeStats", "false");
         //数据库 28800
-        properties.setProperty("dataSource.maxLifetime", "400000");
+        properties.setProperty("dataSource.maxLifetime", "28000");
 //        <!-- 一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟 -->
-        properties.setProperty("dataSource.idleTimeout", "30000");
+        properties.setProperty("dataSource.idleTimeout", "28000");
 
         properties.put("dataSource.logWriter", new PrintWriter(System.out));
 
@@ -192,12 +193,13 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
     @Override
     public void close() {
         try {
-            if (ObjectUtil.isEmpty(conn.get())) {
+            if (ObjectUtil.isNotEmpty(conn.get())) {
                 conn.get().close();
-                conn.remove();
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            conn.remove();
         }
     }
 
@@ -298,7 +300,8 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
     }
 
     @Override
-    public String getCreateTableSql(CreateTableDTO table) {
-        return null;
+    public String getCreateTableSql(CreateTableDTO tableDTO) {
+
+        return getDdlOpertion().getCreateTableSqlFromTemplate(tableDTO);
     }
 }

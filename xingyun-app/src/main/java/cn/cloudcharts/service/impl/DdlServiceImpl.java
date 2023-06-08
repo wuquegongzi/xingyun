@@ -39,7 +39,17 @@ public class DdlServiceImpl implements DdlService {
     }
 
     @Override
-    public boolean createTbl(String sql) {
-        return false;
+    public boolean createTbl(Integer databaseId, String sql) {
+        Database database = databaseService.getById(databaseId);
+        AssertUtil.isNull(database,"该数据源不存在，请检查！");
+
+        boolean is = false;
+        try {
+            Driver driver = Driver.build(database.getDriverConfig());
+            is = driver.execute(sql);
+        } catch (Exception e) {
+            throw new ServiceException(e.getMessage());
+        }
+        return is;
     }
 }

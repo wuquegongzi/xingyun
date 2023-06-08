@@ -1,5 +1,7 @@
 package cn.cloudcharts.metadata.ddl;
 
+import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
+
 /**
  * @author wuque
  * @title: StarRocksDdlOpertion
@@ -10,4 +12,8 @@ package cn.cloudcharts.metadata.ddl;
 public class StarRocksDdlOpertion extends AbstractDdlOpertion{
 
 
+    @Override
+    public String getCreateTableSqlFromTemplate(CreateTableDTO tableDTO) {
+        return null;
+    }
 }
