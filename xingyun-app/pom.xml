@@ -71,29 +71,6 @@
             <artifactId>mybatis-plus-generator</artifactId>
             <version>3.5.1</version>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.springdoc</groupId>-->
-<!--            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->
-<!--            <version>2.0.2</version>-->
-<!--        </dependency>-->
-        <!--swagger-->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>mapstruct</artifactId>
-                    <groupId>org.mapstruct</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
@@ -146,6 +123,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>
                         cn.cloudcharts.XingyunApplication
