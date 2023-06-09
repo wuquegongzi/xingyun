@@ -35,16 +35,14 @@ public class K8sClientTest {
                         .build();
         Configuration.setDefaultApiClient(client);
 
-        CoreV1Api api = new CoreV1Api();
-        V1PodList list = null;
         try {
-            list = api.listPodForAllNamespaces(
-                    true, "", "", "",
-                    10, "", "", "",
-                    5, true);
 
-            for (V1Pod item : list.getItems()) {
-                System.out.println(item.getMetadata().getName());
+            CoreV1Api api = new CoreV1Api();
+            V1PodList podList = api.listPodForAllNamespaces(
+                    null, null, null, null, null, null, null, null, null, null);
+
+            for (V1Pod pod : podList.getItems()) {
+                System.out.println("Pod name: " + pod.getMetadata().getName());
             }
         } catch (ApiException e) {
             throw new RuntimeException(e);

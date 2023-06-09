@@ -114,10 +114,12 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
         properties.setProperty("dataSource.cacheServerConfiguration", "true");
         properties.setProperty("dataSource.elideSetAutoCommits", "true");
         properties.setProperty("dataSource.maintainTimeStats", "false");
+        properties.setProperty("dataSource.poolName", "HikariCP"+config.getName());
+        properties.setProperty("dataSource.connectionTestquery", "SELECT 1 FROM DUAL");
         //数据库 28800
-        properties.setProperty("dataSource.maxLifetime", "28000");
+        properties.setProperty("dataSource.maxLifetime", "60000");
 //        <!-- 一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟 -->
-        properties.setProperty("dataSource.idleTimeout", "28000");
+        properties.setProperty("dataSource.idleTimeout", "30000");
 
         properties.put("dataSource.logWriter", new PrintWriter(System.out));
 

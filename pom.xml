@@ -31,11 +31,6 @@
                <type>pom</type>
                <scope>import</scope>
            </dependency>
-            <dependency>
-                <groupId>io.kubernetes</groupId>
-                <artifactId>client-java</artifactId>
-                <version>15.0.1</version>
-            </dependency>
            <dependency>
                <groupId>mysql</groupId>
                <artifactId>mysql-connector-java</artifactId>
