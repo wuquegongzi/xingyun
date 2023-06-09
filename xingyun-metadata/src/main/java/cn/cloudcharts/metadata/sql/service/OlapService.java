@@ -37,22 +37,17 @@ public class OlapService {
         }
 
         switch (dto.getTblDataType()){ // 0-明细 1-聚合 2-更新 3-主键
-            case "0" ->{
+            case "0":
                 return ddlMapper.createDetailTbl(dto) > 0;
-            }
-            case "1" ->{
+            case "1":
                 return ddlMapper.createAggregateTbl(dto) > 0;
-            }
-            case "2" ->{
+            case "2":
                 return ddlMapper.createUniqueTbl(dto) > 0;
-            }
-            case "3" ->{
+            case "3":
                 return ddlMapper.createPrimaryTbl(dto) > 0;
-            }
-            default -> {
+            default:
                 throw new ServiceException("Please select a data model! " +
                         "StarRocks provides four table types: [0]Duplicate Key table, [1]Aggregate table, [2]Unique Key table, and [3]Primary Key table.");
-            }
         }
     }
 

@@ -19,10 +19,10 @@
             <groupId>cn.cloudcharts</groupId>
             <artifactId>parser-starrocks</artifactId>
         </dependency>
-        <dependency>
-            <groupId>cn.cloudcharts</groupId>
-            <artifactId>dfs-service</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>cn.cloudcharts</groupId>-->
+<!--            <artifactId>dfs-service</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -36,8 +36,6 @@
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>5.0.1</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -53,8 +51,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>17</source>
-                    <target>17</target>
+                    <source>8</source>
+                    <target>8</target>
                     <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>

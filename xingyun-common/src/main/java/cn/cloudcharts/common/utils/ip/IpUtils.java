@@ -2,8 +2,8 @@ package cn.cloudcharts.common.utils.ip;
 
 
 import cn.cloudcharts.common.utils.StringUtils;
-import jakarta.servlet.http.HttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 

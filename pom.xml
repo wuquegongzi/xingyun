@@ -12,14 +12,14 @@
     <packaging>pom</packaging>
 
     <properties>
-        <java.version>17</java.version>
+        <java.version>8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <spring-boot.version>3.0.6</spring-boot.version>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <spring-boot.version>2.7.10</spring-boot.version>
+        <spring.version>5.3.26</spring.version>
         <calcite.version>1.31.0</calcite.version>
-
     </properties>
 
     <dependencyManagement>
@@ -54,9 +54,18 @@
            <dependency>
                <groupId>org.springframework</groupId>
                <artifactId>spring-context</artifactId>
-               <version>6.0.8</version>
+               <version>${spring.version}</version>
            </dependency>
-
+           <dependency>
+               <groupId>org.springframework</groupId>
+               <artifactId>spring-web</artifactId>
+               <version>${spring.version}</version>
+           </dependency>
+           <dependency>
+               <groupId>com.zaxxer</groupId>
+               <artifactId>HikariCP</artifactId>
+               <version>4.0.3</version>
+           </dependency>
            <dependency>
                <groupId>org.projectlombok</groupId>
                <artifactId>lombok</artifactId>

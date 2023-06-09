@@ -46,10 +46,30 @@ dfs:
   path.separator: /
 
 
-springdoc:
-  swagger-ui:
-    enabled: true
-  api-docs:
-    enabled: true
-    path: /v3/api-docs
+knife4j:
+  enable: true
+  openapi:
+    title: 星云官方文档
+    description: "`星云`,**666**
+    # 888"
+    email: swchenminglei@gmail.com
+    concat: 无缺
+    url: https://github.com/haibao2015/xingyun
+    version: v4.0
+    license: Apache 2.0
+    license-url: https://stackoverflow.com/
+    terms-of-service-url: https://stackoverflow.com/
+    group:
+      one:
+        group-name: SR-V1
+        api-rule: package
+        api-rule-resources:
+          - com.cloudcharts.controller
+
+#springdoc:
+#  swagger-ui:
+#    enabled: true
+#  api-docs:
+#    enabled: true
+#    path: /v3/api-docs
 
