@@ -1,6 +1,5 @@
 package cn.cloudcharts.metadata.driver;
 
-import cn.cloudcharts.common.support.CustomSQL;
 import cn.cloudcharts.common.utils.AssertUtil;
 import cn.cloudcharts.metadata.convert.ITypeConvert;
 import cn.cloudcharts.metadata.ddl.IDdlOpertion;
@@ -9,7 +8,6 @@ import cn.cloudcharts.metadata.model.result.ResultColumn;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import com.google.common.collect.Maps;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +32,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
 
     protected DriverConfigPO config;
 
-    protected ThreadLocal<Connection> conn = new ThreadLocal<>();
+    protected volatile ThreadLocal<Connection> conn = new ThreadLocal<>();
 
     private HikariDataSource dataSource;
 
@@ -84,7 +82,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
         return this;
     }
 
-    public HikariDataSource createDataSource() throws SQLException {
+    public synchronized HikariDataSource createDataSource() throws SQLException {
         if (null == dataSource) {
             synchronized (this.getClass()) {
                 if (null == dataSource) {
@@ -118,6 +116,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
         properties.setProperty("dataSource.connectionTestquery", "SELECT 1 FROM DUAL");
         //数据库 28800
         properties.setProperty("dataSource.maxLifetime", "60000");
+        properties.setProperty("dataSource.keepaliveTime", "10000");
 //        <!-- 一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟 -->
         properties.setProperty("dataSource.idleTimeout", "30000");
 
@@ -197,11 +196,10 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
         try {
             if (ObjectUtil.isNotEmpty(conn.get())) {
                 conn.get().close();
+                conn.remove();
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            conn.remove();
         }
     }
 

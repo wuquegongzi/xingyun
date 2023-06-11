@@ -40,7 +40,7 @@
 
         <dependency>
             <groupId>cn.cloudcharts</groupId>
-            <artifactId>k8s-service</artifactId>
+            <artifactId>xingyun-k8s</artifactId>
         </dependency>
 
         <dependency>
