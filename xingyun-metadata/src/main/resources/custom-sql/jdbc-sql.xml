@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sqls>
+    <sql id="ddl.jdbc.buildCreateTableSql" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+
+        ]]>
+    </sql>
+
+    <sql id="dml.jdbc.getTableList" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+          SHOW TABLES FROM ${(catalogName)!"default_catalog"}.${dbName}
+        ]]>
+    </sql>
+
+</sqls>

@@ -4,8 +4,8 @@ import cn.cloudcharts.common.utils.AssertUtil;
 import cn.cloudcharts.common.utils.sql.SqlUtil;
 import cn.cloudcharts.metadata.convert.ITypeConvert;
 import cn.cloudcharts.metadata.convert.StarRocksTypeConvert;
-import cn.cloudcharts.metadata.ddl.IDdlOpertion;
-import cn.cloudcharts.metadata.ddl.StarRocksDdlOpertion;
+import cn.cloudcharts.metadata.opertion.IDbOpertion;
+import cn.cloudcharts.metadata.opertion.StarRocksDbOpertion;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import cn.cloudcharts.metadata.model.result.SqlExplainResult;
 
@@ -22,8 +22,8 @@ import java.util.List;
  */
 public class StarRocksDriver extends AbstractDriver{
     @Override
-    public IDdlOpertion getDdlOpertion() {
-        return new StarRocksDdlOpertion();
+    public IDbOpertion getDbOpertion() {
+        return new StarRocksDbOpertion();
     }
 
     @Override
@@ -95,4 +95,6 @@ public class StarRocksDriver extends AbstractDriver{
     public List<SqlExplainResult> explain(String sql) {
         return null;
     }
+
+
 }

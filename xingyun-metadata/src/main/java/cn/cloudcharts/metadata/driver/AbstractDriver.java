@@ -2,7 +2,7 @@ package cn.cloudcharts.metadata.driver;
 
 import cn.cloudcharts.common.utils.AssertUtil;
 import cn.cloudcharts.metadata.convert.ITypeConvert;
-import cn.cloudcharts.metadata.ddl.IDdlOpertion;
+import cn.cloudcharts.metadata.opertion.IDbOpertion;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
 import cn.cloudcharts.metadata.model.result.ResultColumn;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
@@ -10,13 +10,21 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import io.micrometer.core.instrument.Clock;
+import io.micrometer.core.instrument.logging.LoggingMeterRegistry;
+import io.micrometer.core.instrument.logging.LoggingRegistryConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.AbstractListHandler;
+import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.PrintWriter;
 import java.sql.*;
+import java.time.Duration;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author wuque
@@ -36,7 +44,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
 
     private HikariDataSource dataSource;
 
-    public abstract IDdlOpertion getDdlOpertion();
+    public abstract IDbOpertion getDbOpertion();
 
     abstract String getDriverClass();
 
@@ -94,43 +102,47 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
         return dataSource;
     }
 
+    /**
+     * https://github.com/brettwooldridge/HikariCP
+     * @param config
+     * @return
+     */
     protected HikariDataSource createDataSource(DriverConfigPO config) {
 
-        Properties properties = new Properties();
-        properties.setProperty("driverClassName", getDriverClass());
+        HikariConfig hikariConfig = new HikariConfig();
         //"jdbc:mysql://192.168.217.232:9030/tpch?useSSL=false"
-        properties.setProperty("jdbcUrl", config.getUrl());
-        properties.setProperty("username", config.getUsername());
-        properties.setProperty("password", config.getPassword());
-        properties.setProperty("dataSource.cachePrepStmts", "true");
-        properties.setProperty("dataSource.prepStmtCacheSize", "250");
-        properties.setProperty("dataSource.prepStmtCacheSqlLimit", "2048");
-        properties.setProperty("dataSource.useServerPrepStmts", "true");
-        properties.setProperty("dataSource.useLocalSessionState", "true");
-        properties.setProperty("dataSource.rewriteBatchedStatements", "true");
-        properties.setProperty("dataSource.cacheResultSetMetadata", "true");
-        properties.setProperty("dataSource.cacheServerConfiguration", "true");
-        properties.setProperty("dataSource.elideSetAutoCommits", "true");
-        properties.setProperty("dataSource.maintainTimeStats", "false");
-        properties.setProperty("dataSource.poolName", "HikariCP"+config.getName());
-        properties.setProperty("dataSource.connectionTestquery", "SELECT 1 FROM DUAL");
-        //数据库 28800
-        properties.setProperty("dataSource.maxLifetime", "60000");
-        properties.setProperty("dataSource.keepaliveTime", "10000");
-//        <!-- 一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟 -->
-        properties.setProperty("dataSource.idleTimeout", "30000");
+        hikariConfig.setJdbcUrl(config.getUrl());
+        hikariConfig.setUsername(config.getUsername());
+        hikariConfig.setPassword(config.getPassword());
+        hikariConfig.setDriverClassName(getDriverClass());
+        hikariConfig.setMinimumIdle(1);
+        hikariConfig.setMaximumPoolSize(5);
+        hikariConfig.setConnectionTestQuery("select 1");
+        hikariConfig.setConnectionTimeout(30000);
+        hikariConfig.setIdleTimeout(30000);
+        hikariConfig.setKeepaliveTime(60000);
+        hikariConfig.setMaxLifetime(300000);
+        hikariConfig.setPoolName("xingyun-HikariCP-"+config.getName());
+        hikariConfig.addDataSourceProperty("logWriter",new PrintWriter(System.out));
 
-        properties.put("dataSource.logWriter", new PrintWriter(System.out));
+        logger.info( "{},初始化配置文件成功.....",hikariConfig.toString());
 
-        properties.forEach((k, v) -> {
-            logger.debug(String.format("key:%s value:%S", k, v));
-        });
+        HikariDataSource dataSource = new HikariDataSource(hikariConfig);
+        // 设置metric注册器 每10秒打印一次
+        // com.zaxxer.hikari.metrics.PoolStats
+        LoggingMeterRegistry loggingMeterRegistry = new LoggingMeterRegistry(new LoggingRegistryConfig() {
+            @Override
+            public String get(String key) {
+                return null;
+            }
+            @Override
+            public Duration step() {
+                return Duration.ofSeconds(10);
+            }
+        }, Clock.SYSTEM);
+        dataSource.setMetricRegistry(loggingMeterRegistry);
 
-        logger.info( "{},初始化配置文件成功.....",config.toString());
-
-        HikariConfig hikariConfig = new HikariConfig(properties);
-
-        return new HikariDataSource(hikariConfig);
+        return dataSource;
     }
 
     @Override
@@ -291,7 +303,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
 
     @Override
     public boolean createTbl(CreateTableDTO dto) throws Exception {
-        String sql = getCreateTableSql(dto).replaceAll("\r\n", " ");
+        String sql = buildCreateTableSql(dto).replaceAll("\r\n", " ");
         if (StrUtil.isNotEmpty(sql)) {
             return execute(sql);
         } else {
@@ -299,9 +311,44 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
         }
     }
 
-    @Override
-    public String getCreateTableSql(CreateTableDTO tableDTO) {
+    private String buildCreateTableSql(CreateTableDTO tableDTO) {
+        return getDbOpertion().buildCreateTableSql(tableDTO);
+    }
 
-        return getDdlOpertion().getCreateTableSqlFromTemplate(tableDTO);
+    @Override
+    public List<Map<String,Object>> queryAllColumns(String catalogName, String dbName, String tableName) {
+
+        String sql = getDbOpertion().queryAllColumns(catalogName,dbName,tableName);
+
+        List<Map<String,Object>> mapList = null;
+        try {
+            if (StrUtil.isNotEmpty(sql)) {
+                QueryRunner qr = new QueryRunner();
+                mapList = qr.query(conn.get(),sql, new MapListHandler());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return mapList;
+    }
+
+    @Override
+    public List<String> getTableList(String catalogName, String dbName) {
+        String sql = getDbOpertion().getTableList(catalogName,dbName);
+
+        List<String> lists = null;
+        try {
+            if (StrUtil.isNotEmpty(sql)) {
+                QueryRunner qr = new QueryRunner();
+
+                List<Map<String, Object>> lists2 = qr.query(conn.get(),sql, new MapListHandler());
+                lists = lists2.parallelStream().map(m ->{
+                    return ObjectUtil.toString(m.values().parallelStream().findFirst().get());
+                }).collect(Collectors.toList());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return lists;
     }
 }

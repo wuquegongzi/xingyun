@@ -1,31 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.cloudcharts.metadata.sql.mapper.DdlMapper">
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <update id="createTableBySql">
-        ${sql}
-    </update>
+<sqls>
+    <sql id="account.sr.showUsers" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+           SHOW USERS
+        ]]>
+    </sql>
 
-
-    <update id="createUniqueTbl" parameterType="cn.cloudcharts.metadata.model.dto.CreateTableDTO">
-
-
-    </update>
-
-    <update id="createPrimaryTbl" parameterType="cn.cloudcharts.metadata.model.dto.CreateTableDTO">
-
-
-    </update>
-
-    <update id="createAggregateTbl" parameterType="cn.cloudcharts.metadata.model.dto.CreateTableDTO">
-
-    </update>
-
-    <update id="createDetailTbl" parameterType="cn.cloudcharts.metadata.model.dto.CreateTableDTO">
-
-        CREATE TABLE IF NOT EXISTS
+    <sql id="ddl.sr.createDetailTbl" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+           CREATE TABLE IF NOT EXISTS
         <if test="dto.dbName != null and dto.dbName != ''">
             ${dto.dbName}.
         </if>${dto.tblName}  (
@@ -128,30 +112,61 @@
             </foreach>
             )
         </if>
+      ]]>
+    </sql>
+    <sql id="ddl.sr.createAggregateTbl" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
 
-    </update>
-    <update id="createExternalTbl">
+        ]]>
+    </sql>
+    <sql id="ddl.sr.createPrimaryTbl" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
 
-    </update>
-    <update id="createTableLike">
+        ]]>
+    </sql>
+    <sql id="ddl.sr.createUniqueTbl" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
 
-    </update>
-    <select id="showResources" resultType="java.util.Map">
-        SHOW RESOURCES
-    </select>
+        ]]>
+    </sql>
 
-    <select id="queryAllColumns" resultType="cn.cloudcharts.metadata.model.result.TableColumnResult">
-        SHOW FULL COLUMNS FROM ${table}
-    </select>
+    <sql id="ddl.sr.showResources" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+           SHOW RESOURCES
+        ]]>
+    </sql>
 
-    <select id="addColumns" resultType="java.lang.String">
-        ALTER TABLE ${table} ADD COLUMN
-        <foreach collection="columns" item="item" open="(" separator="," close=")">
-            ${item.colName} ${item.colType}
-            <if test="item.keyType !=null">
-                ${item.keyType}
-            </if>
-        </foreach>
-    </select>
+    <sql id="ddl.sr.addColumns" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+          ALTER TABLE ${table} ADD COLUMN
+            <foreach collection="columns" item="item" open="(" separator="," close=")">
+                ${item.colName} ${item.colType}
+                <if test="item.keyType !=null">
+                    ${item.keyType}
+                </if>
+            </foreach>
+        ]]>
+    </sql>
 
-</mapper>
+    <sql id="aux.sr.desc" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+            DESC default_catalog.example_db.example_table;
+        ]]>
+    </sql>
+
+    <sql id="ops.starrocks.queryAllColumns" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+          SHOW FULL COLUMNS FROM ${(catalogName)!"default_catalog"}.${dbName}.${tableName}
+        ]]>
+    </sql>
+
+    <sql id="dml.starrocks.execQuery" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+            select t.* from (${sql}) as t limit ${maxVal}
+        ]]>
+    </sql>
+
+
+
+
+</sqls>

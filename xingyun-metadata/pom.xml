@@ -37,6 +37,11 @@
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
+            <version>1.9.9</version>
+        </dependency>
 
         <dependency>
             <groupId>commons-dbutils</groupId>

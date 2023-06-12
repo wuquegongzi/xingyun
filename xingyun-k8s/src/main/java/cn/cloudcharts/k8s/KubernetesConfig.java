@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,7 +34,7 @@ public class KubernetesConfig {
     @PostConstruct
     public void init() {
         //TODO db 获取
-        List<String> clientNames = null;
+        List<String> clientNames = new ArrayList<>();
         for (String clientName : clientNames) {
             createK8sApiClient(clientName,"","",false,false,false);
         }

@@ -1,7 +1,9 @@
 package cn.cloudcharts.controller.open;
 
 import cn.cloudcharts.core.domain.R;
-import cn.cloudcharts.model.request.SqlRequest;
+import cn.cloudcharts.model.request.QueryTblColumnRequest;
+import cn.cloudcharts.model.request.QueryTblRequest;
+import cn.cloudcharts.model.request.SqlExecRequest;
 import cn.cloudcharts.service.ExecuteService;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,19 +30,19 @@ public class ExecuteController {
      * @return
      */
     @PostMapping("/executeSql")
-    public R<JdbcSelectResult> executeSql(@RequestBody SqlRequest sqlRequest){
+    public R<JdbcSelectResult> executeSql(@RequestBody SqlExecRequest sqlRequest){
         return R.ok(executeService.executeCommonSql(sqlRequest));
     }
 
-//    @GetMapping("/queryAllColumns")
-//    public R queryAllColumns(@RequestParam(name="table") String table){
-//        return R.ok(olapService.queryAllColumns(table));
-//    }
-//
-//    @GetMapping("/getTableList")
-//    public R getTableList(){
-//        return R.ok(olapService.getTableList());
-//    }
-//
+    @PostMapping("/queryAllColumns")
+    public R queryAllColumns(@RequestBody QueryTblColumnRequest queryTblRequest){
+        return R.ok(executeService.queryAllColumns(queryTblRequest));
+    }
+
+    @PostMapping("/getTableList")
+    public R getTableList(@RequestBody QueryTblRequest queryTblRequest){
+        return R.ok(executeService.getTableList(queryTblRequest));
+    }
+
 
 }

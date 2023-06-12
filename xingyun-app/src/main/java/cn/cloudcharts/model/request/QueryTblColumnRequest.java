@@ -6,18 +6,16 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author wuque
- * @title: SqlDTO
+ * @title: QueryTblRequest
  * @projectName xingyun
  * @description:
- * @date 2023/5/2320:23
+ * @date 2023/6/1216:04
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SqlRequest {
+public class QueryTblColumnRequest extends QueryTblRequest{
 
-    private String statement;
-    private Integer databaseId;
-    private Integer maxRowNum;
+    private String tableName;
 
 }

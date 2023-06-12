@@ -7,6 +7,7 @@ import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import cn.cloudcharts.metadata.model.result.SqlExplainResult;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ServiceLoader;
 
@@ -104,5 +105,7 @@ public interface Driver extends AutoCloseable{
 
     boolean createTbl(CreateTableDTO dto) throws Exception;
 
-    String getCreateTableSql(CreateTableDTO table);
+    List<Map<String,Object>> queryAllColumns(String catalogName, String dbName, String tableName);
+
+    List<String> getTableList(String catalogName, String dbName);
 }
