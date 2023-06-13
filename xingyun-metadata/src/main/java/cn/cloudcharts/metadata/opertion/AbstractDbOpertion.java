@@ -44,4 +44,6 @@ public  abstract class AbstractDbOpertion implements IDbOpertion {
 
         return CustomSQL.getInstance().get("dml.jdbc.getTableList",map);
     }
+
+
 }

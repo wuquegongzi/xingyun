@@ -8,6 +8,8 @@ import cn.cloudcharts.core.domain.R;
 import cn.cloudcharts.metadata.driver.DriverPool;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/database")
+@Tag(name = "DsApi", description = "多数据源管理接口")
 public class DatabaseController {
 
     @Autowired
@@ -33,6 +36,7 @@ public class DatabaseController {
      * @param dataBaseRequest
      * @return
      */
+    @Operation(summary = "列表查询")
     @PostMapping(value ="/list")
     public R<PageInfo> list(@RequestBody DataBaseRequest dataBaseRequest){
 
@@ -47,12 +51,14 @@ public class DatabaseController {
      * @param database
      * @return
      */
+    @Operation(summary = "添加数据源")
     @PostMapping(value ="/add")
     public R add(@RequestBody Database database){
 
         return R.ok(databaseService.save(database));
     }
 
+    @Operation(summary = "添加或者更新数据源")
     @PutMapping
     public R<Void> saveOrUpdate(@RequestBody Database database) {
         if (databaseService.saveOrUpdateDataBase(database)) {
@@ -63,6 +69,7 @@ public class DatabaseController {
         }
     }
 
+    @Operation(summary = "根据ID获取明细")
     @PostMapping("/getOneById")
     public R<Database> getOneById(@RequestParam(name = "id") String id) {
         Database database = databaseService.getById(id);
@@ -74,6 +81,7 @@ public class DatabaseController {
      * @param database
      * @return
      */
+    @Operation(summary = "测试连通性")
     @PostMapping("/testConnect")
     public R testConnect(@RequestBody Database database) {
         String msg = databaseService.testConnect(database);

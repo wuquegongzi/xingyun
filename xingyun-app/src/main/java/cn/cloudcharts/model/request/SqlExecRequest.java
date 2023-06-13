@@ -1,5 +1,6 @@
 package cn.cloudcharts.model.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,10 +15,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(description = "SQL执行参数请求体")
 public class SqlExecRequest {
 
+    @Schema(description = "SQL脚本文本")
     private String statement;
+    @Schema(description = "数据源ID")
     private Integer databaseId;
+    @Schema(description = "请求最大个数，默认0")
     private Integer maxRowNum;
 
 }

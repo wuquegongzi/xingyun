@@ -16,4 +16,6 @@ public interface IDbOpertion {
     String queryAllColumns(String catalogName, String dbName, String tableName);
 
     String getTableList(String catalogName, String dbName);
+
+    String getExecQuery(String sql, Integer limit);
 }

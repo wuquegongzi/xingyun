@@ -63,4 +63,7 @@ knife4j:
   enable: true
   setting:
     language: zh_cn
+    swagger-model-name: 实体类列表
+    enable-footer-custom: true
+    footer-custom-content: Apache License 2.0 | Copyright  2023-[星云](https://github.com/haibao2015/xingyun)
 

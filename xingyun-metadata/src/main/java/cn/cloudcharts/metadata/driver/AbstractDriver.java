@@ -15,7 +15,6 @@ import io.micrometer.core.instrument.logging.LoggingMeterRegistry;
 import io.micrometer.core.instrument.logging.LoggingRegistryConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.AbstractListHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -118,7 +117,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
         hikariConfig.setMinimumIdle(1);
         hikariConfig.setMaximumPoolSize(5);
         hikariConfig.setConnectionTestQuery("select 1");
-        hikariConfig.setConnectionTimeout(30000);
+        hikariConfig.setConnectionTimeout(60000);
         hikariConfig.setIdleTimeout(30000);
         hikariConfig.setKeepaliveTime(60000);
         hikariConfig.setMaxLifetime(300000);
@@ -137,7 +136,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
             }
             @Override
             public Duration step() {
-                return Duration.ofSeconds(10);
+                return Duration.ofSeconds(30);
             }
         }, Clock.SYSTEM);
         dataSource.setMetricRegistry(loggingMeterRegistry);
@@ -230,6 +229,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
         ResultSet results = null;
         int count = 0;
         try {
+            sql = getDbOpertion().getExecQuery(sql,limit);
             preparedStatement = conn.get().prepareStatement(sql);
             results = preparedStatement.executeQuery();
             if (AssertUtil.isNull(results)) {

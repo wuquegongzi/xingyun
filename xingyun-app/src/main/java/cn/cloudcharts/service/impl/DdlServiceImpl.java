@@ -33,6 +33,7 @@ public class DdlServiceImpl implements DdlService {
             Driver driver = Driver.build(database.getDriverConfig());
             is = driver.createTbl(dto);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ServiceException(e.getMessage());
         }
         return is;
