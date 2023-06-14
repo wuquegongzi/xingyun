@@ -60,6 +60,9 @@ public class StarRocksDriver extends AbstractDriver{
         for (String item : statements) {
             String type = item.toUpperCase();
             if (type.startsWith("SELECT") || type.startsWith("SHOW") || type.startsWith("DESC")) {
+                if(type.startsWith("SELECT")){
+                    item = getDbOpertion().getExecQuery(item,limit);
+                }
                 result = query(item, limit);
             } else if (type.startsWith("INSERT")
                     || type.startsWith("UPDATE")

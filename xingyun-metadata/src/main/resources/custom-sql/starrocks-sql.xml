@@ -8,7 +8,7 @@
     </sql>
 
 
-    <sql id="ddl.sr.createDetailTbl" sqlType="SQL" tempateType="freeMarker">
+    <sql id="ddl.sr.createTbl" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
            CREATE TABLE IF NOT EXISTS
                 <#if schemaName?? && schemaName != "">
@@ -32,7 +32,19 @@
                         <#if item_has_next>,</#if>
                 </#list>
                 )ENGINE=OLAP
-                DUPLICATE KEY(${keyDesc})
+
+                <#if tblDataType?? && tblDataType == '0'>
+                      DUPLICATE KEY(${keyDesc})
+                </#if>
+                <#if tblDataType?? && tblDataType == '1'>
+                      AGGREGATE KEY(${keyDesc})
+                </#if>
+                <#if tblDataType?? && tblDataType == '2'>
+                      UNIQUE KEY(${keyDesc})
+                </#if>
+                <#if tblDataType?? && tblDataType == '3'>
+                      PRIMARY KEY(${keyDesc})
+                </#if>
                 COMMENT  "${comment!}"
                 <#if partition_partitionMode?? && partition_partitionMode?string == "dominant">
                     <#if partition_partitionDesc?? && partition_partitionDesc?string == "LESS_THAN" >
@@ -87,19 +99,32 @@
                 </#if>
       ]]>
     </sql>
-    <sql id="ddl.sr.createAggregateTbl" sqlType="SQL" tempateType="freeMarker">
-        <![CDATA[
 
-        ]]>
-    </sql>
-    <sql id="ddl.sr.createPrimaryTbl" sqlType="SQL" tempateType="freeMarker">
+    <sql id="ddl.sr.createExternalTbl" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
-
-        ]]>
-    </sql>
-    <sql id="ddl.sr.createUniqueTbl" sqlType="SQL" tempateType="freeMarker">
-        <![CDATA[
-
+                CREATE EXTERNAL TABLE
+                 <#if schemaName?? && schemaName != "">
+                    ${schemaName}.
+                </#if>${tblName}
+                (
+               <#list cols! as item>
+                    `${item.colName}`
+                    <#if item.len?? && item.len!= "" && item.colType?? >
+                         ${item.colType}(${item.len})
+                         <#else>
+                         ${item.colType}
+                    </#if>
+                    ${item.notNull!}
+                    <#if item_has_next>,</#if>
+                </#list>
+                )
+                ENGINE =  ${tblEngine}
+                PROPERTIES
+                (
+                    <#list properties?keys as key>
+                        "${key}" = "${properties[key]}"
+                    </#list>
+                )
         ]]>
     </sql>
 
@@ -112,18 +137,19 @@
     <sql id="ddl.sr.addColumns" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
           ALTER TABLE ${table} ADD COLUMN
-            <foreach collection="columns" item="item" open="(" separator="," close=")">
-                ${item.colName} ${item.colType}
-                <if test="item.keyType !=null">
+           <#list columns! as item>
+                (${item.colName} ${item.colType})
+                <if item.keyType??>
                     ${item.keyType}
                 </if>
-            </foreach>
+                 <#if item_has_next>,</#if>
+            </#list>
         ]]>
     </sql>
 
     <sql id="aux.sr.desc" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
-            DESC default_catalog.example_db.example_table;
+            DESC ${(catalogName)!"default_catalog"}.${dbName}.${tableName};
         ]]>
     </sql>
 

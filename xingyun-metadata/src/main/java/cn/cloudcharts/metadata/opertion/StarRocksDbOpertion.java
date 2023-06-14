@@ -4,11 +4,14 @@ import cn.cloudcharts.common.exception.ServiceException;
 import cn.cloudcharts.common.support.CustomSQL;
 import cn.cloudcharts.common.utils.AssertUtil;
 import cn.cloudcharts.common.utils.bean.BeanUtils;
+import cn.cloudcharts.metadata.enums.TblDataModelEnums;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
 import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Maps;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author wuque
@@ -23,28 +26,14 @@ public class StarRocksDbOpertion extends AbstractDbOpertion {
     @Override
     public String buildCreateTableSql(CreateTableDTO dto) {
 
-            String sqlId = "";
-
+//          0-明细 1-聚合 2-更新 3-主键
+            if(!TblDataModelEnums.contains(dto.getTblDataType())){
+                throw new ServiceException("Please select a data model! " +
+                        "StarRocks provides four table types: [0]Duplicate Key table, [1]Aggregate table, [2]Unique Key table, and [3]Primary Key table.");
+            }
+            String sqlId = "ddl.sr.createTbl";
             if("1".equals(dto.getTblType())){ //外表
                 sqlId = "ddl.sr.createExternalTbl";
-            }
-
-            switch (dto.getTblDataType()){ // 0-明细 1-聚合 2-更新 3-主键
-                case "0":
-                    sqlId = "ddl.sr.createDetailTbl";
-                    break;
-                case "1":
-                    sqlId = "ddl.sr.createAggregateTbl";
-                    break;
-                case "2":
-                    sqlId = "ddl.sr.createPrimaryTbl";
-                    break;
-                case "3":
-                    sqlId = "ddl.sr.createUniqueTbl";
-                    break;
-                default:
-                    throw new ServiceException("Please select a data model! " +
-                            "StarRocks provides four table types: [0]Duplicate Key table, [1]Aggregate table, [2]Unique Key table, and [3]Primary Key table.");
             }
 
             Map<String, Object> map = BeanUtils.nestedObj2Map(dto);

@@ -110,17 +110,25 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
 
         HikariConfig hikariConfig = new HikariConfig();
         //"jdbc:mysql://192.168.217.232:9030/tpch?useSSL=false"
-        hikariConfig.setJdbcUrl(config.getUrl());
+        String url;
+        String urls[] = config.getUrl().split("\\?");
+        if(urls.length > 1){
+            url = urls[0]+"?"+urls[1]+"&&autoReconnect=true";
+        }else{
+            url = urls[0]+"?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&&autoReconnect=true";
+        }
+        hikariConfig.setJdbcUrl(url);
         hikariConfig.setUsername(config.getUsername());
         hikariConfig.setPassword(config.getPassword());
         hikariConfig.setDriverClassName(getDriverClass());
-        hikariConfig.setMinimumIdle(1);
-        hikariConfig.setMaximumPoolSize(5);
+        hikariConfig.setMinimumIdle(5);
+        hikariConfig.setMaximumPoolSize(20);
         hikariConfig.setConnectionTestQuery("select 1");
         hikariConfig.setConnectionTimeout(60000);
         hikariConfig.setIdleTimeout(30000);
         hikariConfig.setKeepaliveTime(60000);
         hikariConfig.setMaxLifetime(300000);
+        hikariConfig.setValidationTimeout(10000);
         hikariConfig.setPoolName("xingyun-HikariCP-"+config.getName());
         hikariConfig.addDataSourceProperty("logWriter",new PrintWriter(System.out));
 
@@ -229,7 +237,6 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
         ResultSet results = null;
         int count = 0;
         try {
-            sql = getDbOpertion().getExecQuery(sql,limit);
             preparedStatement = conn.get().prepareStatement(sql);
             results = preparedStatement.executeQuery();
             if (AssertUtil.isNull(results)) {
