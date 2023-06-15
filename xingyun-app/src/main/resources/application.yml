@@ -1,7 +1,24 @@
 server:
   port: 8088
+  undertow:
+    accesslog:
+      dir: logs
+      enabled: true
+    threads:
+      # 指定工作者线程的 I/0 线程数，默认为 2 或者 CPU 的个数
+      io: 8
+      # 指定工作者线程个数，默认为 I/O 线程个数的 8 倍
+      worker: 256
+    # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理；
+    buffer-size: 1024
+    # 是否分配的直接内存(NIO直接分配的堆外内存)
+    direct-buffers: true
+  #    # 设置 HTTP POST 内容的最大长度，默认不做限制
+#    max-http-post-size: 4MB
 
 spring:
+  application:
+    name: xingyun
   datasource:
       type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: com.mysql.cj.jdbc.Driver
@@ -13,6 +30,27 @@ spring:
         maximum-pool-size: 15
         minimum-idle: 5
         idle-timeout: 30000
+  boot:
+    admin:
+      client:
+        url: http://localhost:${server.port}/${spring.boot.admin.context-path}
+        instance:
+          name: ${spring.application.name}
+      context-path: '/monitor'
+
+#  mail:
+#    protocol: smtp
+#    host: smtp.163.com
+#    username: xxxx@163.com
+#    password: xxx
+#    default-encoding: UTF-8
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#            required: true
 
 # mybatis-plus 配置
 mybatis-plus:
@@ -67,3 +105,15 @@ knife4j:
     enable-footer-custom: true
     footer-custom-content: Apache License 2.0 | Copyright  2023-[星云](https://github.com/haibao2015/xingyun)
 
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+    logfile:
+      enabled: true
+      external-file: /data/app/xingyun/logs/sys-info.log

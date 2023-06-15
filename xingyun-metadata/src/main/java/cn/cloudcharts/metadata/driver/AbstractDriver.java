@@ -8,7 +8,6 @@ import cn.cloudcharts.metadata.model.result.ResultColumn;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.logging.LoggingMeterRegistry;
@@ -89,12 +88,13 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
         return this;
     }
 
-    public synchronized HikariDataSource createDataSource() throws SQLException {
+    public HikariDataSource createDataSource() throws SQLException {
         if (null == dataSource) {
             synchronized (this.getClass()) {
                 if (null == dataSource) {
-
-                    this.dataSource = createDataSource(config);
+                    HikariDataSource ds = new HikariDataSource();
+                    createDataSource(ds,config);
+                    this.dataSource = ds;
                 }
             }
         }
@@ -106,35 +106,27 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
      * @param config
      * @return
      */
-    protected HikariDataSource createDataSource(DriverConfigPO config) {
+    protected void createDataSource(HikariDataSource ds, DriverConfigPO config) {
 
-        HikariConfig hikariConfig = new HikariConfig();
         //"jdbc:mysql://192.168.217.232:9030/tpch?useSSL=false"
-        String url;
-        String urls[] = config.getUrl().split("\\?");
-        if(urls.length > 1){
-            url = urls[0]+"?"+urls[1]+"&&autoReconnect=true";
-        }else{
-            url = urls[0]+"?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&&autoReconnect=true";
-        }
-        hikariConfig.setJdbcUrl(url);
-        hikariConfig.setUsername(config.getUsername());
-        hikariConfig.setPassword(config.getPassword());
-        hikariConfig.setDriverClassName(getDriverClass());
-        hikariConfig.setMinimumIdle(5);
-        hikariConfig.setMaximumPoolSize(20);
-        hikariConfig.setConnectionTestQuery("select 1");
-        hikariConfig.setConnectionTimeout(60000);
-        hikariConfig.setIdleTimeout(30000);
-        hikariConfig.setKeepaliveTime(60000);
-        hikariConfig.setMaxLifetime(300000);
-        hikariConfig.setValidationTimeout(10000);
-        hikariConfig.setPoolName("xingyun-HikariCP-"+config.getName());
-        hikariConfig.addDataSourceProperty("logWriter",new PrintWriter(System.out));
+        ds.setJdbcUrl(config.getUrl());
+        ds.setUsername(config.getUsername());
+        ds.setPassword(config.getPassword());
+        ds.setDriverClassName(getDriverClass());
+        ds.setMinimumIdle(0);
+        ds.setMaximumPoolSize(50);
+        ds.setConnectionTestQuery("select 1");
+        ds.setConnectionTimeout(60000);
+        ds.setIdleTimeout(30000);
+        ds.setKeepaliveTime(60000);
+        ds.setMaxLifetime(300000);
+        ds.setValidationTimeout(10000);
+        ds.setAllowPoolSuspension(true);
+        ds.setPoolName("xingyun-dspool-"+config.getName());
+        ds.addDataSourceProperty("logWriter",new PrintWriter(System.out));
 
-        logger.info( "{},初始化配置文件成功.....",hikariConfig.toString());
+        logger.info( "{},初始化配置文件成功.....",ds.toString());
 
-        HikariDataSource dataSource = new HikariDataSource(hikariConfig);
         // 设置metric注册器 每10秒打印一次
         // com.zaxxer.hikari.metrics.PoolStats
         LoggingMeterRegistry loggingMeterRegistry = new LoggingMeterRegistry(new LoggingRegistryConfig() {
@@ -147,21 +139,19 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
                 return Duration.ofSeconds(30);
             }
         }, Clock.SYSTEM);
-        dataSource.setMetricRegistry(loggingMeterRegistry);
-
-        return dataSource;
+        ds.setMetricRegistry(loggingMeterRegistry);
     }
 
     @Override
     public Driver connect() {
-        if (AssertUtil.isNull(conn.get())) {
-            try {
+        try {
+            if (ObjectUtil.isNull(conn.get())) {
                 Class.forName(getDriverClass());
                 Connection connection = createDataSource().getConnection();
                 conn.set(connection);
-            } catch (ClassNotFoundException | SQLException e) {
-                throw new RuntimeException(e);
             }
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
         }
         return this;
     }
@@ -213,12 +203,14 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
     @Override
     public void close() {
         try {
+            log.info("资源关闭：{}",conn.get());
             if (ObjectUtil.isNotEmpty(conn.get())) {
                 conn.get().close();
-                conn.remove();
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            conn.remove();
         }
     }
 

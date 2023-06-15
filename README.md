@@ -5,6 +5,8 @@
 ----
 检查启动状态：
 http://localhost:8088/actuator/health
+监控：
+http://localhost:8088/monitor
 
 ----
 

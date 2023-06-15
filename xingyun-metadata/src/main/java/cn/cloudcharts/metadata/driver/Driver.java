@@ -51,7 +51,7 @@ public interface Driver extends AutoCloseable{
 
     static Driver getHealthDriver(String key) {
         Driver driver = DriverPool.get(key);
-        if (driver.isHealth()) {
+        if (driver.isHealth() ) {
             return driver;
         } else {
             return driver.connect();

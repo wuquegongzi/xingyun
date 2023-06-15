@@ -1,6 +1,7 @@
 package cn.cloudcharts;
 
 import cn.hutool.system.SystemUtil;
+import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -8,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 
+@EnableAdminServer
 @SpringBootApplication
 public class XingyunApplication {
 
