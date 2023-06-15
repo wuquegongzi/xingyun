@@ -21,7 +21,7 @@ public class FastAutoGeneratorTest extends BaseGenerator {
      * 数据源配置
      */
     private static final DataSourceConfig.Builder DATA_SOURCE_CONFIG = new DataSourceConfig
-            .Builder("jdbc:mysql://192.168.216.154:31984/xingyun?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true", "root", "1qaz2wsx");
+            .Builder("jdbc:mysql://192.168.217.35:31533/xingyun?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&allowMultiQueries=true", "root", "1qaz2wsx");
 
     /**
      * 执行 run

@@ -18,6 +18,8 @@ import lombok.NoArgsConstructor;
 @Schema(description = "任务执行请求体")
 public class JobInfoRequest {
 
+    private String id;
+
 
 
 }

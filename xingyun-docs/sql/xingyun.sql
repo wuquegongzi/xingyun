@@ -25,15 +25,13 @@ CREATE TABLE `xingyun_database`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'database management' ROW_FORMAT = Dynamic;
 
 -- xingyun.xingyun_job_base definition
--- xingyun.xingyun_job_base definition
-
 CREATE TABLE `xingyun_job_base` (
                                     `job_id` bigint(20) NOT NULL AUTO_INCREMENT,
                                     `biz_id` varchar(100) DEFAULT NULL COMMENT '引擎返回的ID',
                                     `job_name` varchar(100) DEFAULT NULL COMMENT '作业名称',
-                                    `job_type` int(11) DEFAULT NULL COMMENT '作业类型',
+                                    `job_type` int(11) DEFAULT NULL COMMENT '作业类型  0-数据导入  1-数据导出',
                                     `job_engine` varchar(100) DEFAULT NULL COMMENT '作业执行引擎',
-                                    `business_type` int(11) DEFAULT NULL COMMENT '业务类型',
+                                    `business_type` varchar(500) DEFAULT NULL COMMENT '业务类型  eg: delta2starrocks[catalog.db.table->catalog.db.table]',
                                     `config_json` text COMMENT '配置',
                                     `submit _time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '提交时间',
                                     `exception_info` text COMMENT '异常信息',
@@ -54,7 +52,6 @@ CREATE TABLE `xingyun_job_base` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='作业基础信息';
 
 -- xingyun.xingyun_job_config_insert definition
-
 CREATE TABLE `xingyun_job_config_insert` (
                                              `id` bigint(20) NOT NULL AUTO_INCREMENT,
                                              `job_id` bigint(20) NOT NULL COMMENT '任务基础表ID',
@@ -70,5 +67,6 @@ CREATE TABLE `xingyun_job_config_insert` (
                                              `sink_db` varchar(100) DEFAULT NULL,
                                              `sink_tbl` varchar(100) DEFAULT NULL,
                                              `extra` text COMMENT '附加配置条件',
+                                             `condition` text COMMENT '条件',
                                              PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='insert方式导入数据任务配置表';

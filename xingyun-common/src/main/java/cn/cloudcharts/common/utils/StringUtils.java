@@ -5,6 +5,8 @@ import cn.cloudcharts.core.text.StrFormatter;
 import org.springframework.util.AntPathMatcher;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 字符串工具类
@@ -601,5 +603,34 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
             }
         }
         return sb.toString();
+    }
+
+
+    /**
+     * 去掉指定字符串的开头和结尾的指定字符
+     * @param stream 原始字符串
+     * @param trim 要删除的字符串
+     * @return
+     */
+    public static String stringStartEndTrim(String stream, String trim) {
+        // null或者空字符串的时候不处理
+        if (stream == null || stream.length() == 0 || trim == null || trim.length() == 0) {
+            return stream;
+        }
+        // 要删除的字符串结束位置
+        int end;
+        int start;
+        // 正规表达式
+        String regPattern = "[" + trim + "]*+";
+        Pattern pattern = Pattern.compile(regPattern, Pattern.CASE_INSENSITIVE);
+        // 去掉原始字符串开头位置的指定字符
+        Matcher matcher = pattern.matcher(stream);
+        if (matcher.lookingAt()) {
+            end = matcher.regionEnd();
+            start = matcher.regionStart();
+            stream = stream.substring(start+1,end-1);
+        }
+        // 返回处理后的字符串
+        return stream;
     }
 }
