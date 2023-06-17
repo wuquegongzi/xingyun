@@ -45,5 +45,19 @@ public  abstract class AbstractDbOpertion implements IDbOpertion {
         return CustomSQL.getInstance().get("dml.jdbc.getTableList",map);
     }
 
+    @Override
+    public String exsitTbl(String catalogName, String dbName, String tblName) {
+        AssertUtil.checkNullString(dbName, "数据库名不可空");
+        AssertUtil.checkNullString(tblName, "表名不可空");
 
+        Map map = Maps.newHashMap();
+        if( StrUtil.isNotEmpty(catalogName)){
+            map.put("catalogName", catalogName);
+        }
+
+        map.put("dbName",dbName);
+        map.put("tblName",tblName);
+
+        return CustomSQL.getInstance().get("dml.jdbc.exsitTbl",map);
+    }
 }

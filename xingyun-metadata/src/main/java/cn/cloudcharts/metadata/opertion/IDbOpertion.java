@@ -1,5 +1,6 @@
 package cn.cloudcharts.metadata.opertion;
 
+import cn.cloudcharts.metadata.model.dto.AlertColumnDTO;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
 
 /**
@@ -18,4 +19,8 @@ public interface IDbOpertion {
     String getTableList(String catalogName, String dbName);
 
     String getExecQuery(String sql, Integer limit);
+
+    String exsitTbl(String catalogName, String dbName, String tblName);
+
+    String buildAddColumnsSql(AlertColumnDTO dto);
 }

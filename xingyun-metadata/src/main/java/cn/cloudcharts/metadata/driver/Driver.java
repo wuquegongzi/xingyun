@@ -2,6 +2,7 @@ package cn.cloudcharts.metadata.driver;
 
 import cn.cloudcharts.common.exception.ServiceException;
 import cn.cloudcharts.common.utils.AssertUtil;
+import cn.cloudcharts.metadata.model.dto.AlertColumnDTO;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import cn.cloudcharts.metadata.model.result.SqlExplainResult;
@@ -105,7 +106,14 @@ public interface Driver extends AutoCloseable{
 
     boolean createTbl(CreateTableDTO dto) throws Exception;
 
+    boolean addColumns(AlertColumnDTO dto) throws Exception;
+
     List<Map<String,Object>> queryAllColumns(String catalogName, String dbName, String tableName);
 
     List<String> getTableList(String catalogName, String dbName);
+
+    boolean exsitTbl(String catalogName, String dbName, String tblName);
+
+    boolean syncTblMeta(String statement, String schemaFromCatalogName, String schemaFromCatalogDsType);
+
 }

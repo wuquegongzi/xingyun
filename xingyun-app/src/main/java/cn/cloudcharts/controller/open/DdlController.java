@@ -1,6 +1,7 @@
 package cn.cloudcharts.controller.open;
 
 import cn.cloudcharts.core.domain.R;
+import cn.cloudcharts.metadata.model.dto.AlertColumnDTO;
 import cn.cloudcharts.service.DdlService;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -58,4 +59,12 @@ public class DdlController {
         return R.ok(ddlService.createTbl(databaseId,sql));
     }
 
+
+    @ApiOperationSupport(author = "安山")
+    @Operation(summary = "添加字段")
+    @PostMapping("/addColumns")
+    public R addColumns(@RequestBody AlertColumnDTO dto){
+
+        return R.ok(ddlService.addColumns(dto));
+    }
 }

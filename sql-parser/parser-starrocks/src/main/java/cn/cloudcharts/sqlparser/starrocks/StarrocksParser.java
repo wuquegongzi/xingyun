@@ -94,13 +94,16 @@ public class StarrocksParser implements SqlPaser {
 
 
     public static void main(String[] args) {
-        String sql = "select * from test1 left join test2 on test1.id= test2.id where test1.name='pioneeryi';"
+        String sql = "select * from stg.test1 t1 " +
+                "left join ads.test2 t2 " +
+                "on t1.id= t2.id " +
+                "where t1.name='pioneeryi';"
                 +
-                "delete from test1 where test1.id = 1;"
+                "delete from stg.test1 t1 where t1.id = 1;"
                 +
-                "update test1 set id = 1  where id >10;"
+                "update stg.test1 set id = 1  where id >10;"
                 +
-                "drop table test1;";
+                "drop table stg.test1;";
 
         SqlPaser sqlPaser = new StarrocksParser();
         List<SqlNode> sqlNodes = sqlPaser.parser(sql);
@@ -108,6 +111,14 @@ public class StarrocksParser implements SqlPaser {
         for (int i = 0; i < sqlNodes.size(); i++) {
             System.out.println(sqlNodes.get(i).getKind().toString());
         }
+
+        String sql2 = "select * from stg.test1 t1 " +
+                "left join ads.test2 t2 " +
+                "on t1.id= t2.id " +
+                "where t1.name='pioneeryi';";
+
+        List<String> s = sqlPaser.extractTableNameList(sql2);
+        System.out.println(s.toString());
 
 
     }

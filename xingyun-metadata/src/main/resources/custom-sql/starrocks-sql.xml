@@ -136,14 +136,29 @@
 
     <sql id="ddl.sr.addColumns" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
-          ALTER TABLE ${table} ADD COLUMN
-           <#list columns! as item>
-                (${item.colName} ${item.colType})
-                <if item.keyType??>
-                    ${item.keyType}
-                </if>
-                 <#if item_has_next>,</#if>
-            </#list>
+          ALTER TABLE
+           <#if schemaName?? && schemaName != "">
+                ${schemaName}.
+           </#if>${table}
+           ADD COLUMN (
+           <#list cols! as item>
+                    `${item.colName}`
+                    <#if item.len?? && item.len!= "" && item.colType??
+                       && (item.colType == "BIGINT" || item.colType == "DECIMAL" || item.colType == "CHAR"
+                           || item.colType == "VARCHAR" || item.colType == "ARRAY") >
+                         ${item.colType}(${item.len})
+                         <#else>
+                         ${item.colType!"VARCHAR"}
+                    </#if>
+                    ${item.keyType!}
+                    ${item.notNull!}
+                    <#if item.defaultVal?? && item.defaultVal != "">
+                        DEFAULT  '${item.defaultVal!}'
+                    </#if>
+                        COMMENT  "${item.comment!}"
+                        <#if item_has_next>,</#if>
+           </#list>
+          )
         ]]>
     </sql>
 
@@ -153,13 +168,13 @@
         ]]>
     </sql>
 
-    <sql id="ops.starrocks.queryAllColumns" sqlType="SQL" tempateType="freeMarker">
+    <sql id="ops.sr.queryAllColumns" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
           SHOW FULL COLUMNS FROM ${(catalogName)!"default_catalog"}.${dbName}.${tableName}
         ]]>
     </sql>
 
-    <sql id="dml.starrocks.execQuery" sqlType="SQL" tempateType="freeMarker">
+    <sql id="dml.sr.execQuery" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
             select t.* from (${sql}) as t limit ${maxVal}
         ]]>

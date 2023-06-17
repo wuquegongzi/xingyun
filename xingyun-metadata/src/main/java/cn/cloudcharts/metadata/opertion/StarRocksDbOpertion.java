@@ -5,6 +5,7 @@ import cn.cloudcharts.common.support.CustomSQL;
 import cn.cloudcharts.common.utils.AssertUtil;
 import cn.cloudcharts.common.utils.bean.BeanUtils;
 import cn.cloudcharts.metadata.enums.TblDataModelEnums;
+import cn.cloudcharts.metadata.model.dto.AlertColumnDTO;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
 import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Maps;
@@ -54,7 +55,7 @@ public class StarRocksDbOpertion extends AbstractDbOpertion {
         map.put("dbName",dbName);
         map.put("tableName",tableName);
 
-        return CustomSQL.getInstance().get("ops.starrocks.queryAllColumns",map);
+        return CustomSQL.getInstance().get("ops.sr.queryAllColumns",map);
     }
 
     @Override
@@ -62,7 +63,13 @@ public class StarRocksDbOpertion extends AbstractDbOpertion {
         Map map = Maps.newHashMap();
         map.put("sql",sql);
         map.put("maxVal",limit);
-        return CustomSQL.getInstance().get("dml.starrocks.execQuery",map);
+        return CustomSQL.getInstance().get("dml.sr.execQuery",map);
+    }
+
+    @Override
+    public String buildAddColumnsSql(AlertColumnDTO dto) {
+        Map<String, Object> map = BeanUtils.nestedObj2Map(dto);
+        return CustomSQL.getInstance().get("ddl.sr.addColumns",map);
     }
 
 }

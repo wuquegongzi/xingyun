@@ -4,6 +4,7 @@ import cn.cloudcharts.model.request.QueryTblColumnRequest;
 import cn.cloudcharts.model.request.QueryTblRequest;
 import cn.cloudcharts.model.request.SqlExecRequest;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
+import cn.cloudcharts.model.request.SqlQueryRequest;
 
 import java.util.List;
 import java.util.Map;
@@ -22,4 +23,6 @@ public interface ExecuteService {
     List<Map<String,Object>> queryAllColumns(QueryTblColumnRequest queryTblRequest);
 
     List<String> getTableList(QueryTblRequest queryTblRequest);
+
+    JdbcSelectResult query(SqlQueryRequest sqlRequest);
 }

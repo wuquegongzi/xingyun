@@ -2,10 +2,12 @@ package cn.cloudcharts.metadata.driver;
 
 import cn.cloudcharts.common.utils.AssertUtil;
 import cn.cloudcharts.metadata.convert.ITypeConvert;
+import cn.cloudcharts.metadata.model.dto.AlertColumnDTO;
 import cn.cloudcharts.metadata.opertion.IDbOpertion;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
 import cn.cloudcharts.metadata.model.result.ResultColumn;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
+import cn.cloudcharts.sqlparser.SqlPaser;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.zaxxer.hikari.HikariDataSource;
@@ -43,6 +45,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
     private HikariDataSource dataSource;
 
     public abstract IDbOpertion getDbOpertion();
+    public abstract SqlPaser getSqlPaser();
 
     abstract String getDriverClass();
 
@@ -150,7 +153,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
             }
             @Override
             public Duration step() {
-                return Duration.ofSeconds(30);
+                return Duration.ofMinutes(3);
             }
         }, Clock.SYSTEM);
         ds.setMetricRegistry(loggingMeterRegistry);
@@ -329,6 +332,20 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
     }
 
     @Override
+    public boolean addColumns(AlertColumnDTO dto) throws Exception {
+        String sql = buildAddColumnsSql(dto).replaceAll("\r\n", " ");
+        if (StrUtil.isNotEmpty(sql)) {
+            return execute(sql);
+        } else {
+            return false;
+        }
+    }
+
+    private String buildAddColumnsSql(AlertColumnDTO dto) {
+        return getDbOpertion().buildAddColumnsSql(dto);
+    }
+
+    @Override
     public List<Map<String,Object>> queryAllColumns(String catalogName, String dbName, String tableName) {
 
         String sql = getDbOpertion().queryAllColumns(catalogName,dbName,tableName);
@@ -363,5 +380,22 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
             throw new RuntimeException(e);
         }
         return lists;
+    }
+
+    @Override
+    public boolean exsitTbl(String catalogName, String dbName, String tblName) {
+
+        String sql = getDbOpertion().exsitTbl(catalogName,dbName,tblName);
+
+        try {
+            if (StrUtil.isNotEmpty(sql)) {
+                QueryRunner qr = new QueryRunner();
+                List<Map<String, Object>> lists = qr.query(conn.get(),sql, new MapListHandler());
+                return  lists.size() > 0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
     }
 }

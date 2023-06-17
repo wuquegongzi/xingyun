@@ -1,5 +1,6 @@
 package cn.cloudcharts.service;
 
+import cn.cloudcharts.metadata.model.dto.AlertColumnDTO;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
 
 /**
@@ -14,4 +15,6 @@ public interface DdlService {
     boolean createTbl(CreateTableDTO dto);
 
     boolean createTbl(Integer databaseId, String sql);
+
+    boolean addColumns(AlertColumnDTO dto);
 }

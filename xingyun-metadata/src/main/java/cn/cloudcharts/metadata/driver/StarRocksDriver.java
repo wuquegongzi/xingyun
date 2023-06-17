@@ -8,6 +8,8 @@ import cn.cloudcharts.metadata.opertion.IDbOpertion;
 import cn.cloudcharts.metadata.opertion.StarRocksDbOpertion;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import cn.cloudcharts.metadata.model.result.SqlExplainResult;
+import cn.cloudcharts.sqlparser.SqlPaser;
+import cn.cloudcharts.sqlparser.starrocks.StarrocksParser;
 
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -24,6 +26,11 @@ public class StarRocksDriver extends AbstractDriver{
     @Override
     public IDbOpertion getDbOpertion() {
         return new StarRocksDbOpertion();
+    }
+
+    @Override
+    public SqlPaser getSqlPaser() {
+        return new StarrocksParser();
     }
 
     @Override
@@ -97,6 +104,19 @@ public class StarRocksDriver extends AbstractDriver{
     @Override
     public List<SqlExplainResult> explain(String sql) {
         return null;
+    }
+
+    @Override
+    public boolean syncTblMeta(String statement, String schemaFromCatalogName, String schemaFromCatalogDsType) {
+
+        //解析sql
+        List<String> tblList = getSqlPaser().extractTableNameList(statement);
+
+
+        // 校验tbl 是否存在
+
+
+        return false;
     }
 
 

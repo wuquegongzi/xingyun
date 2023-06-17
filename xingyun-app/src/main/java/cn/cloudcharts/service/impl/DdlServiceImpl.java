@@ -2,6 +2,7 @@ package cn.cloudcharts.service.impl;
 
 import cn.cloudcharts.common.exception.ServiceException;
 import cn.cloudcharts.common.utils.AssertUtil;
+import cn.cloudcharts.metadata.model.dto.AlertColumnDTO;
 import cn.cloudcharts.model.entity.Database;
 import cn.cloudcharts.service.DdlService;
 import cn.cloudcharts.service.IDatabaseService;
@@ -49,6 +50,22 @@ public class DdlServiceImpl implements DdlService {
             Driver driver = Driver.build(database.getDriverConfig());
             is = driver.execute(sql);
         } catch (Exception e) {
+            throw new ServiceException(e.getMessage());
+        }
+        return is;
+    }
+
+    @Override
+    public boolean addColumns(AlertColumnDTO dto) {
+        Database database = databaseService.getById(dto.getDatabaseId());
+        AssertUtil.isNull(database,"该数据源不存在，请检查！");
+
+        boolean is = false;
+        try {
+            Driver driver = Driver.build(database.getDriverConfig());
+            is = driver.addColumns(dto);
+        } catch (Exception e) {
+            e.printStackTrace();
             throw new ServiceException(e.getMessage());
         }
         return is;

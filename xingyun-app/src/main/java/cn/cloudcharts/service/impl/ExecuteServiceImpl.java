@@ -6,10 +6,13 @@ import cn.cloudcharts.model.request.QueryTblColumnRequest;
 import cn.cloudcharts.model.request.QueryTblRequest;
 import cn.cloudcharts.model.request.SqlExecRequest;
 import cn.cloudcharts.model.entity.Database;
+import cn.cloudcharts.model.request.SqlQueryRequest;
 import cn.cloudcharts.service.ExecuteService;
 import cn.cloudcharts.service.IDatabaseService;
 import cn.cloudcharts.metadata.driver.Driver;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
+import cn.cloudcharts.sqlparser.SqlPaser;
+import cn.cloudcharts.sqlparser.starrocks.StarrocksParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -81,6 +84,28 @@ public class ExecuteServiceImpl implements ExecuteService {
         }
 
         return tables;
+    }
+
+    @Override
+    public JdbcSelectResult query(SqlQueryRequest sqlRequest) {
+
+        Database database = databaseService.getById(sqlRequest.getDatabaseId());
+        AssertUtil.isNull(database,"该数据源不存在，请检查！");
+        JdbcSelectResult selectResult;
+
+        try {
+            Driver driver = Driver.build(database.getDriverConfig());
+
+            if(sqlRequest.isCheckTblExist()){
+                driver.syncTblMeta(sqlRequest.getStatement(),sqlRequest.getSchemaFromCatalogName(),sqlRequest.getSchemaFromCatalogDsType());
+            }
+
+            selectResult = driver.query(sqlRequest.getStatement(), sqlRequest.getMaxRowNum());
+        } catch (Exception e) {
+            throw new ServiceException(e.getMessage());
+        }
+
+        return selectResult;
     }
 
 
