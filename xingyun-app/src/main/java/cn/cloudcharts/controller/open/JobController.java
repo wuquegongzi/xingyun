@@ -7,16 +7,17 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author wuque
  * @title: SyncController
  * @projectName xingyun
- * @description: 数据同步[导入-导出]
+ * @description: 数据作业[importJob、exportJob、schemaJob]
  * @date 2023/6/1320:47
  */
-@Tag(name = "JobApi", description = "作业接口")
+@Tag(name = "JobApi", description = "作业操作接口")
 @RestController("/job")
 public class JobController {
 
@@ -25,7 +26,7 @@ public class JobController {
             description = ""
     )
     @PostMapping("/submit")
-    public R<?> submit(@RequestBody JobInfoRequest taskInfoRequest){
+    public R<?> submit(@RequestParam(name = "jobId") String jobId){
 
         return R.ok();
     }
@@ -35,7 +36,7 @@ public class JobController {
             description = ""
     )
     @PostMapping("/pause")
-    public R<?> pause(@RequestBody JobInfoRequest taskInfoRequest){
+    public R<?> pause(@RequestParam(name = "jobId") String jobId){
         return R.ok();
     }
 
@@ -45,7 +46,7 @@ public class JobController {
             description = ""
     )
     @PostMapping("/resume")
-    public R<?> resume(@RequestBody JobInfoRequest taskInfoRequest){
+    public R<?> resume(@RequestParam(name = "jobId") String jobId){
         return R.ok();
     }
 
@@ -53,8 +54,8 @@ public class JobController {
     @Operation(summary = "作业修改",
             description = ""
     )
-    @PostMapping("/update")
-    public R<?> update(@RequestBody JobInfoRequest taskInfoRequest){
+    @PostMapping("/setting")
+    public R<?> setting(@RequestBody JobInfoRequest taskInfoRequest){
 
         return R.ok();
     }
@@ -64,7 +65,7 @@ public class JobController {
             description = ""
     )
     @PostMapping("/stop")
-    public R<?> stop(@RequestBody JobInfoRequest taskInfoRequest){
+    public R<?> stop(@RequestParam(name = "jobId") String jobId){
 
         return R.ok();
     }

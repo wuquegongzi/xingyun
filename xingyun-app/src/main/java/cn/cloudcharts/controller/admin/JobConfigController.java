@@ -1,6 +1,7 @@
 package cn.cloudcharts.controller.admin;
 
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -13,8 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @author wuque
  * @since 2023-06-15
  */
-@RestController
-@RequestMapping("/job/config")
+@Tag(name = "JobApi", description = "作业管理接口")
+@RestController("/job/config")
 public class JobConfigController {
+
+
+
+
+
+
 
 }

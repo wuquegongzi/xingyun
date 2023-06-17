@@ -7,6 +7,7 @@ import cn.cloudcharts.common.exception.ServiceException;
 import cn.cloudcharts.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -69,6 +70,14 @@ public class GlobalExceptionHandler
         String requestURI = request.getRequestURI();
         log.error("请求地址'{}',发生系统异常.", requestURI, e);
         return R.fail(HttpStatus.ERROR,"发生系统异常",e.getMessage());
+    }
+
+    @ExceptionHandler(HttpMessageNotWritableException.class)
+    public R handleHttpMessageNotWritableException(HttpMessageNotWritableException e)
+    {
+        log.error(e.getMessage(), e);
+        String message = e.getMessage();
+        return R.fail(message);
     }
 
 

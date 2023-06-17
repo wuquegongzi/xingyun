@@ -35,7 +35,7 @@ public class JobBase implements Serializable {
     @ApiModelProperty("作业名称")
     private String jobName;
 
-    @ApiModelProperty("作业类型  0-数据导入  1-数据导出")
+    @ApiModelProperty("作业类型  0-importJob  1-exportJob  2-schemaJob")
     private Integer jobType;
 
     @ApiModelProperty("作业执行引擎")

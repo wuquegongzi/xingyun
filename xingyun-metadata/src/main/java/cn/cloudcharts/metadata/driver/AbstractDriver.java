@@ -124,6 +124,20 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
         ds.setAllowPoolSuspension(true);
         ds.setPoolName("xingyun-dspool-"+config.getName());
         ds.addDataSourceProperty("logWriter",new PrintWriter(System.out));
+        ds.addDataSourceProperty("cachePrepStmts",true);
+        ds.addDataSourceProperty("prepStmtCacheSize",250);
+        ds.addDataSourceProperty("prepStmtCacheSqlLimit",2048);
+        ds.addDataSourceProperty("useServerPrepStmts",true);
+        ds.addDataSourceProperty("useLocalSessionState",true);
+        ds.addDataSourceProperty("rewriteBatchedStatements",true);
+        ds.addDataSourceProperty("cacheResultSetMetadata",true);
+        ds.addDataSourceProperty("cacheServerConfiguration",true);
+        ds.addDataSourceProperty("elideSetAutoCommits",true);
+        ds.addDataSourceProperty("maintainTimeStats",false);
+
+        //https://github.com/brettwooldridge/HikariCP/wiki/Dropwizard-HealthChecks
+        ds.addHealthCheckProperty("connectivityCheckTimeoutMs","1000");
+        ds.addHealthCheckProperty("expected99thPercentileMs", "10");
 
         logger.info( "{},初始化配置文件成功.....",ds.toString());
 

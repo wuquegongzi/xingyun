@@ -23,8 +23,7 @@ import java.util.List;
  * @author wuque
  * @since 2023-05-17
  */
-@RestController
-@RequestMapping("/database")
+@RestController("/database")
 @Tag(name = "DsApi", description = "多数据源管理接口")
 public class DatabaseController {
 
