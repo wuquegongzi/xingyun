@@ -23,15 +23,44 @@
             <artifactId>xingyun-common</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/commons-lang/commons-lang -->
         <dependency>
-            <groupId>org.apache.calcite</groupId>
-            <artifactId>calcite-core</artifactId>
-            <version>${calcite.version}</version>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
-            <groupId>org.apache.calcite</groupId>
-            <artifactId>calcite-server</artifactId>
-            <version>${calcite.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.cloudcharts</groupId>
+            <artifactId>parser-base</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.antlr/antlr4 -->
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4</artifactId>
+            <version>4.9.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -40,5 +69,43 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.17.2</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
+
+    <build>
+        <finalName>parser-starrocks</finalName>
+        <plugins>
+            <!--antlr-->
+            <plugin>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-maven-plugin</artifactId>
+                <version>4.9.3</version>
+                <executions>
+                    <execution>
+                        <id>antlr</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>src/main/antlr4/cn/cloudcharts/sql/parser/starrocks/antlr4</sourceDirectory>
+                            <outputDirectory>target/generated-sources/cn/cloudcharts/sql/parser/starrocks/parser/antlr4</outputDirectory>
+                            <libDirectory>target/generated-sources/cn/cloudcharts/sql/parser/starrocks/parser/antlr4</libDirectory>
+                            <visitor>true</visitor>
+                            <listener>false</listener>
+                            <arguments>
+                                <argument>-package</argument>
+                                <argument>cn.cloudcharts.sql.parser.starrocks</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

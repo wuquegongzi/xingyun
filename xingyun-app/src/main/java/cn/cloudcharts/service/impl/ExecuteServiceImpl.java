@@ -11,8 +11,6 @@ import cn.cloudcharts.service.ExecuteService;
 import cn.cloudcharts.service.IDatabaseService;
 import cn.cloudcharts.metadata.driver.Driver;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
-import cn.cloudcharts.sqlparser.SqlPaser;
-import cn.cloudcharts.sqlparser.starrocks.StarrocksParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package cn.cloudcharts.sqlparser.common;
+package cn.cloudcharts.sql.parser.common;
 
 /**
  * @ClassName Constant

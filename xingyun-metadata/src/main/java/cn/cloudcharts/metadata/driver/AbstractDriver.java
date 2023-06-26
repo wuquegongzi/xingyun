@@ -7,7 +7,7 @@ import cn.cloudcharts.metadata.opertion.IDbOpertion;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
 import cn.cloudcharts.metadata.model.result.ResultColumn;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
-import cn.cloudcharts.sqlparser.SqlPaser;
+import cn.cloudcharts.sql.parser.CalciteSqlParser;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.zaxxer.hikari.HikariDataSource;
@@ -45,7 +45,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
     private HikariDataSource dataSource;
 
     public abstract IDbOpertion getDbOpertion();
-    public abstract SqlPaser getSqlPaser();
+    public abstract CalciteSqlParser getCalciteSqlParser();
 
     abstract String getDriverClass();
 

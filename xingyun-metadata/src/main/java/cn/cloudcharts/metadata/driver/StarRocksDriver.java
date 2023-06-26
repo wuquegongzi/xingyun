@@ -8,8 +8,8 @@ import cn.cloudcharts.metadata.opertion.IDbOpertion;
 import cn.cloudcharts.metadata.opertion.StarRocksDbOpertion;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import cn.cloudcharts.metadata.model.result.SqlExplainResult;
-import cn.cloudcharts.sqlparser.SqlPaser;
-import cn.cloudcharts.sqlparser.starrocks.StarrocksParser;
+import cn.cloudcharts.sql.parser.CalciteSqlParser;
+import cn.cloudcharts.sql.parser.starrocks.StarrocksCalciteParserHelper;
 
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -29,8 +29,8 @@ public class StarRocksDriver extends AbstractDriver{
     }
 
     @Override
-    public SqlPaser getSqlPaser() {
-        return new StarrocksParser();
+    public CalciteSqlParser getCalciteSqlParser() {
+        return new StarrocksCalciteParserHelper();
     }
 
     @Override
@@ -110,10 +110,12 @@ public class StarRocksDriver extends AbstractDriver{
     public boolean syncTblMeta(String statement, String schemaFromCatalogName, String schemaFromCatalogDsType) {
 
         //解析sql
-        List<String> tblList = getSqlPaser().extractTableNameList(statement);
+        List<String> tblList = getCalciteSqlParser().extractTableNameList(statement);
 
 
         // 校验tbl 是否存在
+
+        // create tbl like catalog.tbl
 
 
         return false;

@@ -13,6 +13,7 @@
     <name>sql-parser</name>
     <url>http://maven.apache.org</url>
     <modules>
+        <module>parser-base</module>
         <module>parser-starrocks</module>
     </modules>
 
