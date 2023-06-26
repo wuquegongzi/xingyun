@@ -10,7 +10,9 @@ import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import cn.cloudcharts.metadata.model.result.SqlExplainResult;
 import cn.cloudcharts.sql.parser.CalciteSqlParser;
 import cn.cloudcharts.sql.parser.starrocks.StarrocksCalciteParserHelper;
+import org.apache.calcite.sql.parser.SqlParseException;
 
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,13 +109,22 @@ public class StarRocksDriver extends AbstractDriver{
     }
 
     @Override
-    public boolean syncTblMeta(String statement, String schemaFromCatalogName, String schemaFromCatalogDsType) {
+    public boolean syncTblMeta(String statement, String schemaFromCatalogName, String schemaFromCatalogDsType) throws SqlParseException {
+
+        try {
+            String dbName = conn.get().getCatalog();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         //解析sql
         List<String> tblList = getCalciteSqlParser().extractTableNameList(statement);
 
+        //校验tbl 是否存在
+        tblList.forEach(tbl ->{
+//            getDbOpertion().exsitTbl()
 
-        // 校验tbl 是否存在
+        });
 
         // create tbl like catalog.tbl
 

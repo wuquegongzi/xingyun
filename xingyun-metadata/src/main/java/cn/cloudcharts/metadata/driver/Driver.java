@@ -6,6 +6,7 @@ import cn.cloudcharts.metadata.model.dto.AlertColumnDTO;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import cn.cloudcharts.metadata.model.result.SqlExplainResult;
+import org.apache.calcite.sql.parser.SqlParseException;
 
 import java.util.List;
 import java.util.Map;
@@ -114,6 +115,6 @@ public interface Driver extends AutoCloseable{
 
     boolean exsitTbl(String catalogName, String dbName, String tblName);
 
-    boolean syncTblMeta(String statement, String schemaFromCatalogName, String schemaFromCatalogDsType);
+    boolean syncTblMeta(String statement, String schemaFromCatalogName, String schemaFromCatalogDsType) throws SqlParseException;
 
 }
