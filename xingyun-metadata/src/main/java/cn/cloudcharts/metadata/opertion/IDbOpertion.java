@@ -23,4 +23,8 @@ public interface IDbOpertion {
     String exsitTbl(String catalogName, String dbName, String tblName);
 
     String buildAddColumnsSql(AlertColumnDTO dto);
+
+    String exsitSchema(String catalogName, String dbName);
+
+    String createSchema(String dbName);
 }

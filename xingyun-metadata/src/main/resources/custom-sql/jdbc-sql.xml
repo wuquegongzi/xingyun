@@ -13,10 +13,31 @@
         ]]>
     </sql>
 
+<!--    select 1 from information_schema.tables where table_schema='数据库名' and table_name ='表名';-->
     <sql id="dml.jdbc.exsitTbl" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
           SHOW TABLES FROM ${(catalogName)!"default_catalog"}.${dbName} like '${tblName}'
         ]]>
     </sql>
+
+    <sql id="dml.jdbc.exsitSchema" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+          select  schema_name from information_schema.schemata  where schema_name='${dbName}' limit 1
+        ]]>
+    </sql>
+
+    <sql id="dml.jdbc.exsitColumn" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+           select 1 from information_schema.columns  where table_schema='数据库名' and table_name='表名' and column_name ='列名'
+        ]]>
+    </sql>
+
+    <sql id="dml.jdbc.createSchema" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+           CREATE DATABASE IF NOT EXISTS ${dbName}
+        ]]>
+    </sql>
+
+
 
 </sqls>

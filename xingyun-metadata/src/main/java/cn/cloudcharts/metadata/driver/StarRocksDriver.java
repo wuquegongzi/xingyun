@@ -1,6 +1,7 @@
 package cn.cloudcharts.metadata.driver;
 
 import cn.cloudcharts.common.utils.AssertUtil;
+import cn.cloudcharts.common.utils.StringUtils;
 import cn.cloudcharts.common.utils.sql.SqlUtil;
 import cn.cloudcharts.metadata.convert.ITypeConvert;
 import cn.cloudcharts.metadata.convert.StarRocksTypeConvert;
@@ -9,6 +10,7 @@ import cn.cloudcharts.metadata.opertion.StarRocksDbOpertion;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import cn.cloudcharts.metadata.model.result.SqlExplainResult;
 import cn.cloudcharts.sql.parser.CalciteSqlParser;
+import cn.cloudcharts.sql.parser.model.Table;
 import cn.cloudcharts.sql.parser.starrocks.StarrocksCalciteParserHelper;
 import org.apache.calcite.sql.parser.SqlParseException;
 
@@ -109,27 +111,40 @@ public class StarRocksDriver extends AbstractDriver{
     }
 
     @Override
-    public boolean syncTblMeta(String statement, String schemaFromCatalogName, String schemaFromCatalogDsType) throws SqlParseException {
+    public boolean syncTblMeta(String statement, String schemaFromCatalogName, String schemaFromCatalogDsType) throws SqlParseException, SQLException {
 
+        String dbName;
         try {
-            String dbName = conn.get().getCatalog();
+            dbName = conn.get().getCatalog();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         //解析sql
-        List<String> tblList = getCalciteSqlParser().extractTableNameList(statement);
+        List<Table> tblList = getCalciteSqlParser().extractTableList(statement);
+        for ( Table tbl : tblList ) {
+            if(StringUtils.isEmpty(tbl.db)){
+                tbl.setDb(dbName);
+            }
+            if(StringUtils.isEmpty(tbl.getDb())){
+                throw new SQLException("Please specify the schema to query the data table , the table name is "+tbl.getTblName());
+            }
+        }
 
-        //校验tbl 是否存在
+        //校验schema tbl 是否存在
         tblList.forEach(tbl ->{
-//            getDbOpertion().exsitTbl()
+            exsitSchema(tbl.getCatalog(),tbl.getDb(),true);
+            if(!exsitTbl(tbl.getCatalog(),tbl.getDb(),tbl.getTblName())){
 
+                // create tbl like catalog.tbl
+
+
+                //sync data
+
+            }
         });
 
-        // create tbl like catalog.tbl
-
-
-        return false;
+        return true;
     }
 
 

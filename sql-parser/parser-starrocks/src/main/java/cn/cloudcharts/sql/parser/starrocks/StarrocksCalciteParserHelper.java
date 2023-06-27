@@ -2,6 +2,7 @@ package cn.cloudcharts.sql.parser.starrocks;
 
 import cn.cloudcharts.sql.parser.CalciteSqlParser;
 import cn.cloudcharts.sql.parser.common.Constant;
+import cn.cloudcharts.sql.parser.model.Table;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.calcite.config.Lex;
@@ -16,6 +17,7 @@ import org.apache.commons.lang3.Validate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author wuque
@@ -68,6 +70,38 @@ public class StarrocksCalciteParserHelper implements CalciteSqlParser {
         parseSqlNode(parsed, tables);
 
         return tables;
+    }
+
+    @Override
+    public List<Table> extractTableList(String sql) {
+        List<String> tbls = null;
+        try {
+            tbls = extractTableNameList(sql);
+        } catch (SqlParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        if(null == tbls){
+            return Lists.newArrayList();
+        }
+
+        List<Table> tableList = tbls.parallelStream().distinct().map(tbl ->{
+            String tblArr[] =  tbl.split(".");
+            Table table = new Table();
+            if(tblArr.length == 1){
+                table.setTblName(tblArr[0]);
+            }else if(tblArr.length == 2){
+                table.setDb(tblArr[0]);
+                table.setTblName(tblArr[1]);
+            }else if(tblArr.length == 3){
+                table.setCatalog(tblArr[0]);
+                table.setDb(tblArr[1]);
+                table.setTblName(tblArr[2]);
+            }
+            return table;
+        }).collect(Collectors.toList());
+
+        return tableList;
     }
 
     private static void parseFromNode(SqlNode from, List<String> tableNameList) {

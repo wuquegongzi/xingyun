@@ -398,4 +398,28 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
         }
         return false;
     }
+
+    @Override
+    public boolean exsitSchema(String catalogName, String dbName, boolean autoCreate) {
+
+        String sql = getDbOpertion().exsitSchema(catalogName,dbName);
+
+        try {
+            if (StrUtil.isNotEmpty(sql)) {
+                QueryRunner qr = new QueryRunner();
+                List<Map<String, Object>> lists = qr.query(conn.get(),sql, new MapListHandler());
+
+                int res = lists.size();
+                if(res < 1 && autoCreate){
+                    sql = getDbOpertion().createSchema(dbName);
+                    qr.update(sql);
+                }
+
+                return  res > 0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
 }

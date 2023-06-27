@@ -60,4 +60,30 @@ public  abstract class AbstractDbOpertion implements IDbOpertion {
 
         return CustomSQL.getInstance().get("dml.jdbc.exsitTbl",map);
     }
+
+    @Override
+    public String exsitSchema(String catalogName, String dbName) {
+
+        AssertUtil.checkNullString(dbName, "数据库名不可空");
+
+        Map map = Maps.newHashMap();
+        if( StrUtil.isNotEmpty(catalogName)){
+            map.put("catalogName", catalogName);
+        }
+        map.put("dbName",dbName);
+
+        return CustomSQL.getInstance().get("dml.jdbc.exsitSchema",map);
+    }
+
+    @Override
+    public String createSchema(String dbName) {
+
+        AssertUtil.checkNullString(dbName, "数据库名不可空");
+
+        Map map = Maps.newHashMap();
+        map.put("dbName",dbName);
+
+        return CustomSQL.getInstance().get("dml.jdbc.createSchema",map);
+    }
+
 }

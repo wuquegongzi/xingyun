@@ -72,4 +72,5 @@ public class StarRocksDbOpertion extends AbstractDbOpertion {
         return CustomSQL.getInstance().get("ddl.sr.addColumns",map);
     }
 
+
 }
