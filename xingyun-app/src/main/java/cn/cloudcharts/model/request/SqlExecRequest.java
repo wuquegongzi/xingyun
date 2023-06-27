@@ -21,7 +21,7 @@ public class SqlExecRequest {
     @Schema(description = "SQL脚本文本")
     private String statement;
     @Schema(description = "数据源ID")
-    private Integer databaseId;
+    private Integer databaseId = 1;
     @Schema(description = "请求最大个数，默认0")
     private Integer maxRowNum;
 

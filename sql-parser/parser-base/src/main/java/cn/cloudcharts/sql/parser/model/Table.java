@@ -13,8 +13,8 @@ import lombok.Data;
 @Data
 public class Table {
 
-    public String catalog;
-    public String db;
-    public String tblName;
+    private String catalog;
+    private String db;
+    private String tblName;
 
 }

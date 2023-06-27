@@ -1,4 +1,4 @@
-package cn.cloudcharts.metadata.opertion;
+package cn.cloudcharts.metadata.sql;
 
 import cn.cloudcharts.common.support.CustomSQL;
 import cn.cloudcharts.common.utils.AssertUtil;
@@ -15,7 +15,7 @@ import java.util.Map;
  * @description:
  * @date 2023/5/2919:56
  */
-public  abstract class AbstractDbOpertion implements IDbOpertion {
+public  abstract class AbstractDbSqlGen implements IDbSqlGen {
 
 
     @Override

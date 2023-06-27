@@ -1,12 +1,14 @@
 package cn.cloudcharts.metadata.driver;
 
+import cn.cloudcharts.common.exception.ServiceException;
 import cn.cloudcharts.common.utils.AssertUtil;
 import cn.cloudcharts.metadata.convert.ITypeConvert;
 import cn.cloudcharts.metadata.model.dto.AlertColumnDTO;
-import cn.cloudcharts.metadata.opertion.IDbOpertion;
+import cn.cloudcharts.metadata.sql.IDbSqlGen;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
 import cn.cloudcharts.metadata.model.result.ResultColumn;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
+import cn.cloudcharts.metadata.task.ITaskOpertion;
 import cn.cloudcharts.sql.parser.CalciteSqlParser;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
@@ -15,6 +17,8 @@ import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.logging.LoggingMeterRegistry;
 import io.micrometer.core.instrument.logging.LoggingRegistryConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.calcite.sql.SqlKind;
+import org.apache.calcite.sql.parser.SqlParseException;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.slf4j.Logger;
@@ -44,8 +48,9 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
 
     private HikariDataSource dataSource;
 
-    public abstract IDbOpertion getDbOpertion();
-    public abstract CalciteSqlParser getCalciteSqlParser();
+    public abstract IDbSqlGen getDbSqlGenHelper();
+    public abstract CalciteSqlParser getCalciteSqlParserHelper();
+    public abstract ITaskOpertion getTaskOpertionHelper();
 
     abstract String getDriverClass();
 
@@ -238,6 +243,16 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
             limit = 100;
         }
 
+        SqlKind sqlKind = null;
+        try {
+            sqlKind = getCalciteSqlParserHelper().getSingleSqlKind(sql);
+        } catch (SqlParseException e) {
+            throw new RuntimeException(e);
+        }
+        if(SqlKind.SELECT.toString().equals(sqlKind.toString())){
+            throw new ServiceException("non-standard query statement!");
+       }
+
         JdbcSelectResult result = new JdbcSelectResult();
         List<LinkedHashMap<String, Object>> datas = new ArrayList<>();
         List<ResultColumn> columns = new ArrayList<>();
@@ -319,6 +334,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
 
     @Override
     public boolean createTbl(CreateTableDTO dto) throws Exception {
+
         String sql = buildCreateTableSql(dto).replaceAll("\r\n", " ");
         if (StrUtil.isNotEmpty(sql)) {
             return execute(sql);
@@ -328,7 +344,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
     }
 
     private String buildCreateTableSql(CreateTableDTO tableDTO) {
-        return getDbOpertion().buildCreateTableSql(tableDTO);
+        return getDbSqlGenHelper().buildCreateTableSql(tableDTO);
     }
 
     @Override
@@ -342,13 +358,13 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
     }
 
     private String buildAddColumnsSql(AlertColumnDTO dto) {
-        return getDbOpertion().buildAddColumnsSql(dto);
+        return getDbSqlGenHelper().buildAddColumnsSql(dto);
     }
 
     @Override
     public List<Map<String,Object>> queryAllColumns(String catalogName, String dbName, String tableName) {
 
-        String sql = getDbOpertion().queryAllColumns(catalogName,dbName,tableName);
+        String sql = getDbSqlGenHelper().queryAllColumns(catalogName,dbName,tableName);
 
         List<Map<String,Object>> mapList = null;
         try {
@@ -364,7 +380,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
 
     @Override
     public List<String> getTableList(String catalogName, String dbName) {
-        String sql = getDbOpertion().getTableList(catalogName,dbName);
+        String sql = getDbSqlGenHelper().getTableList(catalogName,dbName);
 
         List<String> lists = null;
         try {
@@ -385,7 +401,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
     @Override
     public boolean exsitTbl(String catalogName, String dbName, String tblName) {
 
-        String sql = getDbOpertion().exsitTbl(catalogName,dbName,tblName);
+        String sql = getDbSqlGenHelper().exsitTbl(catalogName,dbName,tblName);
 
         try {
             if (StrUtil.isNotEmpty(sql)) {
@@ -402,7 +418,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
     @Override
     public boolean exsitSchema(String catalogName, String dbName, boolean autoCreate) {
 
-        String sql = getDbOpertion().exsitSchema(catalogName,dbName);
+        String sql = getDbSqlGenHelper().exsitSchema(catalogName,dbName);
 
         try {
             if (StrUtil.isNotEmpty(sql)) {
@@ -411,7 +427,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
 
                 int res = lists.size();
                 if(res < 1 && autoCreate){
-                    sql = getDbOpertion().createSchema(dbName);
+                    sql = getDbSqlGenHelper().createSchema(dbName);
                     qr.update(sql);
                 }
 
@@ -422,4 +438,6 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
         }
         return false;
     }
+
+
 }

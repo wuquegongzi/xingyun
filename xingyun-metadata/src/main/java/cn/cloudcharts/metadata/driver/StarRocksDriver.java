@@ -1,23 +1,32 @@
 package cn.cloudcharts.metadata.driver;
 
 import cn.cloudcharts.common.utils.AssertUtil;
+import cn.cloudcharts.common.utils.DateUtils;
 import cn.cloudcharts.common.utils.StringUtils;
 import cn.cloudcharts.common.utils.sql.SqlUtil;
 import cn.cloudcharts.metadata.convert.ITypeConvert;
 import cn.cloudcharts.metadata.convert.StarRocksTypeConvert;
-import cn.cloudcharts.metadata.opertion.IDbOpertion;
-import cn.cloudcharts.metadata.opertion.StarRocksDbOpertion;
+import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
+import cn.cloudcharts.metadata.sql.IDbSqlGen;
+import cn.cloudcharts.metadata.sql.StarRocksDbSqlGen;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import cn.cloudcharts.metadata.model.result.SqlExplainResult;
+import cn.cloudcharts.metadata.task.ITaskOpertion;
+import cn.cloudcharts.metadata.task.StarrocksTaskOpertion;
+import cn.cloudcharts.metadata.task.SyncTaskGenInfo;
+import cn.cloudcharts.metadata.task.schema.SchemaSync;
+import cn.cloudcharts.metadata.task.schema.StarrocksSchemaSync;
 import cn.cloudcharts.sql.parser.CalciteSqlParser;
 import cn.cloudcharts.sql.parser.model.Table;
-import cn.cloudcharts.sql.parser.starrocks.StarrocksCalciteParserHelper;
+import cn.cloudcharts.sql.parser.starrocks.StarrocksCalciteParser;
 import org.apache.calcite.sql.parser.SqlParseException;
 
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author wuque
@@ -28,13 +37,18 @@ import java.util.List;
  */
 public class StarRocksDriver extends AbstractDriver{
     @Override
-    public IDbOpertion getDbOpertion() {
-        return new StarRocksDbOpertion();
+    public IDbSqlGen getDbSqlGenHelper() {
+        return new StarRocksDbSqlGen();
     }
 
     @Override
-    public CalciteSqlParser getCalciteSqlParser() {
-        return new StarrocksCalciteParserHelper();
+    public CalciteSqlParser getCalciteSqlParserHelper() {
+        return new StarrocksCalciteParser();
+    }
+
+    @Override
+    public ITaskOpertion getTaskOpertionHelper() {
+        return new StarrocksTaskOpertion();
     }
 
     @Override
@@ -72,7 +86,7 @@ public class StarRocksDriver extends AbstractDriver{
             String type = item.toUpperCase();
             if (type.startsWith("SELECT") || type.startsWith("SHOW") || type.startsWith("DESC")) {
                 if(type.startsWith("SELECT")){
-                    item = getDbOpertion().getExecQuery(item,limit);
+                    item = getDbSqlGenHelper().getExecQuery(item,limit);
                 }
                 result = query(item, limit);
             } else if (type.startsWith("INSERT")
@@ -121,9 +135,9 @@ public class StarRocksDriver extends AbstractDriver{
         }
 
         //解析sql
-        List<Table> tblList = getCalciteSqlParser().extractTableList(statement);
+        List<Table> tblList = getCalciteSqlParserHelper().extractTableList(statement);
         for ( Table tbl : tblList ) {
-            if(StringUtils.isEmpty(tbl.db)){
+            if(StringUtils.isEmpty(tbl.getDb())){
                 tbl.setDb(dbName);
             }
             if(StringUtils.isEmpty(tbl.getDb())){
@@ -131,16 +145,46 @@ public class StarRocksDriver extends AbstractDriver{
             }
         }
 
+        //TODO if table 不存在，则直接走catalog查询
+
         //校验schema tbl 是否存在
         tblList.forEach(tbl ->{
             exsitSchema(tbl.getCatalog(),tbl.getDb(),true);
             if(!exsitTbl(tbl.getCatalog(),tbl.getDb(),tbl.getTblName())){
 
                 // create tbl like catalog.tbl
+                List<Map<String,Object>> srcTbl = queryAllColumns(schemaFromCatalogName,tbl.getDb(),tbl.getTblName());
 
+                SchemaSync<CreateTableDTO> schemaSync = new StarrocksSchemaSync();
+                CreateTableDTO createTableDTO = schemaSync.transformTbl(tbl.getDb(),tbl.getTblName(),srcTbl,schemaFromCatalogDsType,getType());
+                try {
+                    createTbl(createTableDTO);
+                    //sync data 异步
+                    String name = schemaFromCatalogDsType.concat("_").concat(schemaFromCatalogName).concat("_2_").concat(tbl.getDb()).concat("_").concat(tbl.getTblName());
+                    String dt = DateUtils.dateTimeNow();
+                    String cols = createTableDTO.getCols().stream().map(columnDTO -> {
+                        return columnDTO.getColName();
+                    }).collect(Collectors.joining(",", "", ""));
 
-                //sync data
+                    SyncTaskGenInfo taskGenInfo = new SyncTaskGenInfo();
+                    taskGenInfo.setTaskName("async_"+name+"_"+ dt);
+                    taskGenInfo.setLabel("insert_load_"+name+"_"+ dt);
+                    taskGenInfo.setAsync(true);
+                    taskGenInfo.setSrcCatalog(schemaFromCatalogName);
+                    taskGenInfo.setSrcDb(tbl.getDb());
+                    taskGenInfo.setSrcTbl(tbl.getTblName());
+                    taskGenInfo.setSrcCols(cols);
+//                    taskGenInfo.setSinkCatalog();
+                    taskGenInfo.setSinkDb(tbl.getDb());
+                    taskGenInfo.setSinkTbl(tbl.getTblName());
+                    taskGenInfo.setSinkCols(cols);
+                    taskGenInfo.setInsertType("OVERWRITE");
 
+                    getTaskOpertionHelper().submitSyncTask(conn.get(),taskGenInfo);
+
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 

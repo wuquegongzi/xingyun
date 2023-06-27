@@ -1,18 +1,19 @@
-package cn.cloudcharts.metadata.opertion;
+package cn.cloudcharts.metadata.sql;
 
 import cn.cloudcharts.common.exception.ServiceException;
 import cn.cloudcharts.common.support.CustomSQL;
 import cn.cloudcharts.common.utils.AssertUtil;
+import cn.cloudcharts.common.utils.StringUtils;
 import cn.cloudcharts.common.utils.bean.BeanUtils;
 import cn.cloudcharts.metadata.enums.TblDataModelEnums;
 import cn.cloudcharts.metadata.model.dto.AlertColumnDTO;
+import cn.cloudcharts.metadata.model.dto.ColumnDTO;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Maps;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author wuque
@@ -21,7 +22,7 @@ import java.util.Set;
  * @description:
  * @date 2023/5/2919:57
  */
-public class StarRocksDbOpertion extends AbstractDbOpertion {
+public class StarRocksDbSqlGen extends AbstractDbSqlGen {
 
 
     @Override
@@ -35,6 +36,29 @@ public class StarRocksDbOpertion extends AbstractDbOpertion {
             String sqlId = "ddl.sr.createTbl";
             if("1".equals(dto.getTblType())){ //外表
                 sqlId = "ddl.sr.createExternalTbl";
+            }
+
+            //主键模型  主键必须定义在其他列之前
+            List<ColumnDTO> columnSortList = new LinkedList<>();
+            if(TblDataModelEnums.PRIMARY.getCode().equals(dto.getTblDataType())){
+                List<ColumnDTO> columnDTOS = dto.getCols();
+                String keyDesc = dto.getKeyDesc();
+                if(StringUtils.isEmpty(keyDesc)){
+                    throw new ServiceException("The primary key model needs to define the primary key!");
+                }
+                String keyDescs[] = keyDesc.split(",");
+                for (int i = 0; i < keyDescs.length; i++) {
+                    String key = keyDescs[i];
+                    ColumnDTO columnDTO = columnDTOS.parallelStream().filter(column -> {
+                        return key.equals(column.getColName());
+                    }).findFirst().get();
+                    if(ObjectUtil.isNotEmpty(columnDTO)){
+                        columnSortList.add(columnDTO);
+                        columnDTOS.remove(columnDTO);
+                    }
+                }
+                columnSortList.addAll(columnDTOS);
+                dto.setCols(columnSortList);
             }
 
             Map<String, Object> map = BeanUtils.nestedObj2Map(dto);

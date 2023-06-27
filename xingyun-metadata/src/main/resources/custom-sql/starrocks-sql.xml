@@ -102,7 +102,7 @@
 
     <sql id="ddl.sr.createExternalTbl" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
-                CREATE EXTERNAL TABLE
+               CREATE EXTERNAL TABLE
                  <#if schemaName?? && schemaName != "">
                     ${schemaName}.
                 </#if>${tblName}
@@ -177,6 +177,25 @@
     <sql id="dml.sr.execQuery" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
             select t.* from (${sql}) as t limit ${maxVal}
+        ]]>
+    </sql>
+
+    <sql id="task.sr.sync.insert.async" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+            SUBMIT /*+set_var(query_timeout=100000)*/  TASK ${taskName}
+            AS
+            INSERT ${(insertType)!"OVERWRITE"} ${(sinkCatalog)!"default_catalog"}.${sinkDb}.${sinkTbl}
+            WITH LABEL ${label}
+            (
+             ${sinkCols}
+            )
+            SELECT  ${srcCols} FROM ${(srcCatalog)!"default_catalog"}.${srcDb}.${srcTbl}
+        ]]>
+    </sql>
+
+    <sql id="task.sr.sync.insert.async.result" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+           SELECT * FROM information_schema.task_runs WHERE task_name = '${taskName}';
         ]]>
     </sql>
 

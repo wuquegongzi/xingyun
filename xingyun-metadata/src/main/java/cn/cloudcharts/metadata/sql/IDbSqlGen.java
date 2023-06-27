@@ -1,4 +1,4 @@
-package cn.cloudcharts.metadata.opertion;
+package cn.cloudcharts.metadata.sql;
 
 import cn.cloudcharts.metadata.model.dto.AlertColumnDTO;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
@@ -10,7 +10,7 @@ import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
  * @description: DDL操作接口
  * @date 2023/5/2919:53
  */
-public interface IDbOpertion {
+public interface IDbSqlGen {
 
     String buildCreateTableSql(CreateTableDTO tableDTO);
 

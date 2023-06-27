@@ -1,6 +1,7 @@
 package cn.cloudcharts.sql.parser;
 
 import cn.cloudcharts.sql.parser.model.Table;
+import org.apache.calcite.sql.SqlKind;
 import org.apache.calcite.sql.SqlNode;
 import org.apache.calcite.sql.parser.SqlParseException;
 
@@ -22,6 +23,8 @@ public interface CalciteSqlParser {
      */
     List<SqlNode> parser(String sql);
 
+    SqlKind getSingleSqlKind(String sql) throws SqlParseException;
+
     /**
      * 切割SQL
      * @param sql
@@ -37,6 +40,8 @@ public interface CalciteSqlParser {
     List<String> extractTableNameList(String sql) throws SqlParseException;
 
     List<Table> extractTableList(String sql);
+
+
 
 
 

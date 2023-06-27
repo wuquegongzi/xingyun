@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * @date 2023/5/1115:34
  */
 @Slf4j
-public class StarrocksCalciteParserHelper implements CalciteSqlParser {
+public class StarrocksCalciteParser implements CalciteSqlParser {
 
     @Override
     public List<SqlNode> parser(String sql) {
@@ -53,6 +53,18 @@ public class StarrocksCalciteParserHelper implements CalciteSqlParser {
             }
         }
         return res;
+    }
+
+    @Override
+    public SqlKind getSingleSqlKind(String sql) throws SqlParseException {
+        // 解析配置
+        SqlParser.Config mysqlConfig = SqlParser.configBuilder().setLex(Lex.MYSQL).build();
+        // 创建解析器
+        SqlParser parser = SqlParser.create(sql, mysqlConfig);
+        // 解析sql
+        SqlNode sqlNode = parser.parseQuery();
+
+        return sqlNode.getKind();
     }
 
     @Override
@@ -174,7 +186,7 @@ public class StarrocksCalciteParserHelper implements CalciteSqlParser {
                 +
                 "drop table stg.test1";
 
-        CalciteSqlParser sqlParser = new StarrocksCalciteParserHelper();
+        CalciteSqlParser sqlParser = new StarrocksCalciteParser();
         List<SqlNode> sqlNodes = sqlParser.parser(sql);
 
         for (int i = 0; i < sqlNodes.size(); i++) {
@@ -190,16 +202,17 @@ public class StarrocksCalciteParserHelper implements CalciteSqlParser {
         System.out.println(s.toString());
 
 
-//        // Sql语句
-//        String sql = "select * from emps where id = 1";
-//        // 解析配置
-//        SqlParser.Config mysqlConfig = SqlParser.configBuilder().setLex(Lex.MYSQL).build();
-//        // 创建解析器
-//        SqlParser parser = SqlParser.create(sql, mysqlConfig);
-//        // 解析sql
-//        SqlNode sqlNode = parser.parseQuery();
-//        // 还原某个方言的SQL
-//        System.out.println(sqlNode.toSqlString(MysqlSqlDialect.DEFAULT));
+        // Sql语句
+       sql = "select * from emps where id = 1";
+        // 解析配置
+        SqlParser.Config mysqlConfig = SqlParser.configBuilder().setLex(Lex.MYSQL).build();
+        // 创建解析器
+        SqlParser parser = SqlParser.create(sql, mysqlConfig);
+        // 解析sql
+        SqlNode sqlNode = parser.parseQuery();
+        // 还原某个方言的SQL
+        System.out.println(sqlNode.toSqlString(MysqlSqlDialect.DEFAULT));
+        System.out.println(sqlNode.getKind().toString());
 
     }
 }
