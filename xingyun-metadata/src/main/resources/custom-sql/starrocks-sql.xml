@@ -11,9 +11,8 @@
     <sql id="ddl.sr.createTbl" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
            CREATE TABLE IF NOT EXISTS
-                <#if schemaName?? && schemaName != "">
-                    ${schemaName}.
-                </#if>${tblName} (
+                <#if schemaName?? && schemaName != "">${schemaName}.</#if>${tblName}
+                (
                 <#list cols! as item>
                     `${item.colName}`
                     <#if item.len?? && item.len!= "" && item.colType??
@@ -97,15 +96,14 @@
                     </#list>
                     )
                 </#if>
+
       ]]>
     </sql>
 
     <sql id="ddl.sr.createExternalTbl" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
                CREATE EXTERNAL TABLE
-                 <#if schemaName?? && schemaName != "">
-                    ${schemaName}.
-                </#if>${tblName}
+                 <#if schemaName?? && schemaName != "">${schemaName}.</#if>${tblName}
                 (
                <#list cols! as item>
                     `${item.colName}`
@@ -195,7 +193,7 @@
 
     <sql id="task.sr.sync.insert.async.result" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
-           SELECT * FROM information_schema.task_runs WHERE task_name = '${taskName}';
+           SELECT * FROM information_schema.task_runs WHERE task_name = '${taskName}'
         ]]>
     </sql>
 

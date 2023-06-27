@@ -149,6 +149,7 @@ public class StarRocksDriver extends AbstractDriver{
 
         //校验schema tbl 是否存在
         tblList.forEach(tbl ->{
+
             exsitSchema(tbl.getCatalog(),tbl.getDb(),true);
             if(!exsitTbl(tbl.getCatalog(),tbl.getDb(),tbl.getTblName())){
 

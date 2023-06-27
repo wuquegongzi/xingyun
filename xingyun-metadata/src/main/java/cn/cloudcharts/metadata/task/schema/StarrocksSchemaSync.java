@@ -1,9 +1,9 @@
 package cn.cloudcharts.metadata.task.schema;
 
-import cn.cloudcharts.common.utils.GsonUtils;
 import cn.cloudcharts.metadata.enums.TblDataModelEnums;
 import cn.cloudcharts.metadata.model.dto.ColumnDTO;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
+import cn.hutool.core.bean.BeanUtil;
 
 import java.util.*;
 
@@ -26,7 +26,7 @@ public class StarrocksSchemaSync implements SchemaSync<CreateTableDTO> {
         List<ColumnDTO> cols = new LinkedList<>();
         Set<String> keyDescSet = new LinkedHashSet<>();
         for (Map map : srcList) {
-            StarrocksCloumn starrocksCloumn = GsonUtils.gsonToBean(GsonUtils.gsonString(map), StarrocksCloumn.class);
+            StarrocksCloumn starrocksCloumn = BeanUtil.fillBeanWithMap(map,new StarrocksCloumn(),false);
             ColumnDTO columnDTO = new ColumnDTO();
             columnDTO.setColName(starrocksCloumn.getField());
             columnDTO.setColType(starrocksCloumn.getType());

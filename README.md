@@ -3,9 +3,9 @@
 **星云-轻量化小数仓**
 
 ----
-检查启动状态：
+- 检查启动状态：
 http://localhost:8088/actuator/health
-监控：
+- 监控：
 http://localhost:8088/monitor
 
 ----

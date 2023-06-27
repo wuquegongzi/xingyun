@@ -30,7 +30,7 @@ public class StarrocksTaskOpertion implements ITaskOpertion{
     public boolean submitSyncTask(Connection conn, SyncTaskGenInfo taskGenInfo) {
 
         Map map = BeanUtils.bean2Map(taskGenInfo);
-        String taskSql = CustomSQL.getInstance().get("task.sr.sync.insert.async",map);
+        String taskSql = CustomSQL.getInstance().get("task.sr.sync.insert.async",map).toLowerCase();
 
         int res = 0;
         try {
@@ -44,7 +44,7 @@ public class StarrocksTaskOpertion implements ITaskOpertion{
             ThreadUtil.execAsync(() -> {
                 Map resMap = new HashMap();
                 resMap.put("taskName",taskGenInfo.getTaskName());
-                String taskResultSql = CustomSQL.getInstance().get("task.sr.sync.insert.async.result",resMap);
+                String taskResultSql = CustomSQL.getInstance().get("task.sr.sync.insert.async.result",resMap).toLowerCase();
                 try {
                     QueryRunner queryRunner = new QueryRunner();
                     TaskRunsResult taskRunsResult = queryRunner.query(conn,taskResultSql,new BeanHandler<TaskRunsResult>(TaskRunsResult.class, new BasicRowProcessor(new GenerousBeanProcessor())));

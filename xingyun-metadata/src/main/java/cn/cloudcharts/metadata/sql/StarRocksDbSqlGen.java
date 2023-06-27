@@ -5,6 +5,7 @@ import cn.cloudcharts.common.support.CustomSQL;
 import cn.cloudcharts.common.utils.AssertUtil;
 import cn.cloudcharts.common.utils.StringUtils;
 import cn.cloudcharts.common.utils.bean.BeanUtils;
+import cn.cloudcharts.metadata.enums.ColumnTypeEnums;
 import cn.cloudcharts.metadata.enums.TblDataModelEnums;
 import cn.cloudcharts.metadata.model.dto.AlertColumnDTO;
 import cn.cloudcharts.metadata.model.dto.ColumnDTO;
@@ -14,6 +15,7 @@ import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Maps;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author wuque
@@ -38,34 +40,52 @@ public class StarRocksDbSqlGen extends AbstractDbSqlGen {
                 sqlId = "ddl.sr.createExternalTbl";
             }
 
-            //主键模型  主键必须定义在其他列之前
-            List<ColumnDTO> columnSortList = new LinkedList<>();
-            if(TblDataModelEnums.PRIMARY.getCode().equals(dto.getTblDataType())){
-                List<ColumnDTO> columnDTOS = dto.getCols();
-                String keyDesc = dto.getKeyDesc();
-                if(StringUtils.isEmpty(keyDesc)){
-                    throw new ServiceException("The primary key model needs to define the primary key!");
-                }
-                String keyDescs[] = keyDesc.split(",");
-                for (int i = 0; i < keyDescs.length; i++) {
-                    String key = keyDescs[i];
-                    ColumnDTO columnDTO = columnDTOS.parallelStream().filter(column -> {
-                        return key.equals(column.getColName());
-                    }).findFirst().get();
-                    if(ObjectUtil.isNotEmpty(columnDTO)){
-                        columnSortList.add(columnDTO);
-                        columnDTOS.remove(columnDTO);
-                    }
-                }
-                columnSortList.addAll(columnDTOS);
-                dto.setCols(columnSortList);
+        List<String> colList = dto.getCols().stream().map(columnDTO -> {
+            String colType = columnDTO.getColType().toUpperCase(Locale.ROOT);
+            if( colType.contains(ColumnTypeEnums.DATETIME.name())
+                    || colType.contains(ColumnTypeEnums.DATE.name())
+                    || colType.contains(ColumnTypeEnums.INT.name())
+                    || colType.contains(ColumnTypeEnums.TINYINT.name()) ){
+                return columnDTO.getColName();
             }
+            return null;
+        }).filter(c ->{ return null != c; }).collect(Collectors.toList());
 
-            Map<String, Object> map = BeanUtils.nestedObj2Map(dto);
-            if(null != dto.getProperties() && dto.getProperties().size() > 0){
-                map.put("properties",dto.getProperties());
+        String colDesc = colList.size() > 0 ? colList.get(0) : dto.getCols().get(0).getColName();
+        //如果分桶未指定，则默认取第一个
+        dto.setDistributedCols(StringUtils.isEmpty(dto.getDistributedCols())?colDesc : dto.getDistributedCols());
+
+        //如果keydesc排序键未指定，则默认取一个
+        dto.setKeyDesc(StringUtils.isEmpty(dto.getKeyDesc())?colDesc : dto.getKeyDesc());
+
+        //主键模型  主键必须定义在其他列之前
+        List<ColumnDTO> columnSortList = new LinkedList<>();
+//        if(TblDataModelEnums.PRIMARY.getCode().equals(dto.getTblDataType())){
+            List<ColumnDTO> columnDTOS = dto.getCols();
+            String keyDesc = dto.getKeyDesc();
+            if(StringUtils.isEmpty(keyDesc)){
+                throw new ServiceException("The primary key model needs to define the primary key!");
             }
-            return CustomSQL.getInstance().get(sqlId,map);
+            String keyDescs[] = keyDesc.split(",");
+            for (int i = 0; i < keyDescs.length; i++) {
+                String key = keyDescs[i];
+                ColumnDTO columnDTO = columnDTOS.parallelStream().filter(column -> {
+                    return key.equals(column.getColName());
+                }).findFirst().get();
+                if(ObjectUtil.isNotEmpty(columnDTO)){
+                    columnSortList.add(columnDTO);
+                    columnDTOS.remove(columnDTO);
+                }
+            }
+            columnSortList.addAll(columnDTOS);
+            dto.setCols(columnSortList);
+//        }
+
+        Map<String, Object> map = BeanUtils.nestedObj2Map(dto);
+        if(null != dto.getProperties() && dto.getProperties().size() > 0){
+            map.put("properties",dto.getProperties());
+        }
+        return CustomSQL.getInstance().get(sqlId,map);
     }
 
     @Override

@@ -93,12 +93,12 @@ public class StarrocksCalciteParser implements CalciteSqlParser {
             throw new RuntimeException(e);
         }
 
-        if(null == tbls){
+        if(null == tbls || tbls.size() < 1){
             return Lists.newArrayList();
         }
 
         List<Table> tableList = tbls.parallelStream().distinct().map(tbl ->{
-            String tblArr[] =  tbl.split(".");
+            String tblArr[] =  tbl.split("\\.");
             Table table = new Table();
             if(tblArr.length == 1){
                 table.setTblName(tblArr[0]);

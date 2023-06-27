@@ -243,15 +243,15 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
             limit = 100;
         }
 
-        SqlKind sqlKind = null;
-        try {
-            sqlKind = getCalciteSqlParserHelper().getSingleSqlKind(sql);
-        } catch (SqlParseException e) {
-            throw new RuntimeException(e);
-        }
-        if(SqlKind.SELECT.toString().equals(sqlKind.toString())){
-            throw new ServiceException("non-standard query statement!");
-       }
+//        SqlKind sqlKind = null;
+//        try {
+//            sqlKind = getCalciteSqlParserHelper().getSingleSqlKind(sql);
+//        } catch (SqlParseException e) {
+//            throw new RuntimeException(e);
+//        }
+//        if(SqlKind.SELECT.toString().equals(sqlKind.toString())){
+//            throw new ServiceException("non-standard query statement!");
+//       }
 
         JdbcSelectResult result = new JdbcSelectResult();
         List<LinkedHashMap<String, Object>> datas = new ArrayList<>();
@@ -335,7 +335,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
     @Override
     public boolean createTbl(CreateTableDTO dto) throws Exception {
 
-        String sql = buildCreateTableSql(dto).replaceAll("\r\n", " ");
+        String sql = buildCreateTableSql(dto).replaceAll("\r\n", " ").toLowerCase();
         if (StrUtil.isNotEmpty(sql)) {
             return execute(sql);
         } else {
@@ -428,7 +428,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
                 int res = lists.size();
                 if(res < 1 && autoCreate){
                     sql = getDbSqlGenHelper().createSchema(dbName);
-                    qr.update(sql);
+                    qr.update(conn.get(),sql);
                 }
 
                 return  res > 0;
