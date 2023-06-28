@@ -1,6 +1,5 @@
 package cn.cloudcharts.sql.parser.model;
 
-import com.oracle.webservices.internal.api.databinding.DatabindingMode;
 import lombok.Data;
 
 /**

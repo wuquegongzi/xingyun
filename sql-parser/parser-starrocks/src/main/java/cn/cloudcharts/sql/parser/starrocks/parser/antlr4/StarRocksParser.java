@@ -1,5 +1,5 @@
 // Generated from StarRocks.g4 by ANTLR 4.9.3
-package cn.cloudcharts.sql.parser.starrocks;
+package cn.cloudcharts.sql.parser.starrocks.parser.antlr4;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -17,316 +17,316 @@ public class StarRocksParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, T__10=11, ACTIVE=12, ADD=13, ADMIN=14, AFTER=15, AGGREGATE=16, 
-		ALL=17, ALTER=18, ANALYZE=19, AND=20, ANTI=21, ARRAY=22, ARRAY_AGG=23, 
-		AS=24, ASC=25, ASYNC=26, AUTHORS=27, AUTHENTICATION=28, AUTO_INCREMENT=29, 
-		AVG=30, BACKEND=31, BACKENDS=32, BACKUP=33, BEGIN=34, BETWEEN=35, BIGINT=36, 
-		BITMAP=37, BITMAP_UNION=38, BLACKLIST=39, BOOLEAN=40, BOTH=41, BROKER=42, 
-		BUCKETS=43, BUILTIN=44, BY=45, CANCEL=46, CASE=47, CAST=48, CATALOG=49, 
-		CATALOGS=50, CEIL=51, CHAIN=52, CHAR=53, CHARACTER=54, CHARSET=55, CHECK=56, 
-		CLEAN=57, CLUSTER=58, CLUSTERS=59, COLLATE=60, COLLATION=61, COLUMN=62, 
-		COLUMNS=63, COMMENT=64, COMMIT=65, COMMITTED=66, COMPUTE=67, CONFIG=68, 
-		CONNECTION=69, CONSISTENT=70, CONVERT=71, COSTS=72, COUNT=73, CREATE=74, 
-		CROSS=75, CUBE=76, CURRENT=77, CURRENT_DATE=78, CURRENT_ROLE=79, CURRENT_TIME=80, 
-		CURRENT_TIMESTAMP=81, CURRENT_USER=82, DATA=83, DATABASE=84, DATABASES=85, 
-		DATE=86, DATETIME=87, DAY=88, DECIMAL=89, DECIMALV2=90, DECIMAL32=91, 
-		DECIMAL64=92, DECIMAL128=93, DECOMMISSION=94, DEFAULT=95, DELETE=96, DENSE_RANK=97, 
-		DEFERRED=98, NTILE=99, DESC=100, DESCRIBE=101, DISTINCT=102, DISTRIBUTED=103, 
-		DISTRIBUTION=104, DOUBLE=105, DROP=106, DUAL=107, DUPLICATE=108, DYNAMIC=109, 
-		ELSE=110, ENCLOSE=111, END=112, ENGINE=113, ENGINES=114, ERRORS=115, ESCAPE=116, 
-		EVENTS=117, EXCEPT=118, EXECUTE=119, EXISTS=120, EXPLAIN=121, EXPORT=122, 
-		EXTERNAL=123, EXTRACT=124, EVERY=125, FALSE=126, FIELDS=127, FILE=128, 
-		FILTER=129, FIRST=130, FIRST_VALUE=131, FLOAT=132, FLOOR=133, FN=134, 
-		FOLLOWING=135, FOLLOWER=136, FOR=137, FORCE=138, FORMAT=139, FREE=140, 
-		FROM=141, FRONTEND=142, FRONTENDS=143, FULL=144, FUNCTION=145, FUNCTIONS=146, 
-		GLOBAL=147, GRANT=148, GRANTS=149, GROUP=150, GROUPS=151, GROUPING=152, 
-		GROUPING_ID=153, HASH=154, HAVING=155, HELP=156, HISTOGRAM=157, HLL=158, 
-		HLL_UNION=159, HOST=160, HOUR=161, HUB=162, IDENTIFIED=163, IF=164, IMPERSONATE=165, 
-		IMMEDIATE=166, IGNORE=167, IMAGE=168, IN=169, INACTIVE=170, INDEX=171, 
-		INDEXES=172, INFILE=173, INSTALL=174, INNER=175, INSERT=176, INT=177, 
-		INCREMENTAL=178, INTEGER=179, INTERMEDIATE=180, INTERSECT=181, INTERVAL=182, 
-		INTO=183, OVERWRITE=184, IS=185, ISOLATION=186, JOB=187, JOIN=188, JSON=189, 
-		KEY=190, KEYS=191, KILL=192, LABEL=193, LAG=194, LARGEINT=195, LAST=196, 
-		LAST_VALUE=197, LATERAL=198, LEAD=199, LEFT=200, LESS=201, LEVEL=202, 
-		LIKE=203, LIMIT=204, LIST=205, LOAD=206, LOCAL=207, LOCALTIME=208, LOCALTIMESTAMP=209, 
-		LOCATION=210, LOGICAL=211, MANUAL=212, MAP=213, MATERIALIZED=214, MAX=215, 
-		MAXVALUE=216, MERGE=217, MIN=218, MINUTE=219, MINUS=220, META=221, MOD=222, 
-		MODE=223, MODIFY=224, MONTH=225, NAME=226, NAMES=227, NEGATIVE=228, NO=229, 
-		NODE=230, NODES=231, NONE=232, NOT=233, NULL=234, NULLS=235, NUMBER=236, 
-		NUMERIC=237, OBSERVER=238, OF=239, OFFSET=240, ON=241, ONLY=242, OPEN=243, 
-		OPERATE=244, OPTIMIZER=245, OPTION=246, OR=247, ORDER=248, OUTER=249, 
-		OUTFILE=250, OVER=251, PARTITION=252, PARTITIONS=253, PASSWORD=254, PATH=255, 
-		PAUSE=256, PENDING=257, PERCENTILE=258, PERCENTILE_UNION=259, PLUGIN=260, 
-		PLUGINS=261, PRECEDING=262, PRIMARY=263, PRIVILEGES=264, PROC=265, PROCEDURE=266, 
-		PROCESSLIST=267, PROPERTIES=268, PROPERTY=269, QUALIFY=270, QUARTER=271, 
-		QUERY=272, QUEUE=273, QUOTA=274, RANDOM=275, RANGE=276, RANK=277, READ=278, 
-		RECOVER=279, REFRESH=280, REGEXP=281, RELEASE=282, REMOVE=283, RENAME=284, 
-		REPAIR=285, REPEATABLE=286, REPLACE=287, REPLACE_IF_NOT_NULL=288, REPLICA=289, 
-		REPOSITORY=290, REPOSITORIES=291, RESOURCE=292, RESOURCES=293, RESTORE=294, 
-		RESUME=295, RETURNS=296, REVOKE=297, REVERT=298, RIGHT=299, RLIKE=300, 
-		ROLE=301, ROLES=302, ROLLBACK=303, ROLLUP=304, ROUTINE=305, ROW=306, ROWS=307, 
-		ROW_NUMBER=308, SAMPLE=309, SCHEDULER=310, SCHEMA=311, SCHEMAS=312, SECOND=313, 
-		SELECT=314, SEMI=315, SERIALIZABLE=316, SESSION=317, SET=318, SETS=319, 
-		SET_VAR=320, SIGNED=321, SKIP_HEADER=322, SHOW=323, SMALLINT=324, SNAPSHOT=325, 
-		SQLBLACKLIST=326, START=327, STATS=328, STATUS=329, STOP=330, STORAGE=331, 
-		STREAM=332, STRING=333, SUBMIT=334, SUM=335, SUSPEND=336, SYNC=337, SYSTEM=338, 
-		SYSTEM_TIME=339, SWAP=340, STRUCT=341, TABLE=342, TABLES=343, TABLET=344, 
-		TASK=345, TEMPORARY=346, TERMINATED=347, THAN=348, THEN=349, TIME=350, 
-		TIMESTAMP=351, TIMESTAMPADD=352, TIMESTAMPDIFF=353, TINYINT=354, TRANSACTION=355, 
-		TO=356, TRACE=357, TRIGGERS=358, TRIM_SPACE=359, TRUE=360, TRUNCATE=361, 
-		TYPE=362, TYPES=363, UNBOUNDED=364, UNCOMMITTED=365, UNION=366, UNIQUE=367, 
-		UNINSTALL=368, UNSIGNED=369, UPDATE=370, USAGE=371, USE=372, USER=373, 
-		USERS=374, USING=375, VALUE=376, VALUES=377, VARBINARY=378, VARCHAR=379, 
-		VARIABLES=380, VERBOSE=381, VIEW=382, VIEWS=383, WAREHOUSE=384, WAREHOUSES=385, 
-		WARNINGS=386, WEEK=387, WHEN=388, WHERE=389, WHITELIST=390, WITH=391, 
-		WORK=392, WRITE=393, YEAR=394, LOCK=395, UNLOCK=396, LOW_PRIORITY=397, 
-		EQ=398, NEQ=399, LT=400, LTE=401, GT=402, GTE=403, EQ_FOR_NULL=404, PLUS_SYMBOL=405, 
-		MINUS_SYMBOL=406, ASTERISK_SYMBOL=407, SLASH_SYMBOL=408, PERCENT_SYMBOL=409, 
-		LOGICAL_OR=410, LOGICAL_AND=411, LOGICAL_NOT=412, INT_DIV=413, BITAND=414, 
-		BITOR=415, BITXOR=416, BITNOT=417, BIT_SHIFT_LEFT=418, BIT_SHIFT_RIGHT=419, 
-		BIT_SHIFT_RIGHT_LOGICAL=420, ARROW=421, AT=422, INTEGER_VALUE=423, DECIMAL_VALUE=424, 
-		DOUBLE_VALUE=425, SINGLE_QUOTED_TEXT=426, DOUBLE_QUOTED_TEXT=427, BINARY_SINGLE_QUOTED_TEXT=428, 
-		BINARY_DOUBLE_QUOTED_TEXT=429, LETTER_IDENTIFIER=430, DIGIT_IDENTIFIER=431, 
-		BACKQUOTED_IDENTIFIER=432, DOT_IDENTIFIER=433, SIMPLE_COMMENT=434, BRACKETED_COMMENT=435, 
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9,
+		T__9=10, T__10=11, ACTIVE=12, ADD=13, ADMIN=14, AFTER=15, AGGREGATE=16,
+		ALL=17, ALTER=18, ANALYZE=19, AND=20, ANTI=21, ARRAY=22, ARRAY_AGG=23,
+		AS=24, ASC=25, ASYNC=26, AUTHORS=27, AUTHENTICATION=28, AUTO_INCREMENT=29,
+		AVG=30, BACKEND=31, BACKENDS=32, BACKUP=33, BEGIN=34, BETWEEN=35, BIGINT=36,
+		BITMAP=37, BITMAP_UNION=38, BLACKLIST=39, BOOLEAN=40, BOTH=41, BROKER=42,
+		BUCKETS=43, BUILTIN=44, BY=45, CANCEL=46, CASE=47, CAST=48, CATALOG=49,
+		CATALOGS=50, CEIL=51, CHAIN=52, CHAR=53, CHARACTER=54, CHARSET=55, CHECK=56,
+		CLEAN=57, CLUSTER=58, CLUSTERS=59, COLLATE=60, COLLATION=61, COLUMN=62,
+		COLUMNS=63, COMMENT=64, COMMIT=65, COMMITTED=66, COMPUTE=67, CONFIG=68,
+		CONNECTION=69, CONSISTENT=70, CONVERT=71, COSTS=72, COUNT=73, CREATE=74,
+		CROSS=75, CUBE=76, CURRENT=77, CURRENT_DATE=78, CURRENT_ROLE=79, CURRENT_TIME=80,
+		CURRENT_TIMESTAMP=81, CURRENT_USER=82, DATA=83, DATABASE=84, DATABASES=85,
+		DATE=86, DATETIME=87, DAY=88, DECIMAL=89, DECIMALV2=90, DECIMAL32=91,
+		DECIMAL64=92, DECIMAL128=93, DECOMMISSION=94, DEFAULT=95, DELETE=96, DENSE_RANK=97,
+		DEFERRED=98, NTILE=99, DESC=100, DESCRIBE=101, DISTINCT=102, DISTRIBUTED=103,
+		DISTRIBUTION=104, DOUBLE=105, DROP=106, DUAL=107, DUPLICATE=108, DYNAMIC=109,
+		ELSE=110, ENCLOSE=111, END=112, ENGINE=113, ENGINES=114, ERRORS=115, ESCAPE=116,
+		EVENTS=117, EXCEPT=118, EXECUTE=119, EXISTS=120, EXPLAIN=121, EXPORT=122,
+		EXTERNAL=123, EXTRACT=124, EVERY=125, FALSE=126, FIELDS=127, FILE=128,
+		FILTER=129, FIRST=130, FIRST_VALUE=131, FLOAT=132, FLOOR=133, FN=134,
+		FOLLOWING=135, FOLLOWER=136, FOR=137, FORCE=138, FORMAT=139, FREE=140,
+		FROM=141, FRONTEND=142, FRONTENDS=143, FULL=144, FUNCTION=145, FUNCTIONS=146,
+		GLOBAL=147, GRANT=148, GRANTS=149, GROUP=150, GROUPS=151, GROUPING=152,
+		GROUPING_ID=153, HASH=154, HAVING=155, HELP=156, HISTOGRAM=157, HLL=158,
+		HLL_UNION=159, HOST=160, HOUR=161, HUB=162, IDENTIFIED=163, IF=164, IMPERSONATE=165,
+		IMMEDIATE=166, IGNORE=167, IMAGE=168, IN=169, INACTIVE=170, INDEX=171,
+		INDEXES=172, INFILE=173, INSTALL=174, INNER=175, INSERT=176, INT=177,
+		INCREMENTAL=178, INTEGER=179, INTERMEDIATE=180, INTERSECT=181, INTERVAL=182,
+		INTO=183, OVERWRITE=184, IS=185, ISOLATION=186, JOB=187, JOIN=188, JSON=189,
+		KEY=190, KEYS=191, KILL=192, LABEL=193, LAG=194, LARGEINT=195, LAST=196,
+		LAST_VALUE=197, LATERAL=198, LEAD=199, LEFT=200, LESS=201, LEVEL=202,
+		LIKE=203, LIMIT=204, LIST=205, LOAD=206, LOCAL=207, LOCALTIME=208, LOCALTIMESTAMP=209,
+		LOCATION=210, LOGICAL=211, MANUAL=212, MAP=213, MATERIALIZED=214, MAX=215,
+		MAXVALUE=216, MERGE=217, MIN=218, MINUTE=219, MINUS=220, META=221, MOD=222,
+		MODE=223, MODIFY=224, MONTH=225, NAME=226, NAMES=227, NEGATIVE=228, NO=229,
+		NODE=230, NODES=231, NONE=232, NOT=233, NULL=234, NULLS=235, NUMBER=236,
+		NUMERIC=237, OBSERVER=238, OF=239, OFFSET=240, ON=241, ONLY=242, OPEN=243,
+		OPERATE=244, OPTIMIZER=245, OPTION=246, OR=247, ORDER=248, OUTER=249,
+		OUTFILE=250, OVER=251, PARTITION=252, PARTITIONS=253, PASSWORD=254, PATH=255,
+		PAUSE=256, PENDING=257, PERCENTILE=258, PERCENTILE_UNION=259, PLUGIN=260,
+		PLUGINS=261, PRECEDING=262, PRIMARY=263, PRIVILEGES=264, PROC=265, PROCEDURE=266,
+		PROCESSLIST=267, PROPERTIES=268, PROPERTY=269, QUALIFY=270, QUARTER=271,
+		QUERY=272, QUEUE=273, QUOTA=274, RANDOM=275, RANGE=276, RANK=277, READ=278,
+		RECOVER=279, REFRESH=280, REGEXP=281, RELEASE=282, REMOVE=283, RENAME=284,
+		REPAIR=285, REPEATABLE=286, REPLACE=287, REPLACE_IF_NOT_NULL=288, REPLICA=289,
+		REPOSITORY=290, REPOSITORIES=291, RESOURCE=292, RESOURCES=293, RESTORE=294,
+		RESUME=295, RETURNS=296, REVOKE=297, REVERT=298, RIGHT=299, RLIKE=300,
+		ROLE=301, ROLES=302, ROLLBACK=303, ROLLUP=304, ROUTINE=305, ROW=306, ROWS=307,
+		ROW_NUMBER=308, SAMPLE=309, SCHEDULER=310, SCHEMA=311, SCHEMAS=312, SECOND=313,
+		SELECT=314, SEMI=315, SERIALIZABLE=316, SESSION=317, SET=318, SETS=319,
+		SET_VAR=320, SIGNED=321, SKIP_HEADER=322, SHOW=323, SMALLINT=324, SNAPSHOT=325,
+		SQLBLACKLIST=326, START=327, STATS=328, STATUS=329, STOP=330, STORAGE=331,
+		STREAM=332, STRING=333, SUBMIT=334, SUM=335, SUSPEND=336, SYNC=337, SYSTEM=338,
+		SYSTEM_TIME=339, SWAP=340, STRUCT=341, TABLE=342, TABLES=343, TABLET=344,
+		TASK=345, TEMPORARY=346, TERMINATED=347, THAN=348, THEN=349, TIME=350,
+		TIMESTAMP=351, TIMESTAMPADD=352, TIMESTAMPDIFF=353, TINYINT=354, TRANSACTION=355,
+		TO=356, TRACE=357, TRIGGERS=358, TRIM_SPACE=359, TRUE=360, TRUNCATE=361,
+		TYPE=362, TYPES=363, UNBOUNDED=364, UNCOMMITTED=365, UNION=366, UNIQUE=367,
+		UNINSTALL=368, UNSIGNED=369, UPDATE=370, USAGE=371, USE=372, USER=373,
+		USERS=374, USING=375, VALUE=376, VALUES=377, VARBINARY=378, VARCHAR=379,
+		VARIABLES=380, VERBOSE=381, VIEW=382, VIEWS=383, WAREHOUSE=384, WAREHOUSES=385,
+		WARNINGS=386, WEEK=387, WHEN=388, WHERE=389, WHITELIST=390, WITH=391,
+		WORK=392, WRITE=393, YEAR=394, LOCK=395, UNLOCK=396, LOW_PRIORITY=397,
+		EQ=398, NEQ=399, LT=400, LTE=401, GT=402, GTE=403, EQ_FOR_NULL=404, PLUS_SYMBOL=405,
+		MINUS_SYMBOL=406, ASTERISK_SYMBOL=407, SLASH_SYMBOL=408, PERCENT_SYMBOL=409,
+		LOGICAL_OR=410, LOGICAL_AND=411, LOGICAL_NOT=412, INT_DIV=413, BITAND=414,
+		BITOR=415, BITXOR=416, BITNOT=417, BIT_SHIFT_LEFT=418, BIT_SHIFT_RIGHT=419,
+		BIT_SHIFT_RIGHT_LOGICAL=420, ARROW=421, AT=422, INTEGER_VALUE=423, DECIMAL_VALUE=424,
+		DOUBLE_VALUE=425, SINGLE_QUOTED_TEXT=426, DOUBLE_QUOTED_TEXT=427, BINARY_SINGLE_QUOTED_TEXT=428,
+		BINARY_DOUBLE_QUOTED_TEXT=429, LETTER_IDENTIFIER=430, DIGIT_IDENTIFIER=431,
+		BACKQUOTED_IDENTIFIER=432, DOT_IDENTIFIER=433, SIMPLE_COMMENT=434, BRACKETED_COMMENT=435,
 		SEMICOLON=436, DOTDOTDOT=437, WS=438, CONCAT=439;
 	public static final int
-		RULE_sqlStatements = 0, RULE_singleStatement = 1, RULE_emptyStatement = 2, 
-		RULE_statement = 3, RULE_useDatabaseStatement = 4, RULE_useCatalogStatement = 5, 
-		RULE_setCatalogStatement = 6, RULE_showDatabasesStatement = 7, RULE_alterDbQuotaStatement = 8, 
-		RULE_createDbStatement = 9, RULE_dropDbStatement = 10, RULE_showCreateDbStatement = 11, 
-		RULE_alterDatabaseRenameStatement = 12, RULE_recoverDbStmt = 13, RULE_showDataStmt = 14, 
-		RULE_createTableStatement = 15, RULE_columnDesc = 16, RULE_charsetName = 17, 
-		RULE_defaultDesc = 18, RULE_indexDesc = 19, RULE_engineDesc = 20, RULE_charsetDesc = 21, 
-		RULE_collateDesc = 22, RULE_keyDesc = 23, RULE_orderByDesc = 24, RULE_aggDesc = 25, 
-		RULE_rollupDesc = 26, RULE_rollupItem = 27, RULE_dupKeys = 28, RULE_fromRollup = 29, 
-		RULE_createTemporaryTableStatement = 30, RULE_createTableAsSelectStatement = 31, 
-		RULE_dropTableStatement = 32, RULE_alterTableStatement = 33, RULE_createIndexStatement = 34, 
-		RULE_dropIndexStatement = 35, RULE_indexType = 36, RULE_showTableStatement = 37, 
-		RULE_showCreateTableStatement = 38, RULE_showColumnStatement = 39, RULE_showTableStatusStatement = 40, 
-		RULE_refreshTableStatement = 41, RULE_showAlterStatement = 42, RULE_descTableStatement = 43, 
-		RULE_createTableLikeStatement = 44, RULE_showIndexStatement = 45, RULE_recoverTableStatement = 46, 
-		RULE_truncateTableStatement = 47, RULE_cancelAlterTableStatement = 48, 
-		RULE_showPartitionsStatement = 49, RULE_recoverPartitionStatement = 50, 
-		RULE_createViewStatement = 51, RULE_alterViewStatement = 52, RULE_dropViewStatement = 53, 
-		RULE_submitTaskStatement = 54, RULE_dropTaskStatement = 55, RULE_createMaterializedViewStatement = 56, 
-		RULE_materializedViewDesc = 57, RULE_showMaterializedViewsStatement = 58, 
-		RULE_dropMaterializedViewStatement = 59, RULE_alterMaterializedViewStatement = 60, 
-		RULE_refreshMaterializedViewStatement = 61, RULE_cancelRefreshMaterializedViewStatement = 62, 
-		RULE_adminSetConfigStatement = 63, RULE_adminSetReplicaStatusStatement = 64, 
-		RULE_adminShowConfigStatement = 65, RULE_adminShowReplicaDistributionStatement = 66, 
-		RULE_adminShowReplicaStatusStatement = 67, RULE_adminRepairTableStatement = 68, 
-		RULE_adminCancelRepairTableStatement = 69, RULE_adminCheckTabletsStatement = 70, 
-		RULE_killStatement = 71, RULE_syncStatement = 72, RULE_alterSystemStatement = 73, 
-		RULE_cancelAlterSystemStatement = 74, RULE_showComputeNodesStatement = 75, 
-		RULE_createExternalCatalogStatement = 76, RULE_showCreateExternalCatalogStatement = 77, 
-		RULE_dropExternalCatalogStatement = 78, RULE_showCatalogsStatement = 79, 
-		RULE_createWarehouseStatement = 80, RULE_showWarehousesStatement = 81, 
-		RULE_useWarehouseStatement = 82, RULE_dropWarehouseStatement = 83, RULE_alterWarehouseStatement = 84, 
-		RULE_showClustersStatement = 85, RULE_suspendWarehouseStatement = 86, 
-		RULE_resumeWarehouseStatement = 87, RULE_alterClause = 88, RULE_addFrontendClause = 89, 
-		RULE_dropFrontendClause = 90, RULE_modifyFrontendHostClause = 91, RULE_addBackendClause = 92, 
-		RULE_dropBackendClause = 93, RULE_decommissionBackendClause = 94, RULE_modifyBackendHostClause = 95, 
-		RULE_addComputeNodeClause = 96, RULE_dropComputeNodeClause = 97, RULE_modifyBrokerClause = 98, 
-		RULE_alterLoadErrorUrlClause = 99, RULE_createImageClause = 100, RULE_cleanTabletSchedQClause = 101, 
-		RULE_createIndexClause = 102, RULE_dropIndexClause = 103, RULE_tableRenameClause = 104, 
-		RULE_swapTableClause = 105, RULE_modifyTablePropertiesClause = 106, RULE_addColumnClause = 107, 
-		RULE_addColumnsClause = 108, RULE_dropColumnClause = 109, RULE_modifyColumnClause = 110, 
-		RULE_columnRenameClause = 111, RULE_reorderColumnsClause = 112, RULE_rollupRenameClause = 113, 
-		RULE_addPartitionClause = 114, RULE_dropPartitionClause = 115, RULE_truncatePartitionClause = 116, 
-		RULE_modifyPartitionClause = 117, RULE_replacePartitionClause = 118, RULE_partitionRenameClause = 119, 
-		RULE_insertStatement = 120, RULE_updateStatement = 121, RULE_deleteStatement = 122, 
-		RULE_createRoutineLoadStatement = 123, RULE_alterRoutineLoadStatement = 124, 
-		RULE_dataSource = 125, RULE_loadProperties = 126, RULE_colSeparatorProperty = 127, 
-		RULE_rowDelimiterProperty = 128, RULE_importColumns = 129, RULE_columnProperties = 130, 
-		RULE_jobProperties = 131, RULE_dataSourceProperties = 132, RULE_stopRoutineLoadStatement = 133, 
-		RULE_resumeRoutineLoadStatement = 134, RULE_pauseRoutineLoadStatement = 135, 
-		RULE_showRoutineLoadStatement = 136, RULE_showRoutineLoadTaskStatement = 137, 
-		RULE_showStreamLoadStatement = 138, RULE_analyzeStatement = 139, RULE_dropStatsStatement = 140, 
-		RULE_analyzeHistogramStatement = 141, RULE_dropHistogramStatement = 142, 
-		RULE_createAnalyzeStatement = 143, RULE_dropAnalyzeJobStatement = 144, 
-		RULE_showAnalyzeStatement = 145, RULE_showStatsMetaStatement = 146, RULE_showHistogramMetaStatement = 147, 
-		RULE_killAnalyzeStatement = 148, RULE_createResourceGroupStatement = 149, 
-		RULE_dropResourceGroupStatement = 150, RULE_alterResourceGroupStatement = 151, 
-		RULE_showResourceGroupStatement = 152, RULE_createResourceStatement = 153, 
-		RULE_alterResourceStatement = 154, RULE_dropResourceStatement = 155, RULE_showResourceStatement = 156, 
-		RULE_classifier = 157, RULE_showFunctionsStatement = 158, RULE_dropFunctionStatement = 159, 
-		RULE_createFunctionStatement = 160, RULE_typeList = 161, RULE_loadStatement = 162, 
-		RULE_labelName = 163, RULE_dataDescList = 164, RULE_dataDesc = 165, RULE_formatProps = 166, 
-		RULE_brokerDesc = 167, RULE_resourceDesc = 168, RULE_showLoadStatement = 169, 
-		RULE_showLoadWarningsStatement = 170, RULE_cancelLoadStatement = 171, 
-		RULE_alterLoadStatement = 172, RULE_showAuthorStatement = 173, RULE_showBackendsStatement = 174, 
-		RULE_showBrokerStatement = 175, RULE_showCharsetStatement = 176, RULE_showCollationStatement = 177, 
-		RULE_showDeleteStatement = 178, RULE_showDynamicPartitionStatement = 179, 
-		RULE_showEventsStatement = 180, RULE_showEnginesStatement = 181, RULE_showFrontendsStatement = 182, 
-		RULE_showPluginsStatement = 183, RULE_showRepositoriesStatement = 184, 
-		RULE_showOpenTableStatement = 185, RULE_showPrivilegesStatement = 186, 
-		RULE_showProcedureStatement = 187, RULE_showProcStatement = 188, RULE_showProcesslistStatement = 189, 
-		RULE_showStatusStatement = 190, RULE_showTabletStatement = 191, RULE_showTransactionStatement = 192, 
-		RULE_showTriggersStatement = 193, RULE_showUserPropertyStatement = 194, 
-		RULE_showVariablesStatement = 195, RULE_showWarningStatement = 196, RULE_helpStatement = 197, 
-		RULE_createUserStatement = 198, RULE_dropUserStatement = 199, RULE_alterUserStatement = 200, 
-		RULE_showUserStatement = 201, RULE_showAuthenticationStatement = 202, 
-		RULE_executeAsStatement = 203, RULE_createRoleStatement = 204, RULE_dropRoleStatement = 205, 
-		RULE_showRolesStatement = 206, RULE_grantRoleStatement = 207, RULE_revokeRoleStatement = 208, 
-		RULE_setRoleStatement = 209, RULE_setDefaultRoleStatement = 210, RULE_grantRevokeClause = 211, 
-		RULE_grantPrivilegeStatement = 212, RULE_revokePrivilegeStatement = 213, 
-		RULE_showGrantsStatement = 214, RULE_authOption = 215, RULE_privObjectName = 216, 
-		RULE_privObjectNameList = 217, RULE_privFunctionObjectNameList = 218, 
-		RULE_privilegeTypeList = 219, RULE_privilegeType = 220, RULE_privObjectType = 221, 
-		RULE_privObjectTypePlural = 222, RULE_backupStatement = 223, RULE_cancelBackupStatement = 224, 
-		RULE_showBackupStatement = 225, RULE_restoreStatement = 226, RULE_cancelRestoreStatement = 227, 
-		RULE_showRestoreStatement = 228, RULE_showSnapshotStatement = 229, RULE_createRepositoryStatement = 230, 
-		RULE_dropRepositoryStatement = 231, RULE_addSqlBlackListStatement = 232, 
-		RULE_delSqlBlackListStatement = 233, RULE_showSqlBlackListStatement = 234, 
-		RULE_showWhiteListStatement = 235, RULE_exportStatement = 236, RULE_cancelExportStatement = 237, 
-		RULE_showExportStatement = 238, RULE_installPluginStatement = 239, RULE_uninstallPluginStatement = 240, 
-		RULE_createFileStatement = 241, RULE_dropFileStatement = 242, RULE_showSmallFilesStatement = 243, 
-		RULE_setStatement = 244, RULE_setVar = 245, RULE_transaction_characteristics = 246, 
-		RULE_transaction_access_mode = 247, RULE_isolation_level = 248, RULE_isolation_types = 249, 
-		RULE_setExprOrDefault = 250, RULE_setUserPropertyStatement = 251, RULE_roleList = 252, 
-		RULE_executeScriptStatement = 253, RULE_unsupportedStatement = 254, RULE_lock_item = 255, 
-		RULE_lock_type = 256, RULE_queryStatement = 257, RULE_queryRelation = 258, 
-		RULE_withClause = 259, RULE_queryNoWith = 260, RULE_temporalClause = 261, 
-		RULE_queryPrimary = 262, RULE_subquery = 263, RULE_rowConstructor = 264, 
-		RULE_sortItem = 265, RULE_limitElement = 266, RULE_querySpecification = 267, 
-		RULE_fromClause = 268, RULE_groupingElement = 269, RULE_groupingSet = 270, 
-		RULE_commonTableExpression = 271, RULE_setQuantifier = 272, RULE_selectItem = 273, 
-		RULE_relations = 274, RULE_relation = 275, RULE_relationPrimary = 276, 
-		RULE_joinRelation = 277, RULE_crossOrInnerJoinType = 278, RULE_outerAndSemiJoinType = 279, 
-		RULE_bracketHint = 280, RULE_setVarHint = 281, RULE_hintMap = 282, RULE_joinCriteria = 283, 
-		RULE_columnAliases = 284, RULE_partitionNames = 285, RULE_keyPartitions = 286, 
-		RULE_tabletList = 287, RULE_keyPartition = 288, RULE_expressionsWithDefault = 289, 
-		RULE_expressionOrDefault = 290, RULE_expressionSingleton = 291, RULE_expression = 292, 
-		RULE_expressionList = 293, RULE_booleanExpression = 294, RULE_predicate = 295, 
-		RULE_tupleInSubquery = 296, RULE_predicateOperations = 297, RULE_valueExpression = 298, 
-		RULE_primaryExpression = 299, RULE_literalExpression = 300, RULE_functionCall = 301, 
-		RULE_aggregationFunction = 302, RULE_userVariable = 303, RULE_systemVariable = 304, 
-		RULE_columnReference = 305, RULE_informationFunctionExpression = 306, 
-		RULE_specialDateTimeExpression = 307, RULE_specialFunctionExpression = 308, 
-		RULE_windowFunction = 309, RULE_whenClause = 310, RULE_over = 311, RULE_ignoreNulls = 312, 
-		RULE_windowFrame = 313, RULE_frameBound = 314, RULE_tableDesc = 315, RULE_restoreTableDesc = 316, 
-		RULE_explainDesc = 317, RULE_optimizerTrace = 318, RULE_partitionDesc = 319, 
-		RULE_listPartitionDesc = 320, RULE_singleItemListPartitionDesc = 321, 
-		RULE_multiItemListPartitionDesc = 322, RULE_stringList = 323, RULE_rangePartitionDesc = 324, 
-		RULE_singleRangePartition = 325, RULE_multiRangePartition = 326, RULE_partitionRangeDesc = 327, 
-		RULE_partitionKeyDesc = 328, RULE_partitionValueList = 329, RULE_partitionValue = 330, 
-		RULE_distributionClause = 331, RULE_distributionDesc = 332, RULE_refreshSchemeDesc = 333, 
-		RULE_statusDesc = 334, RULE_properties = 335, RULE_extProperties = 336, 
-		RULE_propertyList = 337, RULE_userPropertyList = 338, RULE_property = 339, 
-		RULE_varType = 340, RULE_comment = 341, RULE_columnNameWithComment = 342, 
-		RULE_outfile = 343, RULE_fileFormat = 344, RULE_string = 345, RULE_binary = 346, 
-		RULE_comparisonOperator = 347, RULE_booleanValue = 348, RULE_interval = 349, 
-		RULE_unitIdentifier = 350, RULE_unitBoundary = 351, RULE_type = 352, RULE_arrayType = 353, 
-		RULE_mapType = 354, RULE_subfieldDesc = 355, RULE_subfieldDescs = 356, 
-		RULE_structType = 357, RULE_typeParameter = 358, RULE_baseType = 359, 
-		RULE_decimalType = 360, RULE_qualifiedName = 361, RULE_identifier = 362, 
-		RULE_identifierList = 363, RULE_identifierOrString = 364, RULE_identifierOrStringList = 365, 
-		RULE_identifierOrStringOrStar = 366, RULE_user = 367, RULE_assignment = 368, 
+		RULE_sqlStatements = 0, RULE_singleStatement = 1, RULE_emptyStatement = 2,
+		RULE_statement = 3, RULE_useDatabaseStatement = 4, RULE_useCatalogStatement = 5,
+		RULE_setCatalogStatement = 6, RULE_showDatabasesStatement = 7, RULE_alterDbQuotaStatement = 8,
+		RULE_createDbStatement = 9, RULE_dropDbStatement = 10, RULE_showCreateDbStatement = 11,
+		RULE_alterDatabaseRenameStatement = 12, RULE_recoverDbStmt = 13, RULE_showDataStmt = 14,
+		RULE_createTableStatement = 15, RULE_columnDesc = 16, RULE_charsetName = 17,
+		RULE_defaultDesc = 18, RULE_indexDesc = 19, RULE_engineDesc = 20, RULE_charsetDesc = 21,
+		RULE_collateDesc = 22, RULE_keyDesc = 23, RULE_orderByDesc = 24, RULE_aggDesc = 25,
+		RULE_rollupDesc = 26, RULE_rollupItem = 27, RULE_dupKeys = 28, RULE_fromRollup = 29,
+		RULE_createTemporaryTableStatement = 30, RULE_createTableAsSelectStatement = 31,
+		RULE_dropTableStatement = 32, RULE_alterTableStatement = 33, RULE_createIndexStatement = 34,
+		RULE_dropIndexStatement = 35, RULE_indexType = 36, RULE_showTableStatement = 37,
+		RULE_showCreateTableStatement = 38, RULE_showColumnStatement = 39, RULE_showTableStatusStatement = 40,
+		RULE_refreshTableStatement = 41, RULE_showAlterStatement = 42, RULE_descTableStatement = 43,
+		RULE_createTableLikeStatement = 44, RULE_showIndexStatement = 45, RULE_recoverTableStatement = 46,
+		RULE_truncateTableStatement = 47, RULE_cancelAlterTableStatement = 48,
+		RULE_showPartitionsStatement = 49, RULE_recoverPartitionStatement = 50,
+		RULE_createViewStatement = 51, RULE_alterViewStatement = 52, RULE_dropViewStatement = 53,
+		RULE_submitTaskStatement = 54, RULE_dropTaskStatement = 55, RULE_createMaterializedViewStatement = 56,
+		RULE_materializedViewDesc = 57, RULE_showMaterializedViewsStatement = 58,
+		RULE_dropMaterializedViewStatement = 59, RULE_alterMaterializedViewStatement = 60,
+		RULE_refreshMaterializedViewStatement = 61, RULE_cancelRefreshMaterializedViewStatement = 62,
+		RULE_adminSetConfigStatement = 63, RULE_adminSetReplicaStatusStatement = 64,
+		RULE_adminShowConfigStatement = 65, RULE_adminShowReplicaDistributionStatement = 66,
+		RULE_adminShowReplicaStatusStatement = 67, RULE_adminRepairTableStatement = 68,
+		RULE_adminCancelRepairTableStatement = 69, RULE_adminCheckTabletsStatement = 70,
+		RULE_killStatement = 71, RULE_syncStatement = 72, RULE_alterSystemStatement = 73,
+		RULE_cancelAlterSystemStatement = 74, RULE_showComputeNodesStatement = 75,
+		RULE_createExternalCatalogStatement = 76, RULE_showCreateExternalCatalogStatement = 77,
+		RULE_dropExternalCatalogStatement = 78, RULE_showCatalogsStatement = 79,
+		RULE_createWarehouseStatement = 80, RULE_showWarehousesStatement = 81,
+		RULE_useWarehouseStatement = 82, RULE_dropWarehouseStatement = 83, RULE_alterWarehouseStatement = 84,
+		RULE_showClustersStatement = 85, RULE_suspendWarehouseStatement = 86,
+		RULE_resumeWarehouseStatement = 87, RULE_alterClause = 88, RULE_addFrontendClause = 89,
+		RULE_dropFrontendClause = 90, RULE_modifyFrontendHostClause = 91, RULE_addBackendClause = 92,
+		RULE_dropBackendClause = 93, RULE_decommissionBackendClause = 94, RULE_modifyBackendHostClause = 95,
+		RULE_addComputeNodeClause = 96, RULE_dropComputeNodeClause = 97, RULE_modifyBrokerClause = 98,
+		RULE_alterLoadErrorUrlClause = 99, RULE_createImageClause = 100, RULE_cleanTabletSchedQClause = 101,
+		RULE_createIndexClause = 102, RULE_dropIndexClause = 103, RULE_tableRenameClause = 104,
+		RULE_swapTableClause = 105, RULE_modifyTablePropertiesClause = 106, RULE_addColumnClause = 107,
+		RULE_addColumnsClause = 108, RULE_dropColumnClause = 109, RULE_modifyColumnClause = 110,
+		RULE_columnRenameClause = 111, RULE_reorderColumnsClause = 112, RULE_rollupRenameClause = 113,
+		RULE_addPartitionClause = 114, RULE_dropPartitionClause = 115, RULE_truncatePartitionClause = 116,
+		RULE_modifyPartitionClause = 117, RULE_replacePartitionClause = 118, RULE_partitionRenameClause = 119,
+		RULE_insertStatement = 120, RULE_updateStatement = 121, RULE_deleteStatement = 122,
+		RULE_createRoutineLoadStatement = 123, RULE_alterRoutineLoadStatement = 124,
+		RULE_dataSource = 125, RULE_loadProperties = 126, RULE_colSeparatorProperty = 127,
+		RULE_rowDelimiterProperty = 128, RULE_importColumns = 129, RULE_columnProperties = 130,
+		RULE_jobProperties = 131, RULE_dataSourceProperties = 132, RULE_stopRoutineLoadStatement = 133,
+		RULE_resumeRoutineLoadStatement = 134, RULE_pauseRoutineLoadStatement = 135,
+		RULE_showRoutineLoadStatement = 136, RULE_showRoutineLoadTaskStatement = 137,
+		RULE_showStreamLoadStatement = 138, RULE_analyzeStatement = 139, RULE_dropStatsStatement = 140,
+		RULE_analyzeHistogramStatement = 141, RULE_dropHistogramStatement = 142,
+		RULE_createAnalyzeStatement = 143, RULE_dropAnalyzeJobStatement = 144,
+		RULE_showAnalyzeStatement = 145, RULE_showStatsMetaStatement = 146, RULE_showHistogramMetaStatement = 147,
+		RULE_killAnalyzeStatement = 148, RULE_createResourceGroupStatement = 149,
+		RULE_dropResourceGroupStatement = 150, RULE_alterResourceGroupStatement = 151,
+		RULE_showResourceGroupStatement = 152, RULE_createResourceStatement = 153,
+		RULE_alterResourceStatement = 154, RULE_dropResourceStatement = 155, RULE_showResourceStatement = 156,
+		RULE_classifier = 157, RULE_showFunctionsStatement = 158, RULE_dropFunctionStatement = 159,
+		RULE_createFunctionStatement = 160, RULE_typeList = 161, RULE_loadStatement = 162,
+		RULE_labelName = 163, RULE_dataDescList = 164, RULE_dataDesc = 165, RULE_formatProps = 166,
+		RULE_brokerDesc = 167, RULE_resourceDesc = 168, RULE_showLoadStatement = 169,
+		RULE_showLoadWarningsStatement = 170, RULE_cancelLoadStatement = 171,
+		RULE_alterLoadStatement = 172, RULE_showAuthorStatement = 173, RULE_showBackendsStatement = 174,
+		RULE_showBrokerStatement = 175, RULE_showCharsetStatement = 176, RULE_showCollationStatement = 177,
+		RULE_showDeleteStatement = 178, RULE_showDynamicPartitionStatement = 179,
+		RULE_showEventsStatement = 180, RULE_showEnginesStatement = 181, RULE_showFrontendsStatement = 182,
+		RULE_showPluginsStatement = 183, RULE_showRepositoriesStatement = 184,
+		RULE_showOpenTableStatement = 185, RULE_showPrivilegesStatement = 186,
+		RULE_showProcedureStatement = 187, RULE_showProcStatement = 188, RULE_showProcesslistStatement = 189,
+		RULE_showStatusStatement = 190, RULE_showTabletStatement = 191, RULE_showTransactionStatement = 192,
+		RULE_showTriggersStatement = 193, RULE_showUserPropertyStatement = 194,
+		RULE_showVariablesStatement = 195, RULE_showWarningStatement = 196, RULE_helpStatement = 197,
+		RULE_createUserStatement = 198, RULE_dropUserStatement = 199, RULE_alterUserStatement = 200,
+		RULE_showUserStatement = 201, RULE_showAuthenticationStatement = 202,
+		RULE_executeAsStatement = 203, RULE_createRoleStatement = 204, RULE_dropRoleStatement = 205,
+		RULE_showRolesStatement = 206, RULE_grantRoleStatement = 207, RULE_revokeRoleStatement = 208,
+		RULE_setRoleStatement = 209, RULE_setDefaultRoleStatement = 210, RULE_grantRevokeClause = 211,
+		RULE_grantPrivilegeStatement = 212, RULE_revokePrivilegeStatement = 213,
+		RULE_showGrantsStatement = 214, RULE_authOption = 215, RULE_privObjectName = 216,
+		RULE_privObjectNameList = 217, RULE_privFunctionObjectNameList = 218,
+		RULE_privilegeTypeList = 219, RULE_privilegeType = 220, RULE_privObjectType = 221,
+		RULE_privObjectTypePlural = 222, RULE_backupStatement = 223, RULE_cancelBackupStatement = 224,
+		RULE_showBackupStatement = 225, RULE_restoreStatement = 226, RULE_cancelRestoreStatement = 227,
+		RULE_showRestoreStatement = 228, RULE_showSnapshotStatement = 229, RULE_createRepositoryStatement = 230,
+		RULE_dropRepositoryStatement = 231, RULE_addSqlBlackListStatement = 232,
+		RULE_delSqlBlackListStatement = 233, RULE_showSqlBlackListStatement = 234,
+		RULE_showWhiteListStatement = 235, RULE_exportStatement = 236, RULE_cancelExportStatement = 237,
+		RULE_showExportStatement = 238, RULE_installPluginStatement = 239, RULE_uninstallPluginStatement = 240,
+		RULE_createFileStatement = 241, RULE_dropFileStatement = 242, RULE_showSmallFilesStatement = 243,
+		RULE_setStatement = 244, RULE_setVar = 245, RULE_transaction_characteristics = 246,
+		RULE_transaction_access_mode = 247, RULE_isolation_level = 248, RULE_isolation_types = 249,
+		RULE_setExprOrDefault = 250, RULE_setUserPropertyStatement = 251, RULE_roleList = 252,
+		RULE_executeScriptStatement = 253, RULE_unsupportedStatement = 254, RULE_lock_item = 255,
+		RULE_lock_type = 256, RULE_queryStatement = 257, RULE_queryRelation = 258,
+		RULE_withClause = 259, RULE_queryNoWith = 260, RULE_temporalClause = 261,
+		RULE_queryPrimary = 262, RULE_subquery = 263, RULE_rowConstructor = 264,
+		RULE_sortItem = 265, RULE_limitElement = 266, RULE_querySpecification = 267,
+		RULE_fromClause = 268, RULE_groupingElement = 269, RULE_groupingSet = 270,
+		RULE_commonTableExpression = 271, RULE_setQuantifier = 272, RULE_selectItem = 273,
+		RULE_relations = 274, RULE_relation = 275, RULE_relationPrimary = 276,
+		RULE_joinRelation = 277, RULE_crossOrInnerJoinType = 278, RULE_outerAndSemiJoinType = 279,
+		RULE_bracketHint = 280, RULE_setVarHint = 281, RULE_hintMap = 282, RULE_joinCriteria = 283,
+		RULE_columnAliases = 284, RULE_partitionNames = 285, RULE_keyPartitions = 286,
+		RULE_tabletList = 287, RULE_keyPartition = 288, RULE_expressionsWithDefault = 289,
+		RULE_expressionOrDefault = 290, RULE_expressionSingleton = 291, RULE_expression = 292,
+		RULE_expressionList = 293, RULE_booleanExpression = 294, RULE_predicate = 295,
+		RULE_tupleInSubquery = 296, RULE_predicateOperations = 297, RULE_valueExpression = 298,
+		RULE_primaryExpression = 299, RULE_literalExpression = 300, RULE_functionCall = 301,
+		RULE_aggregationFunction = 302, RULE_userVariable = 303, RULE_systemVariable = 304,
+		RULE_columnReference = 305, RULE_informationFunctionExpression = 306,
+		RULE_specialDateTimeExpression = 307, RULE_specialFunctionExpression = 308,
+		RULE_windowFunction = 309, RULE_whenClause = 310, RULE_over = 311, RULE_ignoreNulls = 312,
+		RULE_windowFrame = 313, RULE_frameBound = 314, RULE_tableDesc = 315, RULE_restoreTableDesc = 316,
+		RULE_explainDesc = 317, RULE_optimizerTrace = 318, RULE_partitionDesc = 319,
+		RULE_listPartitionDesc = 320, RULE_singleItemListPartitionDesc = 321,
+		RULE_multiItemListPartitionDesc = 322, RULE_stringList = 323, RULE_rangePartitionDesc = 324,
+		RULE_singleRangePartition = 325, RULE_multiRangePartition = 326, RULE_partitionRangeDesc = 327,
+		RULE_partitionKeyDesc = 328, RULE_partitionValueList = 329, RULE_partitionValue = 330,
+		RULE_distributionClause = 331, RULE_distributionDesc = 332, RULE_refreshSchemeDesc = 333,
+		RULE_statusDesc = 334, RULE_properties = 335, RULE_extProperties = 336,
+		RULE_propertyList = 337, RULE_userPropertyList = 338, RULE_property = 339,
+		RULE_varType = 340, RULE_comment = 341, RULE_columnNameWithComment = 342,
+		RULE_outfile = 343, RULE_fileFormat = 344, RULE_string = 345, RULE_binary = 346,
+		RULE_comparisonOperator = 347, RULE_booleanValue = 348, RULE_interval = 349,
+		RULE_unitIdentifier = 350, RULE_unitBoundary = 351, RULE_type = 352, RULE_arrayType = 353,
+		RULE_mapType = 354, RULE_subfieldDesc = 355, RULE_subfieldDescs = 356,
+		RULE_structType = 357, RULE_typeParameter = 358, RULE_baseType = 359,
+		RULE_decimalType = 360, RULE_qualifiedName = 361, RULE_identifier = 362,
+		RULE_identifierList = 363, RULE_identifierOrString = 364, RULE_identifierOrStringList = 365,
+		RULE_identifierOrStringOrStar = 366, RULE_user = 367, RULE_assignment = 368,
 		RULE_assignmentList = 369, RULE_number = 370, RULE_nonReserved = 371;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"sqlStatements", "singleStatement", "emptyStatement", "statement", "useDatabaseStatement", 
-			"useCatalogStatement", "setCatalogStatement", "showDatabasesStatement", 
-			"alterDbQuotaStatement", "createDbStatement", "dropDbStatement", "showCreateDbStatement", 
-			"alterDatabaseRenameStatement", "recoverDbStmt", "showDataStmt", "createTableStatement", 
-			"columnDesc", "charsetName", "defaultDesc", "indexDesc", "engineDesc", 
-			"charsetDesc", "collateDesc", "keyDesc", "orderByDesc", "aggDesc", "rollupDesc", 
-			"rollupItem", "dupKeys", "fromRollup", "createTemporaryTableStatement", 
-			"createTableAsSelectStatement", "dropTableStatement", "alterTableStatement", 
-			"createIndexStatement", "dropIndexStatement", "indexType", "showTableStatement", 
-			"showCreateTableStatement", "showColumnStatement", "showTableStatusStatement", 
-			"refreshTableStatement", "showAlterStatement", "descTableStatement", 
-			"createTableLikeStatement", "showIndexStatement", "recoverTableStatement", 
-			"truncateTableStatement", "cancelAlterTableStatement", "showPartitionsStatement", 
-			"recoverPartitionStatement", "createViewStatement", "alterViewStatement", 
-			"dropViewStatement", "submitTaskStatement", "dropTaskStatement", "createMaterializedViewStatement", 
-			"materializedViewDesc", "showMaterializedViewsStatement", "dropMaterializedViewStatement", 
-			"alterMaterializedViewStatement", "refreshMaterializedViewStatement", 
-			"cancelRefreshMaterializedViewStatement", "adminSetConfigStatement", 
-			"adminSetReplicaStatusStatement", "adminShowConfigStatement", "adminShowReplicaDistributionStatement", 
-			"adminShowReplicaStatusStatement", "adminRepairTableStatement", "adminCancelRepairTableStatement", 
-			"adminCheckTabletsStatement", "killStatement", "syncStatement", "alterSystemStatement", 
-			"cancelAlterSystemStatement", "showComputeNodesStatement", "createExternalCatalogStatement", 
-			"showCreateExternalCatalogStatement", "dropExternalCatalogStatement", 
-			"showCatalogsStatement", "createWarehouseStatement", "showWarehousesStatement", 
-			"useWarehouseStatement", "dropWarehouseStatement", "alterWarehouseStatement", 
-			"showClustersStatement", "suspendWarehouseStatement", "resumeWarehouseStatement", 
-			"alterClause", "addFrontendClause", "dropFrontendClause", "modifyFrontendHostClause", 
-			"addBackendClause", "dropBackendClause", "decommissionBackendClause", 
-			"modifyBackendHostClause", "addComputeNodeClause", "dropComputeNodeClause", 
-			"modifyBrokerClause", "alterLoadErrorUrlClause", "createImageClause", 
-			"cleanTabletSchedQClause", "createIndexClause", "dropIndexClause", "tableRenameClause", 
-			"swapTableClause", "modifyTablePropertiesClause", "addColumnClause", 
-			"addColumnsClause", "dropColumnClause", "modifyColumnClause", "columnRenameClause", 
-			"reorderColumnsClause", "rollupRenameClause", "addPartitionClause", "dropPartitionClause", 
-			"truncatePartitionClause", "modifyPartitionClause", "replacePartitionClause", 
-			"partitionRenameClause", "insertStatement", "updateStatement", "deleteStatement", 
-			"createRoutineLoadStatement", "alterRoutineLoadStatement", "dataSource", 
-			"loadProperties", "colSeparatorProperty", "rowDelimiterProperty", "importColumns", 
-			"columnProperties", "jobProperties", "dataSourceProperties", "stopRoutineLoadStatement", 
-			"resumeRoutineLoadStatement", "pauseRoutineLoadStatement", "showRoutineLoadStatement", 
-			"showRoutineLoadTaskStatement", "showStreamLoadStatement", "analyzeStatement", 
-			"dropStatsStatement", "analyzeHistogramStatement", "dropHistogramStatement", 
-			"createAnalyzeStatement", "dropAnalyzeJobStatement", "showAnalyzeStatement", 
-			"showStatsMetaStatement", "showHistogramMetaStatement", "killAnalyzeStatement", 
-			"createResourceGroupStatement", "dropResourceGroupStatement", "alterResourceGroupStatement", 
-			"showResourceGroupStatement", "createResourceStatement", "alterResourceStatement", 
-			"dropResourceStatement", "showResourceStatement", "classifier", "showFunctionsStatement", 
-			"dropFunctionStatement", "createFunctionStatement", "typeList", "loadStatement", 
-			"labelName", "dataDescList", "dataDesc", "formatProps", "brokerDesc", 
-			"resourceDesc", "showLoadStatement", "showLoadWarningsStatement", "cancelLoadStatement", 
-			"alterLoadStatement", "showAuthorStatement", "showBackendsStatement", 
-			"showBrokerStatement", "showCharsetStatement", "showCollationStatement", 
-			"showDeleteStatement", "showDynamicPartitionStatement", "showEventsStatement", 
-			"showEnginesStatement", "showFrontendsStatement", "showPluginsStatement", 
-			"showRepositoriesStatement", "showOpenTableStatement", "showPrivilegesStatement", 
-			"showProcedureStatement", "showProcStatement", "showProcesslistStatement", 
-			"showStatusStatement", "showTabletStatement", "showTransactionStatement", 
-			"showTriggersStatement", "showUserPropertyStatement", "showVariablesStatement", 
-			"showWarningStatement", "helpStatement", "createUserStatement", "dropUserStatement", 
-			"alterUserStatement", "showUserStatement", "showAuthenticationStatement", 
-			"executeAsStatement", "createRoleStatement", "dropRoleStatement", "showRolesStatement", 
-			"grantRoleStatement", "revokeRoleStatement", "setRoleStatement", "setDefaultRoleStatement", 
-			"grantRevokeClause", "grantPrivilegeStatement", "revokePrivilegeStatement", 
-			"showGrantsStatement", "authOption", "privObjectName", "privObjectNameList", 
-			"privFunctionObjectNameList", "privilegeTypeList", "privilegeType", "privObjectType", 
-			"privObjectTypePlural", "backupStatement", "cancelBackupStatement", "showBackupStatement", 
-			"restoreStatement", "cancelRestoreStatement", "showRestoreStatement", 
-			"showSnapshotStatement", "createRepositoryStatement", "dropRepositoryStatement", 
-			"addSqlBlackListStatement", "delSqlBlackListStatement", "showSqlBlackListStatement", 
-			"showWhiteListStatement", "exportStatement", "cancelExportStatement", 
-			"showExportStatement", "installPluginStatement", "uninstallPluginStatement", 
-			"createFileStatement", "dropFileStatement", "showSmallFilesStatement", 
-			"setStatement", "setVar", "transaction_characteristics", "transaction_access_mode", 
-			"isolation_level", "isolation_types", "setExprOrDefault", "setUserPropertyStatement", 
-			"roleList", "executeScriptStatement", "unsupportedStatement", "lock_item", 
-			"lock_type", "queryStatement", "queryRelation", "withClause", "queryNoWith", 
-			"temporalClause", "queryPrimary", "subquery", "rowConstructor", "sortItem", 
-			"limitElement", "querySpecification", "fromClause", "groupingElement", 
-			"groupingSet", "commonTableExpression", "setQuantifier", "selectItem", 
-			"relations", "relation", "relationPrimary", "joinRelation", "crossOrInnerJoinType", 
-			"outerAndSemiJoinType", "bracketHint", "setVarHint", "hintMap", "joinCriteria", 
-			"columnAliases", "partitionNames", "keyPartitions", "tabletList", "keyPartition", 
-			"expressionsWithDefault", "expressionOrDefault", "expressionSingleton", 
-			"expression", "expressionList", "booleanExpression", "predicate", "tupleInSubquery", 
-			"predicateOperations", "valueExpression", "primaryExpression", "literalExpression", 
-			"functionCall", "aggregationFunction", "userVariable", "systemVariable", 
-			"columnReference", "informationFunctionExpression", "specialDateTimeExpression", 
-			"specialFunctionExpression", "windowFunction", "whenClause", "over", 
-			"ignoreNulls", "windowFrame", "frameBound", "tableDesc", "restoreTableDesc", 
-			"explainDesc", "optimizerTrace", "partitionDesc", "listPartitionDesc", 
-			"singleItemListPartitionDesc", "multiItemListPartitionDesc", "stringList", 
-			"rangePartitionDesc", "singleRangePartition", "multiRangePartition", 
-			"partitionRangeDesc", "partitionKeyDesc", "partitionValueList", "partitionValue", 
-			"distributionClause", "distributionDesc", "refreshSchemeDesc", "statusDesc", 
-			"properties", "extProperties", "propertyList", "userPropertyList", "property", 
-			"varType", "comment", "columnNameWithComment", "outfile", "fileFormat", 
-			"string", "binary", "comparisonOperator", "booleanValue", "interval", 
-			"unitIdentifier", "unitBoundary", "type", "arrayType", "mapType", "subfieldDesc", 
-			"subfieldDescs", "structType", "typeParameter", "baseType", "decimalType", 
-			"qualifiedName", "identifier", "identifierList", "identifierOrString", 
-			"identifierOrStringList", "identifierOrStringOrStar", "user", "assignment", 
+			"sqlStatements", "singleStatement", "emptyStatement", "statement", "useDatabaseStatement",
+			"useCatalogStatement", "setCatalogStatement", "showDatabasesStatement",
+			"alterDbQuotaStatement", "createDbStatement", "dropDbStatement", "showCreateDbStatement",
+			"alterDatabaseRenameStatement", "recoverDbStmt", "showDataStmt", "createTableStatement",
+			"columnDesc", "charsetName", "defaultDesc", "indexDesc", "engineDesc",
+			"charsetDesc", "collateDesc", "keyDesc", "orderByDesc", "aggDesc", "rollupDesc",
+			"rollupItem", "dupKeys", "fromRollup", "createTemporaryTableStatement",
+			"createTableAsSelectStatement", "dropTableStatement", "alterTableStatement",
+			"createIndexStatement", "dropIndexStatement", "indexType", "showTableStatement",
+			"showCreateTableStatement", "showColumnStatement", "showTableStatusStatement",
+			"refreshTableStatement", "showAlterStatement", "descTableStatement",
+			"createTableLikeStatement", "showIndexStatement", "recoverTableStatement",
+			"truncateTableStatement", "cancelAlterTableStatement", "showPartitionsStatement",
+			"recoverPartitionStatement", "createViewStatement", "alterViewStatement",
+			"dropViewStatement", "submitTaskStatement", "dropTaskStatement", "createMaterializedViewStatement",
+			"materializedViewDesc", "showMaterializedViewsStatement", "dropMaterializedViewStatement",
+			"alterMaterializedViewStatement", "refreshMaterializedViewStatement",
+			"cancelRefreshMaterializedViewStatement", "adminSetConfigStatement",
+			"adminSetReplicaStatusStatement", "adminShowConfigStatement", "adminShowReplicaDistributionStatement",
+			"adminShowReplicaStatusStatement", "adminRepairTableStatement", "adminCancelRepairTableStatement",
+			"adminCheckTabletsStatement", "killStatement", "syncStatement", "alterSystemStatement",
+			"cancelAlterSystemStatement", "showComputeNodesStatement", "createExternalCatalogStatement",
+			"showCreateExternalCatalogStatement", "dropExternalCatalogStatement",
+			"showCatalogsStatement", "createWarehouseStatement", "showWarehousesStatement",
+			"useWarehouseStatement", "dropWarehouseStatement", "alterWarehouseStatement",
+			"showClustersStatement", "suspendWarehouseStatement", "resumeWarehouseStatement",
+			"alterClause", "addFrontendClause", "dropFrontendClause", "modifyFrontendHostClause",
+			"addBackendClause", "dropBackendClause", "decommissionBackendClause",
+			"modifyBackendHostClause", "addComputeNodeClause", "dropComputeNodeClause",
+			"modifyBrokerClause", "alterLoadErrorUrlClause", "createImageClause",
+			"cleanTabletSchedQClause", "createIndexClause", "dropIndexClause", "tableRenameClause",
+			"swapTableClause", "modifyTablePropertiesClause", "addColumnClause",
+			"addColumnsClause", "dropColumnClause", "modifyColumnClause", "columnRenameClause",
+			"reorderColumnsClause", "rollupRenameClause", "addPartitionClause", "dropPartitionClause",
+			"truncatePartitionClause", "modifyPartitionClause", "replacePartitionClause",
+			"partitionRenameClause", "insertStatement", "updateStatement", "deleteStatement",
+			"createRoutineLoadStatement", "alterRoutineLoadStatement", "dataSource",
+			"loadProperties", "colSeparatorProperty", "rowDelimiterProperty", "importColumns",
+			"columnProperties", "jobProperties", "dataSourceProperties", "stopRoutineLoadStatement",
+			"resumeRoutineLoadStatement", "pauseRoutineLoadStatement", "showRoutineLoadStatement",
+			"showRoutineLoadTaskStatement", "showStreamLoadStatement", "analyzeStatement",
+			"dropStatsStatement", "analyzeHistogramStatement", "dropHistogramStatement",
+			"createAnalyzeStatement", "dropAnalyzeJobStatement", "showAnalyzeStatement",
+			"showStatsMetaStatement", "showHistogramMetaStatement", "killAnalyzeStatement",
+			"createResourceGroupStatement", "dropResourceGroupStatement", "alterResourceGroupStatement",
+			"showResourceGroupStatement", "createResourceStatement", "alterResourceStatement",
+			"dropResourceStatement", "showResourceStatement", "classifier", "showFunctionsStatement",
+			"dropFunctionStatement", "createFunctionStatement", "typeList", "loadStatement",
+			"labelName", "dataDescList", "dataDesc", "formatProps", "brokerDesc",
+			"resourceDesc", "showLoadStatement", "showLoadWarningsStatement", "cancelLoadStatement",
+			"alterLoadStatement", "showAuthorStatement", "showBackendsStatement",
+			"showBrokerStatement", "showCharsetStatement", "showCollationStatement",
+			"showDeleteStatement", "showDynamicPartitionStatement", "showEventsStatement",
+			"showEnginesStatement", "showFrontendsStatement", "showPluginsStatement",
+			"showRepositoriesStatement", "showOpenTableStatement", "showPrivilegesStatement",
+			"showProcedureStatement", "showProcStatement", "showProcesslistStatement",
+			"showStatusStatement", "showTabletStatement", "showTransactionStatement",
+			"showTriggersStatement", "showUserPropertyStatement", "showVariablesStatement",
+			"showWarningStatement", "helpStatement", "createUserStatement", "dropUserStatement",
+			"alterUserStatement", "showUserStatement", "showAuthenticationStatement",
+			"executeAsStatement", "createRoleStatement", "dropRoleStatement", "showRolesStatement",
+			"grantRoleStatement", "revokeRoleStatement", "setRoleStatement", "setDefaultRoleStatement",
+			"grantRevokeClause", "grantPrivilegeStatement", "revokePrivilegeStatement",
+			"showGrantsStatement", "authOption", "privObjectName", "privObjectNameList",
+			"privFunctionObjectNameList", "privilegeTypeList", "privilegeType", "privObjectType",
+			"privObjectTypePlural", "backupStatement", "cancelBackupStatement", "showBackupStatement",
+			"restoreStatement", "cancelRestoreStatement", "showRestoreStatement",
+			"showSnapshotStatement", "createRepositoryStatement", "dropRepositoryStatement",
+			"addSqlBlackListStatement", "delSqlBlackListStatement", "showSqlBlackListStatement",
+			"showWhiteListStatement", "exportStatement", "cancelExportStatement",
+			"showExportStatement", "installPluginStatement", "uninstallPluginStatement",
+			"createFileStatement", "dropFileStatement", "showSmallFilesStatement",
+			"setStatement", "setVar", "transaction_characteristics", "transaction_access_mode",
+			"isolation_level", "isolation_types", "setExprOrDefault", "setUserPropertyStatement",
+			"roleList", "executeScriptStatement", "unsupportedStatement", "lock_item",
+			"lock_type", "queryStatement", "queryRelation", "withClause", "queryNoWith",
+			"temporalClause", "queryPrimary", "subquery", "rowConstructor", "sortItem",
+			"limitElement", "querySpecification", "fromClause", "groupingElement",
+			"groupingSet", "commonTableExpression", "setQuantifier", "selectItem",
+			"relations", "relation", "relationPrimary", "joinRelation", "crossOrInnerJoinType",
+			"outerAndSemiJoinType", "bracketHint", "setVarHint", "hintMap", "joinCriteria",
+			"columnAliases", "partitionNames", "keyPartitions", "tabletList", "keyPartition",
+			"expressionsWithDefault", "expressionOrDefault", "expressionSingleton",
+			"expression", "expressionList", "booleanExpression", "predicate", "tupleInSubquery",
+			"predicateOperations", "valueExpression", "primaryExpression", "literalExpression",
+			"functionCall", "aggregationFunction", "userVariable", "systemVariable",
+			"columnReference", "informationFunctionExpression", "specialDateTimeExpression",
+			"specialFunctionExpression", "windowFunction", "whenClause", "over",
+			"ignoreNulls", "windowFrame", "frameBound", "tableDesc", "restoreTableDesc",
+			"explainDesc", "optimizerTrace", "partitionDesc", "listPartitionDesc",
+			"singleItemListPartitionDesc", "multiItemListPartitionDesc", "stringList",
+			"rangePartitionDesc", "singleRangePartition", "multiRangePartition",
+			"partitionRangeDesc", "partitionKeyDesc", "partitionValueList", "partitionValue",
+			"distributionClause", "distributionDesc", "refreshSchemeDesc", "statusDesc",
+			"properties", "extProperties", "propertyList", "userPropertyList", "property",
+			"varType", "comment", "columnNameWithComment", "outfile", "fileFormat",
+			"string", "binary", "comparisonOperator", "booleanValue", "interval",
+			"unitIdentifier", "unitBoundary", "type", "arrayType", "mapType", "subfieldDesc",
+			"subfieldDescs", "structType", "typeParameter", "baseType", "decimalType",
+			"qualifiedName", "identifier", "identifierList", "identifierOrString",
+			"identifierOrStringList", "identifierOrStringOrStar", "user", "assignment",
 			"assignmentList", "number", "nonReserved"
 		};
 	}
@@ -334,144 +334,144 @@ public class StarRocksParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'('", "','", "')'", "'.'", "'['", "']'", "'/*+'", "'*/'", "'{'", 
-			"'}'", "':'", "'ACTIVE'", "'ADD'", "'ADMIN'", "'AFTER'", "'AGGREGATE'", 
-			"'ALL'", "'ALTER'", "'ANALYZE'", "'AND'", "'ANTI'", "'ARRAY'", "'ARRAY_AGG'", 
-			"'AS'", "'ASC'", "'ASYNC'", "'AUTHORS'", "'AUTHENTICATION'", "'AUTO_INCREMENT'", 
-			"'AVG'", "'BACKEND'", "'BACKENDS'", "'BACKUP'", "'BEGIN'", "'BETWEEN'", 
-			"'BIGINT'", "'BITMAP'", "'BITMAP_UNION'", "'BLACKLIST'", "'BOOLEAN'", 
-			"'BOTH'", "'BROKER'", "'BUCKETS'", "'BUILTIN'", "'BY'", "'CANCEL'", "'CASE'", 
-			"'CAST'", "'CATALOG'", "'CATALOGS'", "'CEIL'", "'CHAIN'", "'CHAR'", "'CHARACTER'", 
-			"'CHARSET'", "'CHECK'", "'CLEAN'", "'CLUSTER'", "'CLUSTERS'", "'COLLATE'", 
-			"'COLLATION'", "'COLUMN'", "'COLUMNS'", "'COMMENT'", "'COMMIT'", "'COMMITTED'", 
-			"'COMPUTE'", "'CONFIG'", "'CONNECTION'", "'CONSISTENT'", "'CONVERT'", 
-			"'COSTS'", "'COUNT'", "'CREATE'", "'CROSS'", "'CUBE'", "'CURRENT'", "'CURRENT_DATE'", 
-			"'CURRENT_ROLE'", "'CURRENT_TIME'", "'CURRENT_TIMESTAMP'", "'CURRENT_USER'", 
-			"'DATA'", "'DATABASE'", "'DATABASES'", "'DATE'", "'DATETIME'", "'DAY'", 
-			"'DECIMAL'", "'DECIMALV2'", "'DECIMAL32'", "'DECIMAL64'", "'DECIMAL128'", 
-			"'DECOMMISSION'", "'DEFAULT'", "'DELETE'", "'DENSE_RANK'", "'DEFERRED'", 
-			"'NTILE'", "'DESC'", "'DESCRIBE'", "'DISTINCT'", "'DISTRIBUTED'", "'DISTRIBUTION'", 
-			"'DOUBLE'", "'DROP'", "'DUAL'", "'DUPLICATE'", "'DYNAMIC'", "'ELSE'", 
-			"'ENCLOSE'", "'END'", "'ENGINE'", "'ENGINES'", "'ERRORS'", "'ESCAPE'", 
-			"'EVENTS'", "'EXCEPT'", "'EXECUTE'", "'EXISTS'", "'EXPLAIN'", "'EXPORT'", 
-			"'EXTERNAL'", "'EXTRACT'", "'EVERY'", "'FALSE'", "'FIELDS'", "'FILE'", 
-			"'FILTER'", "'FIRST'", "'FIRST_VALUE'", "'FLOAT'", "'FLOOR'", "'FN'", 
-			"'FOLLOWING'", "'FOLLOWER'", "'FOR'", "'FORCE'", "'FORMAT'", "'FREE'", 
-			"'FROM'", "'FRONTEND'", "'FRONTENDS'", "'FULL'", "'FUNCTION'", "'FUNCTIONS'", 
-			"'GLOBAL'", "'GRANT'", "'GRANTS'", "'GROUP'", "'GROUPS'", "'GROUPING'", 
-			"'GROUPING_ID'", "'HASH'", "'HAVING'", "'HELP'", "'HISTOGRAM'", "'HLL'", 
-			"'HLL_UNION'", "'HOST'", "'HOUR'", "'HUB'", "'IDENTIFIED'", "'IF'", "'IMPERSONATE'", 
-			"'IMMEDIATE'", "'IGNORE'", "'IMAGE'", "'IN'", "'INACTIVE'", "'INDEX'", 
-			"'INDEXES'", "'INFILE'", "'INSTALL'", "'INNER'", "'INSERT'", "'INT'", 
-			"'INCREMENTAL'", "'INTEGER'", "'INTERMEDIATE'", "'INTERSECT'", "'INTERVAL'", 
-			"'INTO'", "'OVERWRITE'", "'IS'", "'ISOLATION'", "'JOB'", "'JOIN'", "'JSON'", 
-			"'KEY'", "'KEYS'", "'KILL'", "'LABEL'", "'LAG'", "'LARGEINT'", "'LAST'", 
-			"'LAST_VALUE'", "'LATERAL'", "'LEAD'", "'LEFT'", "'LESS'", "'LEVEL'", 
-			"'LIKE'", "'LIMIT'", "'LIST'", "'LOAD'", "'LOCAL'", "'LOCALTIME'", "'LOCALTIMESTAMP'", 
-			"'LOCATION'", "'LOGICAL'", "'MANUAL'", "'MAP'", "'MATERIALIZED'", "'MAX'", 
-			"'MAXVALUE'", "'MERGE'", "'MIN'", "'MINUTE'", "'MINUS'", "'META'", "'MOD'", 
-			"'MODE'", "'MODIFY'", "'MONTH'", "'NAME'", "'NAMES'", "'NEGATIVE'", "'NO'", 
-			"'NODE'", "'NODES'", "'NONE'", "'NOT'", "'NULL'", "'NULLS'", "'NUMBER'", 
-			"'NUMERIC'", "'OBSERVER'", "'OF'", "'OFFSET'", "'ON'", "'ONLY'", "'OPEN'", 
-			"'OPERATE'", "'OPTIMIZER'", "'OPTION'", "'OR'", "'ORDER'", "'OUTER'", 
-			"'OUTFILE'", "'OVER'", "'PARTITION'", "'PARTITIONS'", "'PASSWORD'", "'PATH'", 
-			"'PAUSE'", "'PENDING'", "'PERCENTILE'", "'PERCENTILE_UNION'", "'PLUGIN'", 
-			"'PLUGINS'", "'PRECEDING'", "'PRIMARY'", "'PRIVILEGES'", "'PROC'", "'PROCEDURE'", 
-			"'PROCESSLIST'", "'PROPERTIES'", "'PROPERTY'", "'QUALIFY'", "'QUARTER'", 
-			"'QUERY'", "'QUEUE'", "'QUOTA'", "'RANDOM'", "'RANGE'", "'RANK'", "'READ'", 
-			"'RECOVER'", "'REFRESH'", "'REGEXP'", "'RELEASE'", "'REMOVE'", "'RENAME'", 
-			"'REPAIR'", "'REPEATABLE'", "'REPLACE'", "'REPLACE_IF_NOT_NULL'", "'REPLICA'", 
-			"'REPOSITORY'", "'REPOSITORIES'", "'RESOURCE'", "'RESOURCES'", "'RESTORE'", 
-			"'RESUME'", "'RETURNS'", "'REVOKE'", "'REVERT'", "'RIGHT'", "'RLIKE'", 
-			"'ROLE'", "'ROLES'", "'ROLLBACK'", "'ROLLUP'", "'ROUTINE'", "'ROW'", 
-			"'ROWS'", "'ROW_NUMBER'", "'SAMPLE'", "'SCHEDULER'", "'SCHEMA'", "'SCHEMAS'", 
-			"'SECOND'", "'SELECT'", "'SEMI'", "'SERIALIZABLE'", "'SESSION'", "'SET'", 
-			"'SETS'", "'SET_VAR'", "'SIGNED'", "'SKIP_HEADER'", "'SHOW'", "'SMALLINT'", 
-			"'SNAPSHOT'", "'SQLBLACKLIST'", "'START'", "'STATS'", "'STATUS'", "'STOP'", 
-			"'STORAGE'", "'STREAM'", "'STRING'", "'SUBMIT'", "'SUM'", "'SUSPEND'", 
-			"'SYNC'", "'SYSTEM'", "'SYSTEM_TIME'", "'SWAP'", "'STRUCT'", "'TABLE'", 
-			"'TABLES'", "'TABLET'", "'TASK'", "'TEMPORARY'", "'TERMINATED'", "'THAN'", 
-			"'THEN'", "'TIME'", "'TIMESTAMP'", "'TIMESTAMPADD'", "'TIMESTAMPDIFF'", 
-			"'TINYINT'", "'TRANSACTION'", "'TO'", "'TRACE'", "'TRIGGERS'", "'TRIM_SPACE'", 
-			"'TRUE'", "'TRUNCATE'", "'TYPE'", "'TYPES'", "'UNBOUNDED'", "'UNCOMMITTED'", 
-			"'UNION'", "'UNIQUE'", "'UNINSTALL'", "'UNSIGNED'", "'UPDATE'", "'USAGE'", 
-			"'USE'", "'USER'", "'USERS'", "'USING'", "'VALUE'", "'VALUES'", "'VARBINARY'", 
-			"'VARCHAR'", "'VARIABLES'", "'VERBOSE'", "'VIEW'", "'VIEWS'", "'WAREHOUSE'", 
-			"'WAREHOUSES'", "'WARNINGS'", "'WEEK'", "'WHEN'", "'WHERE'", "'WHITELIST'", 
-			"'WITH'", "'WORK'", "'WRITE'", "'YEAR'", "'LOCK'", "'UNLOCK'", "'LOW_PRIORITY'", 
-			"'='", null, "'<'", "'<='", "'>'", "'>='", "'<=>'", "'+'", "'-'", "'*'", 
-			"'/'", "'%'", "'||'", "'&&'", "'!'", "'DIV'", "'&'", "'|'", "'^'", "'~'", 
-			"'BITSHIFTLEFT'", "'BITSHIFTRIGHT'", "'BITSHIFTRIGHTLOGICAL'", "'->'", 
-			"'@'", null, null, null, null, null, null, null, null, null, null, null, 
+			null, "'('", "','", "')'", "'.'", "'['", "']'", "'/*+'", "'*/'", "'{'",
+			"'}'", "':'", "'ACTIVE'", "'ADD'", "'ADMIN'", "'AFTER'", "'AGGREGATE'",
+			"'ALL'", "'ALTER'", "'ANALYZE'", "'AND'", "'ANTI'", "'ARRAY'", "'ARRAY_AGG'",
+			"'AS'", "'ASC'", "'ASYNC'", "'AUTHORS'", "'AUTHENTICATION'", "'AUTO_INCREMENT'",
+			"'AVG'", "'BACKEND'", "'BACKENDS'", "'BACKUP'", "'BEGIN'", "'BETWEEN'",
+			"'BIGINT'", "'BITMAP'", "'BITMAP_UNION'", "'BLACKLIST'", "'BOOLEAN'",
+			"'BOTH'", "'BROKER'", "'BUCKETS'", "'BUILTIN'", "'BY'", "'CANCEL'", "'CASE'",
+			"'CAST'", "'CATALOG'", "'CATALOGS'", "'CEIL'", "'CHAIN'", "'CHAR'", "'CHARACTER'",
+			"'CHARSET'", "'CHECK'", "'CLEAN'", "'CLUSTER'", "'CLUSTERS'", "'COLLATE'",
+			"'COLLATION'", "'COLUMN'", "'COLUMNS'", "'COMMENT'", "'COMMIT'", "'COMMITTED'",
+			"'COMPUTE'", "'CONFIG'", "'CONNECTION'", "'CONSISTENT'", "'CONVERT'",
+			"'COSTS'", "'COUNT'", "'CREATE'", "'CROSS'", "'CUBE'", "'CURRENT'", "'CURRENT_DATE'",
+			"'CURRENT_ROLE'", "'CURRENT_TIME'", "'CURRENT_TIMESTAMP'", "'CURRENT_USER'",
+			"'DATA'", "'DATABASE'", "'DATABASES'", "'DATE'", "'DATETIME'", "'DAY'",
+			"'DECIMAL'", "'DECIMALV2'", "'DECIMAL32'", "'DECIMAL64'", "'DECIMAL128'",
+			"'DECOMMISSION'", "'DEFAULT'", "'DELETE'", "'DENSE_RANK'", "'DEFERRED'",
+			"'NTILE'", "'DESC'", "'DESCRIBE'", "'DISTINCT'", "'DISTRIBUTED'", "'DISTRIBUTION'",
+			"'DOUBLE'", "'DROP'", "'DUAL'", "'DUPLICATE'", "'DYNAMIC'", "'ELSE'",
+			"'ENCLOSE'", "'END'", "'ENGINE'", "'ENGINES'", "'ERRORS'", "'ESCAPE'",
+			"'EVENTS'", "'EXCEPT'", "'EXECUTE'", "'EXISTS'", "'EXPLAIN'", "'EXPORT'",
+			"'EXTERNAL'", "'EXTRACT'", "'EVERY'", "'FALSE'", "'FIELDS'", "'FILE'",
+			"'FILTER'", "'FIRST'", "'FIRST_VALUE'", "'FLOAT'", "'FLOOR'", "'FN'",
+			"'FOLLOWING'", "'FOLLOWER'", "'FOR'", "'FORCE'", "'FORMAT'", "'FREE'",
+			"'FROM'", "'FRONTEND'", "'FRONTENDS'", "'FULL'", "'FUNCTION'", "'FUNCTIONS'",
+			"'GLOBAL'", "'GRANT'", "'GRANTS'", "'GROUP'", "'GROUPS'", "'GROUPING'",
+			"'GROUPING_ID'", "'HASH'", "'HAVING'", "'HELP'", "'HISTOGRAM'", "'HLL'",
+			"'HLL_UNION'", "'HOST'", "'HOUR'", "'HUB'", "'IDENTIFIED'", "'IF'", "'IMPERSONATE'",
+			"'IMMEDIATE'", "'IGNORE'", "'IMAGE'", "'IN'", "'INACTIVE'", "'INDEX'",
+			"'INDEXES'", "'INFILE'", "'INSTALL'", "'INNER'", "'INSERT'", "'INT'",
+			"'INCREMENTAL'", "'INTEGER'", "'INTERMEDIATE'", "'INTERSECT'", "'INTERVAL'",
+			"'INTO'", "'OVERWRITE'", "'IS'", "'ISOLATION'", "'JOB'", "'JOIN'", "'JSON'",
+			"'KEY'", "'KEYS'", "'KILL'", "'LABEL'", "'LAG'", "'LARGEINT'", "'LAST'",
+			"'LAST_VALUE'", "'LATERAL'", "'LEAD'", "'LEFT'", "'LESS'", "'LEVEL'",
+			"'LIKE'", "'LIMIT'", "'LIST'", "'LOAD'", "'LOCAL'", "'LOCALTIME'", "'LOCALTIMESTAMP'",
+			"'LOCATION'", "'LOGICAL'", "'MANUAL'", "'MAP'", "'MATERIALIZED'", "'MAX'",
+			"'MAXVALUE'", "'MERGE'", "'MIN'", "'MINUTE'", "'MINUS'", "'META'", "'MOD'",
+			"'MODE'", "'MODIFY'", "'MONTH'", "'NAME'", "'NAMES'", "'NEGATIVE'", "'NO'",
+			"'NODE'", "'NODES'", "'NONE'", "'NOT'", "'NULL'", "'NULLS'", "'NUMBER'",
+			"'NUMERIC'", "'OBSERVER'", "'OF'", "'OFFSET'", "'ON'", "'ONLY'", "'OPEN'",
+			"'OPERATE'", "'OPTIMIZER'", "'OPTION'", "'OR'", "'ORDER'", "'OUTER'",
+			"'OUTFILE'", "'OVER'", "'PARTITION'", "'PARTITIONS'", "'PASSWORD'", "'PATH'",
+			"'PAUSE'", "'PENDING'", "'PERCENTILE'", "'PERCENTILE_UNION'", "'PLUGIN'",
+			"'PLUGINS'", "'PRECEDING'", "'PRIMARY'", "'PRIVILEGES'", "'PROC'", "'PROCEDURE'",
+			"'PROCESSLIST'", "'PROPERTIES'", "'PROPERTY'", "'QUALIFY'", "'QUARTER'",
+			"'QUERY'", "'QUEUE'", "'QUOTA'", "'RANDOM'", "'RANGE'", "'RANK'", "'READ'",
+			"'RECOVER'", "'REFRESH'", "'REGEXP'", "'RELEASE'", "'REMOVE'", "'RENAME'",
+			"'REPAIR'", "'REPEATABLE'", "'REPLACE'", "'REPLACE_IF_NOT_NULL'", "'REPLICA'",
+			"'REPOSITORY'", "'REPOSITORIES'", "'RESOURCE'", "'RESOURCES'", "'RESTORE'",
+			"'RESUME'", "'RETURNS'", "'REVOKE'", "'REVERT'", "'RIGHT'", "'RLIKE'",
+			"'ROLE'", "'ROLES'", "'ROLLBACK'", "'ROLLUP'", "'ROUTINE'", "'ROW'",
+			"'ROWS'", "'ROW_NUMBER'", "'SAMPLE'", "'SCHEDULER'", "'SCHEMA'", "'SCHEMAS'",
+			"'SECOND'", "'SELECT'", "'SEMI'", "'SERIALIZABLE'", "'SESSION'", "'SET'",
+			"'SETS'", "'SET_VAR'", "'SIGNED'", "'SKIP_HEADER'", "'SHOW'", "'SMALLINT'",
+			"'SNAPSHOT'", "'SQLBLACKLIST'", "'START'", "'STATS'", "'STATUS'", "'STOP'",
+			"'STORAGE'", "'STREAM'", "'STRING'", "'SUBMIT'", "'SUM'", "'SUSPEND'",
+			"'SYNC'", "'SYSTEM'", "'SYSTEM_TIME'", "'SWAP'", "'STRUCT'", "'TABLE'",
+			"'TABLES'", "'TABLET'", "'TASK'", "'TEMPORARY'", "'TERMINATED'", "'THAN'",
+			"'THEN'", "'TIME'", "'TIMESTAMP'", "'TIMESTAMPADD'", "'TIMESTAMPDIFF'",
+			"'TINYINT'", "'TRANSACTION'", "'TO'", "'TRACE'", "'TRIGGERS'", "'TRIM_SPACE'",
+			"'TRUE'", "'TRUNCATE'", "'TYPE'", "'TYPES'", "'UNBOUNDED'", "'UNCOMMITTED'",
+			"'UNION'", "'UNIQUE'", "'UNINSTALL'", "'UNSIGNED'", "'UPDATE'", "'USAGE'",
+			"'USE'", "'USER'", "'USERS'", "'USING'", "'VALUE'", "'VALUES'", "'VARBINARY'",
+			"'VARCHAR'", "'VARIABLES'", "'VERBOSE'", "'VIEW'", "'VIEWS'", "'WAREHOUSE'",
+			"'WAREHOUSES'", "'WARNINGS'", "'WEEK'", "'WHEN'", "'WHERE'", "'WHITELIST'",
+			"'WITH'", "'WORK'", "'WRITE'", "'YEAR'", "'LOCK'", "'UNLOCK'", "'LOW_PRIORITY'",
+			"'='", null, "'<'", "'<='", "'>'", "'>='", "'<=>'", "'+'", "'-'", "'*'",
+			"'/'", "'%'", "'||'", "'&&'", "'!'", "'DIV'", "'&'", "'|'", "'^'", "'~'",
+			"'BITSHIFTLEFT'", "'BITSHIFTRIGHT'", "'BITSHIFTRIGHTLOGICAL'", "'->'",
+			"'@'", null, null, null, null, null, null, null, null, null, null, null,
 			null, null, "';'", "'...'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, null, null, null, null, 
-			"ACTIVE", "ADD", "ADMIN", "AFTER", "AGGREGATE", "ALL", "ALTER", "ANALYZE", 
-			"AND", "ANTI", "ARRAY", "ARRAY_AGG", "AS", "ASC", "ASYNC", "AUTHORS", 
-			"AUTHENTICATION", "AUTO_INCREMENT", "AVG", "BACKEND", "BACKENDS", "BACKUP", 
-			"BEGIN", "BETWEEN", "BIGINT", "BITMAP", "BITMAP_UNION", "BLACKLIST", 
-			"BOOLEAN", "BOTH", "BROKER", "BUCKETS", "BUILTIN", "BY", "CANCEL", "CASE", 
-			"CAST", "CATALOG", "CATALOGS", "CEIL", "CHAIN", "CHAR", "CHARACTER", 
-			"CHARSET", "CHECK", "CLEAN", "CLUSTER", "CLUSTERS", "COLLATE", "COLLATION", 
-			"COLUMN", "COLUMNS", "COMMENT", "COMMIT", "COMMITTED", "COMPUTE", "CONFIG", 
-			"CONNECTION", "CONSISTENT", "CONVERT", "COSTS", "COUNT", "CREATE", "CROSS", 
-			"CUBE", "CURRENT", "CURRENT_DATE", "CURRENT_ROLE", "CURRENT_TIME", "CURRENT_TIMESTAMP", 
-			"CURRENT_USER", "DATA", "DATABASE", "DATABASES", "DATE", "DATETIME", 
-			"DAY", "DECIMAL", "DECIMALV2", "DECIMAL32", "DECIMAL64", "DECIMAL128", 
-			"DECOMMISSION", "DEFAULT", "DELETE", "DENSE_RANK", "DEFERRED", "NTILE", 
-			"DESC", "DESCRIBE", "DISTINCT", "DISTRIBUTED", "DISTRIBUTION", "DOUBLE", 
-			"DROP", "DUAL", "DUPLICATE", "DYNAMIC", "ELSE", "ENCLOSE", "END", "ENGINE", 
-			"ENGINES", "ERRORS", "ESCAPE", "EVENTS", "EXCEPT", "EXECUTE", "EXISTS", 
-			"EXPLAIN", "EXPORT", "EXTERNAL", "EXTRACT", "EVERY", "FALSE", "FIELDS", 
-			"FILE", "FILTER", "FIRST", "FIRST_VALUE", "FLOAT", "FLOOR", "FN", "FOLLOWING", 
-			"FOLLOWER", "FOR", "FORCE", "FORMAT", "FREE", "FROM", "FRONTEND", "FRONTENDS", 
-			"FULL", "FUNCTION", "FUNCTIONS", "GLOBAL", "GRANT", "GRANTS", "GROUP", 
-			"GROUPS", "GROUPING", "GROUPING_ID", "HASH", "HAVING", "HELP", "HISTOGRAM", 
-			"HLL", "HLL_UNION", "HOST", "HOUR", "HUB", "IDENTIFIED", "IF", "IMPERSONATE", 
-			"IMMEDIATE", "IGNORE", "IMAGE", "IN", "INACTIVE", "INDEX", "INDEXES", 
-			"INFILE", "INSTALL", "INNER", "INSERT", "INT", "INCREMENTAL", "INTEGER", 
-			"INTERMEDIATE", "INTERSECT", "INTERVAL", "INTO", "OVERWRITE", "IS", "ISOLATION", 
-			"JOB", "JOIN", "JSON", "KEY", "KEYS", "KILL", "LABEL", "LAG", "LARGEINT", 
-			"LAST", "LAST_VALUE", "LATERAL", "LEAD", "LEFT", "LESS", "LEVEL", "LIKE", 
-			"LIMIT", "LIST", "LOAD", "LOCAL", "LOCALTIME", "LOCALTIMESTAMP", "LOCATION", 
-			"LOGICAL", "MANUAL", "MAP", "MATERIALIZED", "MAX", "MAXVALUE", "MERGE", 
-			"MIN", "MINUTE", "MINUS", "META", "MOD", "MODE", "MODIFY", "MONTH", "NAME", 
-			"NAMES", "NEGATIVE", "NO", "NODE", "NODES", "NONE", "NOT", "NULL", "NULLS", 
-			"NUMBER", "NUMERIC", "OBSERVER", "OF", "OFFSET", "ON", "ONLY", "OPEN", 
-			"OPERATE", "OPTIMIZER", "OPTION", "OR", "ORDER", "OUTER", "OUTFILE", 
-			"OVER", "PARTITION", "PARTITIONS", "PASSWORD", "PATH", "PAUSE", "PENDING", 
-			"PERCENTILE", "PERCENTILE_UNION", "PLUGIN", "PLUGINS", "PRECEDING", "PRIMARY", 
-			"PRIVILEGES", "PROC", "PROCEDURE", "PROCESSLIST", "PROPERTIES", "PROPERTY", 
-			"QUALIFY", "QUARTER", "QUERY", "QUEUE", "QUOTA", "RANDOM", "RANGE", "RANK", 
-			"READ", "RECOVER", "REFRESH", "REGEXP", "RELEASE", "REMOVE", "RENAME", 
-			"REPAIR", "REPEATABLE", "REPLACE", "REPLACE_IF_NOT_NULL", "REPLICA", 
-			"REPOSITORY", "REPOSITORIES", "RESOURCE", "RESOURCES", "RESTORE", "RESUME", 
-			"RETURNS", "REVOKE", "REVERT", "RIGHT", "RLIKE", "ROLE", "ROLES", "ROLLBACK", 
-			"ROLLUP", "ROUTINE", "ROW", "ROWS", "ROW_NUMBER", "SAMPLE", "SCHEDULER", 
-			"SCHEMA", "SCHEMAS", "SECOND", "SELECT", "SEMI", "SERIALIZABLE", "SESSION", 
-			"SET", "SETS", "SET_VAR", "SIGNED", "SKIP_HEADER", "SHOW", "SMALLINT", 
-			"SNAPSHOT", "SQLBLACKLIST", "START", "STATS", "STATUS", "STOP", "STORAGE", 
-			"STREAM", "STRING", "SUBMIT", "SUM", "SUSPEND", "SYNC", "SYSTEM", "SYSTEM_TIME", 
-			"SWAP", "STRUCT", "TABLE", "TABLES", "TABLET", "TASK", "TEMPORARY", "TERMINATED", 
-			"THAN", "THEN", "TIME", "TIMESTAMP", "TIMESTAMPADD", "TIMESTAMPDIFF", 
-			"TINYINT", "TRANSACTION", "TO", "TRACE", "TRIGGERS", "TRIM_SPACE", "TRUE", 
-			"TRUNCATE", "TYPE", "TYPES", "UNBOUNDED", "UNCOMMITTED", "UNION", "UNIQUE", 
-			"UNINSTALL", "UNSIGNED", "UPDATE", "USAGE", "USE", "USER", "USERS", "USING", 
-			"VALUE", "VALUES", "VARBINARY", "VARCHAR", "VARIABLES", "VERBOSE", "VIEW", 
-			"VIEWS", "WAREHOUSE", "WAREHOUSES", "WARNINGS", "WEEK", "WHEN", "WHERE", 
-			"WHITELIST", "WITH", "WORK", "WRITE", "YEAR", "LOCK", "UNLOCK", "LOW_PRIORITY", 
-			"EQ", "NEQ", "LT", "LTE", "GT", "GTE", "EQ_FOR_NULL", "PLUS_SYMBOL", 
-			"MINUS_SYMBOL", "ASTERISK_SYMBOL", "SLASH_SYMBOL", "PERCENT_SYMBOL", 
-			"LOGICAL_OR", "LOGICAL_AND", "LOGICAL_NOT", "INT_DIV", "BITAND", "BITOR", 
-			"BITXOR", "BITNOT", "BIT_SHIFT_LEFT", "BIT_SHIFT_RIGHT", "BIT_SHIFT_RIGHT_LOGICAL", 
-			"ARROW", "AT", "INTEGER_VALUE", "DECIMAL_VALUE", "DOUBLE_VALUE", "SINGLE_QUOTED_TEXT", 
-			"DOUBLE_QUOTED_TEXT", "BINARY_SINGLE_QUOTED_TEXT", "BINARY_DOUBLE_QUOTED_TEXT", 
-			"LETTER_IDENTIFIER", "DIGIT_IDENTIFIER", "BACKQUOTED_IDENTIFIER", "DOT_IDENTIFIER", 
-			"SIMPLE_COMMENT", "BRACKETED_COMMENT", "SEMICOLON", "DOTDOTDOT", "WS", 
+			null, null, null, null, null, null, null, null, null, null, null, null,
+			"ACTIVE", "ADD", "ADMIN", "AFTER", "AGGREGATE", "ALL", "ALTER", "ANALYZE",
+			"AND", "ANTI", "ARRAY", "ARRAY_AGG", "AS", "ASC", "ASYNC", "AUTHORS",
+			"AUTHENTICATION", "AUTO_INCREMENT", "AVG", "BACKEND", "BACKENDS", "BACKUP",
+			"BEGIN", "BETWEEN", "BIGINT", "BITMAP", "BITMAP_UNION", "BLACKLIST",
+			"BOOLEAN", "BOTH", "BROKER", "BUCKETS", "BUILTIN", "BY", "CANCEL", "CASE",
+			"CAST", "CATALOG", "CATALOGS", "CEIL", "CHAIN", "CHAR", "CHARACTER",
+			"CHARSET", "CHECK", "CLEAN", "CLUSTER", "CLUSTERS", "COLLATE", "COLLATION",
+			"COLUMN", "COLUMNS", "COMMENT", "COMMIT", "COMMITTED", "COMPUTE", "CONFIG",
+			"CONNECTION", "CONSISTENT", "CONVERT", "COSTS", "COUNT", "CREATE", "CROSS",
+			"CUBE", "CURRENT", "CURRENT_DATE", "CURRENT_ROLE", "CURRENT_TIME", "CURRENT_TIMESTAMP",
+			"CURRENT_USER", "DATA", "DATABASE", "DATABASES", "DATE", "DATETIME",
+			"DAY", "DECIMAL", "DECIMALV2", "DECIMAL32", "DECIMAL64", "DECIMAL128",
+			"DECOMMISSION", "DEFAULT", "DELETE", "DENSE_RANK", "DEFERRED", "NTILE",
+			"DESC", "DESCRIBE", "DISTINCT", "DISTRIBUTED", "DISTRIBUTION", "DOUBLE",
+			"DROP", "DUAL", "DUPLICATE", "DYNAMIC", "ELSE", "ENCLOSE", "END", "ENGINE",
+			"ENGINES", "ERRORS", "ESCAPE", "EVENTS", "EXCEPT", "EXECUTE", "EXISTS",
+			"EXPLAIN", "EXPORT", "EXTERNAL", "EXTRACT", "EVERY", "FALSE", "FIELDS",
+			"FILE", "FILTER", "FIRST", "FIRST_VALUE", "FLOAT", "FLOOR", "FN", "FOLLOWING",
+			"FOLLOWER", "FOR", "FORCE", "FORMAT", "FREE", "FROM", "FRONTEND", "FRONTENDS",
+			"FULL", "FUNCTION", "FUNCTIONS", "GLOBAL", "GRANT", "GRANTS", "GROUP",
+			"GROUPS", "GROUPING", "GROUPING_ID", "HASH", "HAVING", "HELP", "HISTOGRAM",
+			"HLL", "HLL_UNION", "HOST", "HOUR", "HUB", "IDENTIFIED", "IF", "IMPERSONATE",
+			"IMMEDIATE", "IGNORE", "IMAGE", "IN", "INACTIVE", "INDEX", "INDEXES",
+			"INFILE", "INSTALL", "INNER", "INSERT", "INT", "INCREMENTAL", "INTEGER",
+			"INTERMEDIATE", "INTERSECT", "INTERVAL", "INTO", "OVERWRITE", "IS", "ISOLATION",
+			"JOB", "JOIN", "JSON", "KEY", "KEYS", "KILL", "LABEL", "LAG", "LARGEINT",
+			"LAST", "LAST_VALUE", "LATERAL", "LEAD", "LEFT", "LESS", "LEVEL", "LIKE",
+			"LIMIT", "LIST", "LOAD", "LOCAL", "LOCALTIME", "LOCALTIMESTAMP", "LOCATION",
+			"LOGICAL", "MANUAL", "MAP", "MATERIALIZED", "MAX", "MAXVALUE", "MERGE",
+			"MIN", "MINUTE", "MINUS", "META", "MOD", "MODE", "MODIFY", "MONTH", "NAME",
+			"NAMES", "NEGATIVE", "NO", "NODE", "NODES", "NONE", "NOT", "NULL", "NULLS",
+			"NUMBER", "NUMERIC", "OBSERVER", "OF", "OFFSET", "ON", "ONLY", "OPEN",
+			"OPERATE", "OPTIMIZER", "OPTION", "OR", "ORDER", "OUTER", "OUTFILE",
+			"OVER", "PARTITION", "PARTITIONS", "PASSWORD", "PATH", "PAUSE", "PENDING",
+			"PERCENTILE", "PERCENTILE_UNION", "PLUGIN", "PLUGINS", "PRECEDING", "PRIMARY",
+			"PRIVILEGES", "PROC", "PROCEDURE", "PROCESSLIST", "PROPERTIES", "PROPERTY",
+			"QUALIFY", "QUARTER", "QUERY", "QUEUE", "QUOTA", "RANDOM", "RANGE", "RANK",
+			"READ", "RECOVER", "REFRESH", "REGEXP", "RELEASE", "REMOVE", "RENAME",
+			"REPAIR", "REPEATABLE", "REPLACE", "REPLACE_IF_NOT_NULL", "REPLICA",
+			"REPOSITORY", "REPOSITORIES", "RESOURCE", "RESOURCES", "RESTORE", "RESUME",
+			"RETURNS", "REVOKE", "REVERT", "RIGHT", "RLIKE", "ROLE", "ROLES", "ROLLBACK",
+			"ROLLUP", "ROUTINE", "ROW", "ROWS", "ROW_NUMBER", "SAMPLE", "SCHEDULER",
+			"SCHEMA", "SCHEMAS", "SECOND", "SELECT", "SEMI", "SERIALIZABLE", "SESSION",
+			"SET", "SETS", "SET_VAR", "SIGNED", "SKIP_HEADER", "SHOW", "SMALLINT",
+			"SNAPSHOT", "SQLBLACKLIST", "START", "STATS", "STATUS", "STOP", "STORAGE",
+			"STREAM", "STRING", "SUBMIT", "SUM", "SUSPEND", "SYNC", "SYSTEM", "SYSTEM_TIME",
+			"SWAP", "STRUCT", "TABLE", "TABLES", "TABLET", "TASK", "TEMPORARY", "TERMINATED",
+			"THAN", "THEN", "TIME", "TIMESTAMP", "TIMESTAMPADD", "TIMESTAMPDIFF",
+			"TINYINT", "TRANSACTION", "TO", "TRACE", "TRIGGERS", "TRIM_SPACE", "TRUE",
+			"TRUNCATE", "TYPE", "TYPES", "UNBOUNDED", "UNCOMMITTED", "UNION", "UNIQUE",
+			"UNINSTALL", "UNSIGNED", "UPDATE", "USAGE", "USE", "USER", "USERS", "USING",
+			"VALUE", "VALUES", "VARBINARY", "VARCHAR", "VARIABLES", "VERBOSE", "VIEW",
+			"VIEWS", "WAREHOUSE", "WAREHOUSES", "WARNINGS", "WEEK", "WHEN", "WHERE",
+			"WHITELIST", "WITH", "WORK", "WRITE", "YEAR", "LOCK", "UNLOCK", "LOW_PRIORITY",
+			"EQ", "NEQ", "LT", "LTE", "GT", "GTE", "EQ_FOR_NULL", "PLUS_SYMBOL",
+			"MINUS_SYMBOL", "ASTERISK_SYMBOL", "SLASH_SYMBOL", "PERCENT_SYMBOL",
+			"LOGICAL_OR", "LOGICAL_AND", "LOGICAL_NOT", "INT_DIV", "BITAND", "BITOR",
+			"BITXOR", "BITNOT", "BIT_SHIFT_LEFT", "BIT_SHIFT_RIGHT", "BIT_SHIFT_RIGHT_LOGICAL",
+			"ARROW", "AT", "INTEGER_VALUE", "DECIMAL_VALUE", "DOUBLE_VALUE", "SINGLE_QUOTED_TEXT",
+			"DOUBLE_QUOTED_TEXT", "BINARY_SINGLE_QUOTED_TEXT", "BINARY_DOUBLE_QUOTED_TEXT",
+			"LETTER_IDENTIFIER", "DIGIT_IDENTIFIER", "BACKQUOTED_IDENTIFIER", "DOT_IDENTIFIER",
+			"SIMPLE_COMMENT", "BRACKETED_COMMENT", "SEMICOLON", "DOTDOTDOT", "WS",
 			"CONCAT"
 		};
 	}
@@ -558,7 +558,7 @@ public class StarRocksParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(745); 
+			setState(745);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
@@ -568,7 +568,7 @@ public class StarRocksParser extends Parser {
 				singleStatement();
 				}
 				}
-				setState(747); 
+				setState(747);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << ADD) | (1L << ADMIN) | (1L << ALTER) | (1L << ANALYZE) | (1L << BACKUP) | (1L << BEGIN) | (1L << CANCEL))) != 0) || ((((_la - 65)) & ~0x3f) == 0 && ((1L << (_la - 65)) & ((1L << (COMMIT - 65)) | (1L << (CREATE - 65)) | (1L << (DELETE - 65)) | (1L << (DESC - 65)) | (1L << (DESCRIBE - 65)) | (1L << (DROP - 65)) | (1L << (EXECUTE - 65)) | (1L << (EXPLAIN - 65)) | (1L << (EXPORT - 65)))) != 0) || ((((_la - 148)) & ~0x3f) == 0 && ((1L << (_la - 148)) & ((1L << (GRANT - 148)) | (1L << (HELP - 148)) | (1L << (INSTALL - 148)) | (1L << (INSERT - 148)) | (1L << (KILL - 148)) | (1L << (LOAD - 148)))) != 0) || ((((_la - 256)) & ~0x3f) == 0 && ((1L << (_la - 256)) & ((1L << (PAUSE - 256)) | (1L << (RECOVER - 256)) | (1L << (REFRESH - 256)) | (1L << (RESTORE - 256)) | (1L << (RESUME - 256)) | (1L << (REVOKE - 256)) | (1L << (ROLLBACK - 256)) | (1L << (SELECT - 256)) | (1L << (SET - 256)))) != 0) || ((((_la - 323)) & ~0x3f) == 0 && ((1L << (_la - 323)) & ((1L << (SHOW - 323)) | (1L << (START - 323)) | (1L << (STOP - 323)) | (1L << (SUBMIT - 323)) | (1L << (SUSPEND - 323)) | (1L << (SYNC - 323)) | (1L << (TRACE - 323)) | (1L << (TRUNCATE - 323)) | (1L << (UNINSTALL - 323)) | (1L << (UPDATE - 323)) | (1L << (USE - 323)))) != 0) || ((((_la - 391)) & ~0x3f) == 0 && ((1L << (_la - 391)) & ((1L << (WITH - 391)) | (1L << (LOCK - 391)) | (1L << (UNLOCK - 391)) | (1L << (SEMICOLON - 391)))) != 0) );
@@ -3346,7 +3346,7 @@ public class StarRocksParser extends Parser {
 					setState(1045);
 					columnDesc();
 					}
-					} 
+					}
 				}
 				setState(1050);
 				_errHandler.sync(this);
@@ -9425,7 +9425,7 @@ public class StarRocksParser extends Parser {
 					setState(1958);
 					string();
 					}
-					} 
+					}
 				}
 				setState(1963);
 				_errHandler.sync(this);
@@ -9491,7 +9491,7 @@ public class StarRocksParser extends Parser {
 					setState(1968);
 					string();
 					}
-					} 
+					}
 				}
 				setState(1973);
 				_errHandler.sync(this);
@@ -9565,7 +9565,7 @@ public class StarRocksParser extends Parser {
 					setState(1981);
 					string();
 					}
-					} 
+					}
 				}
 				setState(1986);
 				_errHandler.sync(this);
@@ -9685,7 +9685,7 @@ public class StarRocksParser extends Parser {
 					setState(1999);
 					string();
 					}
-					} 
+					}
 				}
 				setState(2004);
 				_errHandler.sync(this);
@@ -9752,7 +9752,7 @@ public class StarRocksParser extends Parser {
 					setState(2010);
 					string();
 					}
-					} 
+					}
 				}
 				setState(2015);
 				_errHandler.sync(this);
@@ -9827,7 +9827,7 @@ public class StarRocksParser extends Parser {
 						setState(2021);
 						string();
 						}
-						} 
+						}
 					}
 					setState(2026);
 					_errHandler.sync(this);
@@ -9858,7 +9858,7 @@ public class StarRocksParser extends Parser {
 						setState(2032);
 						string();
 						}
-						} 
+						}
 					}
 					setState(2037);
 					_errHandler.sync(this);
@@ -14900,7 +14900,7 @@ public class StarRocksParser extends Parser {
 					setState(2853);
 					type();
 					}
-					} 
+					}
 				}
 				setState(2858);
 				_errHandler.sync(this);
@@ -18078,7 +18078,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_showAuthenticationStatement; }
-	 
+
 		public ShowAuthenticationStatementContext() { }
 		public void copyFrom(ShowAuthenticationStatementContext ctx) {
 			super.copyFrom(ctx);
@@ -18384,7 +18384,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_grantRoleStatement; }
-	 
+
 		public GrantRoleStatementContext() { }
 		public void copyFrom(GrantRoleStatementContext ctx) {
 			super.copyFrom(ctx);
@@ -18490,7 +18490,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_revokeRoleStatement; }
-	 
+
 		public RevokeRoleStatementContext() { }
 		public void copyFrom(RevokeRoleStatementContext ctx) {
 			super.copyFrom(ctx);
@@ -18836,7 +18836,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_grantPrivilegeStatement; }
-	 
+
 		public GrantPrivilegeStatementContext() { }
 		public void copyFrom(GrantPrivilegeStatementContext ctx) {
 			super.copyFrom(ctx);
@@ -19285,7 +19285,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_revokePrivilegeStatement; }
-	 
+
 		public RevokePrivilegeStatementContext() { }
 		public void copyFrom(RevokePrivilegeStatementContext ctx) {
 			super.copyFrom(ctx);
@@ -19710,7 +19710,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_authOption; }
-	 
+
 		public AuthOptionContext() { }
 		public void copyFrom(AuthOptionContext ctx) {
 			super.copyFrom(ctx);
@@ -22137,7 +22137,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_setVar; }
-	 
+
 		public SetVarContext() { }
 		public void copyFrom(SetVarContext ctx) {
 			super.copyFrom(ctx);
@@ -24743,7 +24743,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_queryPrimary; }
-	 
+
 		public QueryPrimaryContext() { }
 		public void copyFrom(QueryPrimaryContext ctx) {
 			super.copyFrom(ctx);
@@ -24905,7 +24905,7 @@ public class StarRocksParser extends Parser {
 						}
 						break;
 					}
-					} 
+					}
 				}
 				setState(4244);
 				_errHandler.sync(this);
@@ -25264,7 +25264,7 @@ public class StarRocksParser extends Parser {
 					setState(4285);
 					selectItem();
 					}
-					} 
+					}
 				}
 				setState(4290);
 				_errHandler.sync(this);
@@ -25356,7 +25356,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_fromClause; }
-	 
+
 		public FromClauseContext() { }
 		public void copyFrom(FromClauseContext ctx) {
 			super.copyFrom(ctx);
@@ -25438,7 +25438,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_groupingElement; }
-	 
+
 		public GroupingElementContext() { }
 		public void copyFrom(GroupingElementContext ctx) {
 			super.copyFrom(ctx);
@@ -25781,7 +25781,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_selectItem; }
-	 
+
 		public SelectItemContext() { }
 		public void copyFrom(SelectItemContext ctx) {
 			super.copyFrom(ctx);
@@ -26182,7 +26182,7 @@ public class StarRocksParser extends Parser {
 					setState(4396);
 					relation();
 					}
-					} 
+					}
 				}
 				setState(4401);
 				_errHandler.sync(this);
@@ -26246,7 +26246,7 @@ public class StarRocksParser extends Parser {
 						setState(4403);
 						joinRelation();
 						}
-						} 
+						}
 					}
 					setState(4408);
 					_errHandler.sync(this);
@@ -26297,7 +26297,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_relationPrimary; }
-	 
+
 		public RelationPrimaryContext() { }
 		public void copyFrom(RelationPrimaryContext ctx) {
 			super.copyFrom(ctx);
@@ -27434,7 +27434,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_keyPartitions; }
-	 
+
 		public KeyPartitionsContext() { }
 		public void copyFrom(KeyPartitionsContext ctx) {
 			super.copyFrom(ctx);
@@ -28039,7 +28039,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expression; }
-	 
+
 		public ExpressionContext() { }
 		public void copyFrom(ExpressionContext ctx) {
 			super.copyFrom(ctx);
@@ -28464,7 +28464,7 @@ public class StarRocksParser extends Parser {
 						}
 						break;
 					}
-					} 
+					}
 				}
 				setState(4690);
 				_errHandler.sync(this);
@@ -28522,7 +28522,7 @@ public class StarRocksParser extends Parser {
 					setState(4693);
 					expression(0);
 					}
-					} 
+					}
 				}
 				setState(4698);
 				_errHandler.sync(this);
@@ -28546,7 +28546,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_booleanExpression; }
-	 
+
 		public BooleanExpressionContext() { }
 		public void copyFrom(BooleanExpressionContext ctx) {
 			super.copyFrom(ctx);
@@ -28702,7 +28702,7 @@ public class StarRocksParser extends Parser {
 						}
 						break;
 					}
-					} 
+					}
 				}
 				setState(4722);
 				_errHandler.sync(this);
@@ -28821,7 +28821,7 @@ public class StarRocksParser extends Parser {
 			match(T__0);
 			setState(4731);
 			expression(0);
-			setState(4734); 
+			setState(4734);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
@@ -28833,7 +28833,7 @@ public class StarRocksParser extends Parser {
 				expression(0);
 				}
 				}
-				setState(4736); 
+				setState(4736);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==T__1 );
@@ -28878,7 +28878,7 @@ public class StarRocksParser extends Parser {
 			this.value = value;
 		}
 		@Override public int getRuleIndex() { return RULE_predicateOperations; }
-	 
+
 		public PredicateOperationsContext() { }
 		public void copyFrom(PredicateOperationsContext ctx) {
 			super.copyFrom(ctx);
@@ -29073,7 +29073,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_valueExpression; }
-	 
+
 		public ValueExpressionContext() { }
 		public void copyFrom(ValueExpressionContext ctx) {
 			super.copyFrom(ctx);
@@ -29280,7 +29280,7 @@ public class StarRocksParser extends Parser {
 						}
 						break;
 					}
-					} 
+					}
 				}
 				setState(4809);
 				_errHandler.sync(this);
@@ -29304,7 +29304,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_primaryExpression; }
-	 
+
 		public PrimaryExpressionContext() { }
 		public void copyFrom(PrimaryExpressionContext ctx) {
 			super.copyFrom(ctx);
@@ -29835,7 +29835,7 @@ public class StarRocksParser extends Parser {
 				match(CASE);
 				setState(4850);
 				((SimpleCaseContext)_localctx).caseExpr = expression(0);
-				setState(4852); 
+				setState(4852);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				do {
@@ -29845,7 +29845,7 @@ public class StarRocksParser extends Parser {
 					whenClause();
 					}
 					}
-					setState(4854); 
+					setState(4854);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				} while ( _la==WHEN );
@@ -29872,7 +29872,7 @@ public class StarRocksParser extends Parser {
 				_prevctx = _localctx;
 				setState(4862);
 				match(CASE);
-				setState(4864); 
+				setState(4864);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				do {
@@ -29882,7 +29882,7 @@ public class StarRocksParser extends Parser {
 					whenClause();
 					}
 					}
-					setState(4866); 
+					setState(4866);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				} while ( _la==WHEN );
@@ -30581,7 +30581,7 @@ public class StarRocksParser extends Parser {
 						}
 						break;
 					}
-					} 
+					}
 				}
 				setState(4936);
 				_errHandler.sync(this);
@@ -30605,7 +30605,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_literalExpression; }
-	 
+
 		public LiteralExpressionContext() { }
 		public void copyFrom(LiteralExpressionContext ctx) {
 			super.copyFrom(ctx);
@@ -30809,7 +30809,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_functionCall; }
-	 
+
 		public FunctionCallContext() { }
 		public void copyFrom(FunctionCallContext ctx) {
 			super.copyFrom(ctx);
@@ -32862,7 +32862,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_frameBound; }
-	 
+
 		public FrameBoundContext() { }
 		public void copyFrom(FrameBoundContext ctx) {
 			super.copyFrom(ctx);
@@ -36525,7 +36525,7 @@ public class StarRocksParser extends Parser {
 					default:
 						throw new NoViableAltException(this);
 					}
-					} 
+					}
 				}
 				setState(5928);
 				_errHandler.sync(this);
@@ -36549,7 +36549,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_identifier; }
-	 
+
 		public IdentifierContext() { }
 		public void copyFrom(IdentifierContext ctx) {
 			super.copyFrom(ctx);
@@ -37548,7 +37548,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_user; }
-	 
+
 		public UserContext() { }
 		public void copyFrom(UserContext ctx) {
 			super.copyFrom(ctx);
@@ -37757,7 +37757,7 @@ public class StarRocksParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_number; }
-	 
+
 		public NumberContext() { }
 		public void copyFrom(NumberContext ctx) {
 			super.copyFrom(ctx);
