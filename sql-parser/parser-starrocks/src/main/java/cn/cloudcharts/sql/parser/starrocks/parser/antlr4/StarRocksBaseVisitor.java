@@ -1,5 +1,5 @@
 // Generated from StarRocks.g4 by ANTLR 4.9.3
-package cn.cloudcharts.sql.parser.starrocks;
+package cn.cloudcharts.sql.parser.starrocks.parser.antlr4;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
