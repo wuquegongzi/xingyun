@@ -17,8 +17,8 @@
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <spring-boot.version>2.7.10</spring-boot.version>
-        <admin.spring-boot.version>2.7.3</admin.spring-boot.version>
+        <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
+        <admin.spring-boot.version>2.3.1</admin.spring-boot.version>
         <spring.version>5.3.26</spring.version>
         <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
         <spring.version>5.2.15.RELEASE</spring.version>
