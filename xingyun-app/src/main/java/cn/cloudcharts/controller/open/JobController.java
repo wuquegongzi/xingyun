@@ -5,10 +5,7 @@ import cn.cloudcharts.model.request.JobInfoRequest;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author wuque
@@ -18,7 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2023/6/1320:47
  */
 @Tag(name = "JobApi", description = "作业操作接口")
-@RestController("/job")
+@RestController
+@RequestMapping(value = "/job")
 public class JobController {
 
     @ApiOperationSupport(author = "安山")

@@ -26,7 +26,8 @@ import org.springframework.web.bind.annotation.*;
  * @date 2023/5/417:45
  */
 @Tag(name = "ExecuteApi", description = "OLAP 操作接口")
-@RestController("/exec")
+@RestController
+@RequestMapping(value = "/exec")
 public class ExecuteController {
 
     @Autowired
@@ -70,7 +71,7 @@ public class ExecuteController {
     public R getTableList(@RequestBody QueryTblRequest queryTblRequest){
         return R.ok(executeService.getTableList(queryTblRequest));
     }
-    
+
 
 
 }
