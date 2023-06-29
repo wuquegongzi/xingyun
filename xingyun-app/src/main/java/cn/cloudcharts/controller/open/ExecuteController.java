@@ -8,7 +8,6 @@ import cn.cloudcharts.model.request.SqlQueryRequest;
 import cn.cloudcharts.service.ExecuteService;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,7 +25,8 @@ import org.springframework.web.bind.annotation.*;
  * @date 2023/5/417:45
  */
 @Tag(name = "ExecuteApi", description = "OLAP 操作接口")
-@RestController("/exec")
+@RestController
+@RequestMapping(value = "/exec")
 public class ExecuteController {
 
     @Autowired
@@ -70,7 +70,7 @@ public class ExecuteController {
     public R getTableList(@RequestBody QueryTblRequest queryTblRequest){
         return R.ok(executeService.getTableList(queryTblRequest));
     }
-    
+
 
 
 }

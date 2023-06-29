@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2023-06-15
  */
 @Tag(name = "JobApi", description = "作业管理接口")
-@RestController("/job/config")
+@RestController
+@RequestMapping(value = "/job/config")
 public class JobConfigController {
 
 

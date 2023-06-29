@@ -2,6 +2,7 @@ package cn.cloudcharts.service.impl;
 
 import cn.cloudcharts.common.exception.ServiceException;
 import cn.cloudcharts.common.utils.AssertUtil;
+import cn.cloudcharts.common.utils.sql.SqlUtil;
 import cn.cloudcharts.model.request.QueryTblColumnRequest;
 import cn.cloudcharts.model.request.QueryTblRequest;
 import cn.cloudcharts.model.request.SqlExecRequest;
@@ -93,6 +94,15 @@ public class ExecuteServiceImpl implements ExecuteService {
 
         try {
             Driver driver = Driver.build(database.getDriverConfig());
+
+            String[] statements = SqlUtil.getStatements(SqlUtil.removeNote(sqlRequest.getStatement()));
+            if(statements.length < 1){
+                throw new ServiceException("请输入有效查询SQL!");
+            }
+            String sql = statements[statements.length - 1];
+            if (!sql.toUpperCase().startsWith("SELECT") && !sql.toUpperCase().startsWith("SHOW") && !sql.toUpperCase().startsWith("DESC")) {
+                throw new ServiceException("non-standard query statement!");
+            }
 
             if(sqlRequest.isCheckTblExist()){
                 driver.syncTblMeta(sqlRequest.getStatement(),sqlRequest.getSchemaFromCatalogName(),sqlRequest.getSchemaFromCatalogDsType());

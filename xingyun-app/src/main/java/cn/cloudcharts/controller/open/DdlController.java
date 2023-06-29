@@ -7,14 +7,9 @@ import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.enums.ParameterStyle;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author wuque
@@ -24,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2023/5/2919:37
  */
 @Tag(name = "DdlApi", description = "OLAP 建模接口")
-@RestController("/ddl")
+@RestController
+@RequestMapping(value = "/ddl")
 public class DdlController {
 
     @Autowired
