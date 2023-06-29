@@ -8,7 +8,6 @@ import cn.cloudcharts.model.request.SqlQueryRequest;
 import cn.cloudcharts.service.ExecuteService;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

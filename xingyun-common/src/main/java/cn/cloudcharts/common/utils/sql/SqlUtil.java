@@ -88,7 +88,9 @@ public class SqlUtil
 
         if (AssertUtil.isNotNullString(sql)) {
             // Remove the special-space characters
-            sql = sql.replaceAll("\u00A0", " ").replaceAll("[\r\n]+", "\n");
+            sql = sql.replaceAll("\u00A0", " ")
+                    .replaceAll("[\r\n]+", "\n")
+                    .replaceAll("`","");
             // Remove annotations Support '--aa' , '/**aaa*/' , '//aa' , '#aaa'
             Pattern p = Pattern.compile("(?ms)('(?:''|[^'])*')|--.*?$|//.*?$|/\\*.*?\\*/|#.*?$|");
             String presult = p.matcher(sql).replaceAll("$1");

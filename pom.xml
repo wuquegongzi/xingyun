@@ -18,6 +18,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <spring-boot.version>2.7.10</spring-boot.version>
+        <admin.spring-boot.version>2.7.3</admin.spring-boot.version>
         <spring.version>5.3.26</spring.version>
 
     </properties>
@@ -75,6 +76,11 @@
            </dependency>
            <dependency>
                <groupId>cn.cloudcharts</groupId>
+               <artifactId>xingyun-core</artifactId>
+               <version>1.0-SNAPSHOT</version>
+           </dependency>
+           <dependency>
+               <groupId>cn.cloudcharts</groupId>
                <artifactId>xingyun-k8s</artifactId>
                <version>1.0-SNAPSHOT</version>
            </dependency>
@@ -112,6 +118,7 @@
         <module>xingyun-metadata</module>
         <module>xingyun-k8s</module>
         <module>xingyun-scheduler</module>
+        <module>xingyun-core</module>
     </modules>
 
 
