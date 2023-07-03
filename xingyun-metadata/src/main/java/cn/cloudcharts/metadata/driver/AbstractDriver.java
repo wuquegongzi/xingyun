@@ -1,13 +1,12 @@
 package cn.cloudcharts.metadata.driver;
 
-import cn.cloudcharts.common.exception.ServiceException;
 import cn.cloudcharts.common.utils.AssertUtil;
 import cn.cloudcharts.metadata.convert.ITypeConvert;
 import cn.cloudcharts.metadata.model.dto.AlertColumnDTO;
-import cn.cloudcharts.metadata.sql.IDbSqlGen;
 import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
-import cn.cloudcharts.metadata.model.result.ResultColumn;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
+import cn.cloudcharts.metadata.model.result.ResultColumn;
+import cn.cloudcharts.metadata.sql.IDbSqlGen;
 import cn.cloudcharts.metadata.task.ITaskOpertion;
 import cn.cloudcharts.sql.parser.CalciteSqlParser;
 import cn.hutool.core.util.ObjectUtil;
@@ -17,8 +16,6 @@ import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.logging.LoggingMeterRegistry;
 import io.micrometer.core.instrument.logging.LoggingRegistryConfig;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.calcite.sql.SqlKind;
-import org.apache.calcite.sql.parser.SqlParseException;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.slf4j.Logger;
@@ -27,7 +24,10 @@ import org.slf4j.LoggerFactory;
 import java.io.PrintWriter;
 import java.sql.*;
 import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
  * @date 2023/5/2219:20
  */
 @Slf4j
-public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.Driver {
+public abstract class AbstractDriver implements Driver {
 
     protected static Logger logger = LoggerFactory.getLogger(AbstractDriver.class);
 
@@ -86,7 +86,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
     }
 
     @Override
-    public cn.cloudcharts.metadata.driver.Driver setDriverConfig(DriverConfigPO config) {
+    public Driver setDriverConfig(DriverConfigPO config) {
         this.config = config;
         try {
             this.dataSource = createDataSource();
@@ -249,9 +249,9 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
 //        } catch (SqlParseException e) {
 //            throw new RuntimeException(e);
 //        }
-//        if(SqlKind.SELECT.toString().equals(sqlKind.toString())){
+//        if(!SqlKind.SELECT.toString().equals(sqlKind.toString())){
 //            throw new ServiceException("non-standard query statement!");
-//       }
+//        }
 
         JdbcSelectResult result = new JdbcSelectResult();
         List<LinkedHashMap<String, Object>> datas = new ArrayList<>();
@@ -428,7 +428,7 @@ public abstract class AbstractDriver implements cn.cloudcharts.metadata.driver.D
                 int res = lists.size();
                 if(res < 1 && autoCreate){
                     sql = getDbSqlGenHelper().createSchema(dbName);
-                    qr.update(conn.get(),sql);
+                    res = qr.update(conn.get(),sql);
                 }
 
                 return  res > 0;

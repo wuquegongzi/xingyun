@@ -14,7 +14,10 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Maps;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -116,5 +119,31 @@ public class StarRocksDbSqlGen extends AbstractDbSqlGen {
         return CustomSQL.getInstance().get("ddl.sr.addColumns",map);
     }
 
+    @Override
+    public String getSchemaList(String catalogName) {
+        Map map = Maps.newHashMap();
+        map.put("catalogName",catalogName);
+        return CustomSQL.getInstance().get("dml.sr.getSchemaList",map);
+    }
 
+    @Override
+    public String getPartitionsList(String schema, String tbl) {
+        Map map = Maps.newHashMap();
+        map.put("schema",schema);
+        map.put("tbl",tbl);
+        return CustomSQL.getInstance().get("dml.sr.getPartitionsList",map);
+    }
+
+    @Override
+    public String exsitSchema(String catalogName, String dbName) {
+        AssertUtil.checkNullString(dbName, "数据库名不可空");
+
+        Map map = Maps.newHashMap();
+        if( StrUtil.isNotEmpty(catalogName)){
+            map.put("catalogName", catalogName);
+        }
+        map.put("dbName",dbName);
+
+        return CustomSQL.getInstance().get("dml.sr.exsitSchema",map).toLowerCase();
+    }
 }

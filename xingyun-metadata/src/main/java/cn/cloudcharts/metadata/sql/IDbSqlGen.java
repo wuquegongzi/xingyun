@@ -27,4 +27,8 @@ public interface IDbSqlGen {
     String exsitSchema(String catalogName, String dbName);
 
     String createSchema(String dbName);
+
+    String getSchemaList(String catalogName);
+
+    String getPartitionsList(String schema, String tbl);
 }

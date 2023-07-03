@@ -162,13 +162,31 @@
 
     <sql id="aux.sr.desc" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
-            DESC ${(catalogName)!"default_catalog"}.${dbName}.${tableName};
+            DESC ${(catalogName)!"default_catalog"}.${dbName}.${tableName}
         ]]>
     </sql>
 
     <sql id="ops.sr.queryAllColumns" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
           SHOW FULL COLUMNS FROM ${(catalogName)!"default_catalog"}.${dbName}.${tableName}
+        ]]>
+    </sql>
+
+    <sql id="dml.sr.getSchemaList" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+           SHOW DATABASES FROM ${(catalogName)!"default_catalog"}
+         ]]>
+    </sql>
+
+    <sql id="dml.sr.getPartitionsList" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+           SHOW PARTITIONS FROM ${schema}.${tbl}
+         ]]>
+    </sql>
+
+    <sql id="dml.sr.exsitSchema" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+          show databases from ${(catalogName)!"default_catalog"} like '${dbName}'
         ]]>
     </sql>
 
