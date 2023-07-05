@@ -126,4 +126,6 @@ public interface Driver extends AutoCloseable{
     boolean submitSyncTask(SyncTaskGenInfo taskGenInfo);
 
     List<Map<String,Object>> getPartitionsList(String schema, String tbl);
+
+    boolean tblNormal(String schema, String tbl, String operType);
 }

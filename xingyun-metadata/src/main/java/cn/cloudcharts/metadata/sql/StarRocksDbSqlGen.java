@@ -55,11 +55,12 @@ public class StarRocksDbSqlGen extends AbstractDbSqlGen {
         }).filter(c ->{ return null != c; }).collect(Collectors.toList());
 
         String colDesc = colList.size() > 0 ? colList.get(0) : dto.getCols().get(0).getColName();
-        //如果分桶未指定，则默认取第一个
-        dto.setDistributedCols(StringUtils.isEmpty(dto.getDistributedCols())?colDesc : dto.getDistributedCols());
 
         //如果keydesc排序键未指定，则默认取一个
         dto.setKeyDesc(StringUtils.isEmpty(dto.getKeyDesc())?colDesc : dto.getKeyDesc());
+
+        //如果分桶未指定，则默认取keydesc
+        dto.setDistributedCols(StringUtils.isEmpty(dto.getDistributedCols())?dto.getKeyDesc() : dto.getDistributedCols());
 
         //主键模型  主键必须定义在其他列之前
         List<ColumnDTO> columnSortList = new LinkedList<>();
@@ -135,6 +136,15 @@ public class StarRocksDbSqlGen extends AbstractDbSqlGen {
     }
 
     @Override
+    public String tblNormal(String schema, String tbl, String operType) {
+        Map map = Maps.newHashMap();
+        map.put("schema",schema);
+        map.put("tbl",tbl);
+        map.put("operType",operType);
+        return CustomSQL.getInstance().get("ddl.sr.tblNormal",map);
+    }
+
+    @Override
     public String exsitSchema(String catalogName, String dbName) {
         AssertUtil.checkNullString(dbName, "数据库名不可空");
 
@@ -144,6 +154,6 @@ public class StarRocksDbSqlGen extends AbstractDbSqlGen {
         }
         map.put("dbName",dbName);
 
-        return CustomSQL.getInstance().get("dml.sr.exsitSchema",map).toLowerCase();
+        return CustomSQL.getInstance().get("dml.sr.exsitSchema",map);
     }
 }

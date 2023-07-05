@@ -31,4 +31,6 @@ public interface IDbSqlGen {
     String getSchemaList(String catalogName);
 
     String getPartitionsList(String schema, String tbl);
+
+    String tblNormal(String schema, String tbl, String operType);
 }

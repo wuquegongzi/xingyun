@@ -335,7 +335,7 @@ public abstract class AbstractDriver implements Driver {
     @Override
     public boolean createTbl(CreateTableDTO dto) throws Exception {
 
-        String sql = buildCreateTableSql(dto).replaceAll("\r\n", " ").toLowerCase();
+        String sql = buildCreateTableSql(dto).replaceAll("\r\n", " ");
         if (StrUtil.isNotEmpty(sql)) {
             return execute(sql);
         } else {

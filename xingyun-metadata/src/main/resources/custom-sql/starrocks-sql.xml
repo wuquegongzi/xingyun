@@ -134,10 +134,7 @@
 
     <sql id="ddl.sr.addColumns" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
-          ALTER TABLE
-           <#if schemaName?? && schemaName != "">
-                ${schemaName}.
-           </#if>${table}
+          ALTER TABLE  <#if schemaName?? && schemaName != "">${schemaName}.</#if>${tblName}
            ADD COLUMN (
            <#list cols! as item>
                     `${item.colName}`
@@ -157,6 +154,11 @@
                         <#if item_has_next>,</#if>
            </#list>
           )
+        ]]>
+    </sql>
+    <sql id="ddl.sr.tblNormal" sqlType="SQL" tempateType="freeMarker">
+        <![CDATA[
+           show tablet from <#if schema?? && schema != "">${schema}.</#if>${tbl} where State="${operType}";
         ]]>
     </sql>
 
@@ -198,7 +200,8 @@
 
     <sql id="task.sr.sync.insert.async" sqlType="SQL" tempateType="freeMarker">
         <![CDATA[
-            SUBMIT /*+set_var(query_timeout=100000)*/  TASK ${taskName}
+            USE  ${sinkDb};
+            SUBMIT /*+set_var(query_timeout=10800,enable_insert_strict=false)*/  TASK ${taskName}
             AS
             INSERT ${(insertType)!"OVERWRITE"} ${(sinkCatalog)!"default_catalog"}.${sinkDb}.${sinkTbl}
             WITH LABEL ${label}

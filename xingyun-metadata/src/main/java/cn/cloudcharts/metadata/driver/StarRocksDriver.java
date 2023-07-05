@@ -28,10 +28,7 @@ import org.apache.commons.dbutils.handlers.MapListHandler;
 
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 /**
  * @author wuque
@@ -160,20 +157,18 @@ public class StarRocksDriver extends AbstractDriver{
             if(!exsitTbl(tbl.getCatalog(),tbl.getDb(),tbl.getTblName())){
 
                 // create tbl like catalog.tbl
-                List<Map<String,Object>> srcTbl = queryAllColumns(schemaFromCatalogName,tbl.getDb(),tbl.getTblName());
+                List<Map<String,Object>> srcTblColumns = queryAllColumns(schemaFromCatalogName,tbl.getDb(),tbl.getTblName());
 
                 SchemaSync<CreateTableDTO> schemaSync = new StarrocksSchemaSync();
-                CreateTableDTO createTableDTO = schemaSync.transformTbl(tbl.getDb(),tbl.getTblName(),srcTbl,schemaFromCatalogDsType,getType());
+                CreateTableDTO createTableDTO = schemaSync.transformTbl(tbl.getDb(),tbl.getTblName(),srcTblColumns,schemaFromCatalogDsType,getType());
+
                 try {
                     createTbl(createTableDTO);
 
                     //sync data 异步
                     String name = schemaFromCatalogDsType.concat("_").concat(schemaFromCatalogName).concat("_2_").concat(tbl.getDb()).concat("_").concat(tbl.getTblName());
                     String dt = DateUtils.dateTimeNow();
-                    String cols = createTableDTO.getCols().stream().map(columnDTO -> {
-                        return columnDTO.getColName();
-                    }).collect(Collectors.joining(",", "", ""));
-
+                    String cols = extractCols(srcTblColumns,tbl.getDb(),tbl.getTblName());
                     SyncTaskGenInfo taskGenInfo = new SyncTaskGenInfo();
                     taskGenInfo.setTaskName("async_"+name+"_"+ dt);
                     taskGenInfo.setLabel("insert_load_"+name+"_"+ dt);
@@ -198,6 +193,18 @@ public class StarRocksDriver extends AbstractDriver{
 
         return true;
     }
+
+    private String extractCols(List<Map<String, Object>> srcTblColumns,String db, String tblName) {
+
+        Set<String> keySet = new LinkedHashSet();
+        List<Map<String,Object>> partitions = getPartitionsList(db,tblName);
+        for (Map<String, Object> map : partitions) {
+            keySet.add(String.valueOf(map.getOrDefault("PartitionKey","")));
+            keySet.add(String.valueOf(map.getOrDefault("DistributionKey","")));
+        }
+        return new StarRocksTypeConvert().convertCols(srcTblColumns,"",keySet);
+    }
+
 
     @Override
     public List<String> getSchemaList(String catalogName) {
@@ -236,6 +243,23 @@ public class StarRocksDriver extends AbstractDriver{
             throw new RuntimeException(e);
         }
         return mapList;
+    }
+
+    @Override
+    public boolean tblNormal(String schema, String tbl, String operType) {
+
+        String sql = getDbSqlGenHelper().tblNormal(schema,tbl,operType);
+
+        List<Map<String,Object>> mapList = null;
+        try {
+            if (StrUtil.isNotEmpty(sql)) {
+                QueryRunner qr = new QueryRunner();
+                mapList = qr.query(conn.get(),sql, new MapListHandler());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null != mapList && mapList.size() < 1;
     }
 
 
