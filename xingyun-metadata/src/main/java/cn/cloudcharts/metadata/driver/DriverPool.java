@@ -28,4 +28,8 @@ public class DriverPool {
     public static Driver get(String key) {
         return driverMap.get(key);
     }
+
+    public static void cleanAll() {
+        driverMap.clear();
+    }
 }

@@ -1,11 +1,13 @@
 package cn.cloudcharts.controller.admin;
 
 
+import cn.cloudcharts.common.exception.ServiceException;
 import cn.cloudcharts.model.entity.Database;
 import cn.cloudcharts.service.IDatabaseService;
 import cn.cloudcharts.model.request.DataBaseRequest;
 import cn.cloudcharts.core.domain.R;
 import cn.cloudcharts.metadata.driver.DriverPool;
+import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -91,6 +93,24 @@ public class DatabaseController {
         } else {
             return R.fail(msg);
         }
+    }
+
+    @Operation(summary = "清除所有已连接")
+    @PostMapping("/cleanAll")
+    public R cleanAll() {
+        DriverPool.cleanAll();
+        return R.ok();
+    }
+
+    @Operation(summary = "根据ID清除连接")
+    @PostMapping("/cleanOneById")
+    public R cleanOneById(@RequestParam(name = "id") String id) {
+        Database database = databaseService.getById(id);
+        if(ObjectUtil.isNotEmpty(database)){
+            DriverPool.remove(database.getName());
+            return R.ok();
+        }
+        throw new ServiceException("不存在该数据源，请检查！");
     }
 
 }
