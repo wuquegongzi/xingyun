@@ -29,6 +29,10 @@ public class StarrocksSchemaSync implements SchemaSync<CreateTableDTO> {
             StarrocksCloumn starrocksCloumn = BeanUtil.fillBeanWithMap(map,new StarrocksCloumn(),false);
             ColumnDTO columnDTO = new ColumnDTO();
             columnDTO.setColName(starrocksCloumn.getField());
+            String type = starrocksCloumn.getType();
+            if("UNKNOWN_TYPE".equals(type.toUpperCase())){
+                starrocksCloumn.setType("STRING");
+            }
             columnDTO.setColType(starrocksCloumn.getType());
 //            columnDTO.setLen();
             columnDTO.setComment(starrocksCloumn.getComment());

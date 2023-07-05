@@ -58,7 +58,7 @@ public  abstract class AbstractDbSqlGen implements IDbSqlGen {
         map.put("dbName",dbName);
         map.put("tblName",tblName);
 
-        return CustomSQL.getInstance().get("dml.jdbc.exsitTbl",map).toLowerCase();
+        return CustomSQL.getInstance().get("dml.jdbc.exsitTbl",map);
     }
 
     @Override
@@ -72,7 +72,7 @@ public  abstract class AbstractDbSqlGen implements IDbSqlGen {
         }
         map.put("dbName",dbName);
 
-        return CustomSQL.getInstance().get("dml.jdbc.exsitSchema",map).toLowerCase();
+        return CustomSQL.getInstance().get("dml.jdbc.exsitSchema",map);
     }
 
     @Override
@@ -83,7 +83,7 @@ public  abstract class AbstractDbSqlGen implements IDbSqlGen {
         Map map = Maps.newHashMap();
         map.put("dbName",dbName);
 
-        return CustomSQL.getInstance().get("dml.jdbc.createSchema",map).toLowerCase();
+        return CustomSQL.getInstance().get("dml.jdbc.createSchema",map);
     }
 
 }

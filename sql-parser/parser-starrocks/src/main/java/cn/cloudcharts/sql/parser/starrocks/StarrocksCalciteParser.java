@@ -1,10 +1,13 @@
 package cn.cloudcharts.sql.parser.starrocks;
 
+import cn.cloudcharts.common.utils.GsonUtils;
+import cn.cloudcharts.common.utils.sql.SqlUtil;
 import cn.cloudcharts.sql.parser.CalciteSqlParser;
 import cn.cloudcharts.sql.parser.common.Constant;
 import cn.cloudcharts.sql.parser.model.Table;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.calcite.avatica.util.Casing;
 import org.apache.calcite.config.Lex;
 import org.apache.calcite.sql.*;
 import org.apache.calcite.sql.dialect.MysqlSqlDialect;
@@ -58,7 +61,7 @@ public class StarrocksCalciteParser implements CalciteSqlParser {
     @Override
     public SqlKind getSingleSqlKind(String sql) throws SqlParseException {
         // 解析配置
-        SqlParser.Config mysqlConfig = SqlParser.configBuilder().setLex(Lex.MYSQL).build();
+        SqlParser.Config mysqlConfig = SqlParser.configBuilder().setUnquotedCasing(Casing.UNCHANGED).setLex(Lex.MYSQL).build();
         // 创建解析器
         SqlParser parser = SqlParser.create(sql, mysqlConfig);
         // 解析sql
@@ -75,7 +78,7 @@ public class StarrocksCalciteParser implements CalciteSqlParser {
     @Override
     public List<String> extractTableNameList(String sql) throws SqlParseException {
 
-        SqlParser parser = SqlParser.create(sql);
+        SqlParser parser = SqlParser.create(sql,SqlParser.configBuilder().setUnquotedCasing(Casing.UNCHANGED).build());
         SqlNode parsed = parser.parseQuery();
 
         List<String> tables = new ArrayList<>();
@@ -86,6 +89,8 @@ public class StarrocksCalciteParser implements CalciteSqlParser {
 
     @Override
     public List<Table> extractTableList(String sql) {
+        sql = SqlUtil.removeNote(sql);
+
         List<String> tbls = null;
         try {
             tbls = extractTableNameList(sql);
@@ -193,13 +198,15 @@ public class StarrocksCalciteParser implements CalciteSqlParser {
             System.out.println(sqlNodes.get(i).getKind().toString());
         }
 
-        String sql2 = "select * from stg.test1 t1 " +
-                "left join ads.test2 t2 " +
+        String sql2 = "select * from `stg`.`test1` t1 " +
+                "left join `ads`.`test2` t2 " +
                 "on t1.id= t2.id " +
                 "where t1.name='pioneeryi'";
 
-        List<String> s = sqlParser.extractTableNameList(sql2);
-        System.out.println(s.toString());
+//        List<String> s = sqlParser.extractTableNameList(sql2);
+//        System.out.println(s.toString());
+        List<Table> tables = sqlParser.extractTableList(sql2);
+        System.out.println(GsonUtils.gsonString(tables));
 
 
         // Sql语句

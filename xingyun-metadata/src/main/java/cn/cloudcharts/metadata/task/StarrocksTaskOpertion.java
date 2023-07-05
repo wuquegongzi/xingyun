@@ -30,7 +30,7 @@ public class StarrocksTaskOpertion implements ITaskOpertion{
     public boolean submitSyncTask(Connection conn, SyncTaskGenInfo taskGenInfo) {
 
         Map map = BeanUtils.bean2Map(taskGenInfo);
-        String taskSql = CustomSQL.getInstance().get("task.sr.sync.insert.async",map).toLowerCase();
+        String taskSql = CustomSQL.getInstance().get("task.sr.sync.insert.async",map);
 
         int res = 0;
         try {
@@ -40,6 +40,22 @@ public class StarrocksTaskOpertion implements ITaskOpertion{
             throw new RuntimeException(e);
         }
 
+        log.info("result:{},submit task:{}",res,taskSql);
+
+//        if(res > 0){
+        ThreadUtil.execAsync(() -> {
+            Map resMap = new HashMap();
+            resMap.put("taskName",taskGenInfo.getTaskName());
+            String taskResultSql = CustomSQL.getInstance().get("task.sr.sync.insert.async.result",resMap);
+            try {
+                QueryRunner queryRunner = new QueryRunner();
+                TaskRunsResult taskRunsResult = queryRunner.query(conn,taskResultSql,new BeanHandler<TaskRunsResult>(TaskRunsResult.class, new BasicRowProcessor(new GenerousBeanProcessor())));
+                log.info("task:{},result:{}",taskGenInfo.getTaskName(), GsonUtils.gsonString(taskRunsResult));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
+//        }
         log.info("result:{},submit task:{}",res,taskSql);
 
 //        if(res > 0){
