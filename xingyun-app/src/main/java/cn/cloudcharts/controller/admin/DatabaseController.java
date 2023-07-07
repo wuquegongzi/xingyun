@@ -113,4 +113,10 @@ public class DatabaseController {
         throw new ServiceException("不存在该数据源，请检查！");
     }
 
+    @Operation(summary = "获取所有已连接")
+    @PostMapping("/getConnAll")
+    public R getConnAll() {
+        return R.ok(DriverPool.getAll());
+    }
+
 }
