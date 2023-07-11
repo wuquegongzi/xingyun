@@ -7,6 +7,8 @@ import cn.cloudcharts.metadata.model.dto.CreateTableDTO;
 import cn.cloudcharts.metadata.model.result.JdbcSelectResult;
 import cn.cloudcharts.metadata.model.result.SqlExplainResult;
 import cn.cloudcharts.metadata.task.SyncTaskGenInfo;
+import cn.cloudcharts.sql.parser.CalciteSqlParser;
+import cn.cloudcharts.sql.parser.model.Table;
 import org.apache.calcite.sql.parser.SqlParseException;
 
 import java.sql.SQLException;
@@ -55,9 +57,10 @@ public interface Driver extends AutoCloseable{
 
     static Driver getHealthDriver(String key) {
         Driver driver = DriverPool.get(key);
-        if (driver.isHealth() ) {
+        if (driver.isHealth()) {
             return driver;
         } else {
+//            DriverPool.remove(key);
             return driver.connect();
         }
     }
@@ -73,6 +76,8 @@ public interface Driver extends AutoCloseable{
         }
     }
 
+    CalciteSqlParser getCalciteSqlParserHelper();
+
     boolean canHandle(String type);
 
     String getType();
@@ -84,6 +89,8 @@ public interface Driver extends AutoCloseable{
     boolean isHealth();
 
     Driver connect();
+
+    String getConnDbName();
 
     /**
      * 开启事务
@@ -119,7 +126,7 @@ public interface Driver extends AutoCloseable{
 
     boolean exsitSchema(String catalogName, String dbName,boolean autoCreate);
 
-    boolean syncTblMeta(String statement, String schemaFromCatalogName, String schemaFromCatalogDsType) throws SqlParseException, SQLException;
+    boolean syncTbl(List<Table> tbls, String srcCatalog, String srcCatalogType,boolean isAutoCreate,boolean syncDataByMetaChange,Map parmMap) throws SqlParseException, SQLException;
 
     List<String> getSchemaList(String defaultCatalog);
 
@@ -128,4 +135,5 @@ public interface Driver extends AutoCloseable{
     List<Map<String,Object>> getPartitionsList(String schema, String tbl);
 
     boolean tblNormal(String schema, String tbl, String operType);
+
 }

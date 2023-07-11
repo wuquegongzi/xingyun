@@ -9,6 +9,7 @@ import cn.cloudcharts.metadata.model.result.ResultColumn;
 import cn.cloudcharts.metadata.sql.IDbSqlGen;
 import cn.cloudcharts.metadata.task.ITaskOpertion;
 import cn.cloudcharts.sql.parser.CalciteSqlParser;
+import cn.cloudcharts.sql.parser.DefaultCalciteSqlParser;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.zaxxer.hikari.HikariDataSource;
@@ -49,7 +50,11 @@ public abstract class AbstractDriver implements Driver {
     private HikariDataSource dataSource;
 
     public abstract IDbSqlGen getDbSqlGenHelper();
-    public abstract CalciteSqlParser getCalciteSqlParserHelper();
+    @Override
+    public  CalciteSqlParser getCalciteSqlParserHelper(){
+        return new DefaultCalciteSqlParser();
+    };
+
     public abstract ITaskOpertion getTaskOpertionHelper();
 
     abstract String getDriverClass();
@@ -125,6 +130,7 @@ public abstract class AbstractDriver implements Driver {
         ds.setMaximumPoolSize(50);
         ds.setConnectionTestQuery("select 1");
         ds.setConnectionTimeout(60000);
+
         ds.setIdleTimeout(30000);
         ds.setKeepaliveTime(60000);
         ds.setMaxLifetime(300000);
@@ -165,9 +171,10 @@ public abstract class AbstractDriver implements Driver {
     }
 
     @Override
+
     public Driver connect() {
         try {
-            if (ObjectUtil.isNull(conn.get())) {
+            if (ObjectUtil.isNull(conn.get()) || conn.get().isClosed()) {
                 Class.forName(getDriverClass());
                 Connection connection = createDataSource().getConnection();
                 conn.set(connection);
@@ -176,6 +183,18 @@ public abstract class AbstractDriver implements Driver {
             throw new RuntimeException(e);
         }
         return this;
+    }
+
+    @Override
+    public String getConnDbName() {
+        connect();
+        String dbName = null;
+        try {
+            dbName = conn.get().getCatalog();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return dbName;
     }
 
     @Override
