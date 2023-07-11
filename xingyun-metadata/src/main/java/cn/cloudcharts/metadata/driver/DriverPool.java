@@ -2,6 +2,7 @@
 package cn.cloudcharts.metadata.driver;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class DriverPool {
@@ -27,5 +28,13 @@ public class DriverPool {
 
     public static Driver get(String key) {
         return driverMap.get(key);
+    }
+
+    public static void cleanAll() {
+        driverMap.clear();
+    }
+
+    public static Set<String> getAll() {
+        return driverMap.keySet();
     }
 }
