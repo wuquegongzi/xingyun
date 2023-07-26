@@ -26,6 +26,7 @@ import cn.cloudcharts.sql.parser.CalciteSqlParser;
 import cn.cloudcharts.sql.parser.model.Table;
 import cn.cloudcharts.sql.parser.starrocks.StarrocksCalciteParser;
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ColumnListHandler;
@@ -137,6 +138,7 @@ public class StarRocksDriver extends AbstractDriver{
 
     @Override
     public boolean syncTbl(List<Table> tblList, String srcCatalog, String srcCatalogType,boolean isAutoCreate, boolean syncDataByMetaChange,Map parmMap){
+
         tblList.forEach(tbl ->{
             boolean exsitSchema = exsitSchema(tbl.getCatalog(),tbl.getDb(),isAutoCreate);
             if(!exsitSchema){
@@ -159,7 +161,12 @@ public class StarRocksDriver extends AbstractDriver{
         String cols = extractCols(srcCatalog,srcDb,srcTbl);
         SyncTaskGenInfo taskGenInfo = new SyncTaskGenInfo();
         taskGenInfo.setTaskName("async_"+name+"_"+ dt);
-        taskGenInfo.setLabel("insert_load_"+name+"_"+ dt);
+        //防止lable超过128位，导入失败，做特殊处理
+        String label = "load_"+srcTbl+"_"+ dt;
+        if(label.length() > 127){
+            label = IdUtil.simpleUUID();
+        }
+        taskGenInfo.setLabel(label);
         taskGenInfo.setAsync(true);
         taskGenInfo.setSrcCatalog(srcCatalog);
         taskGenInfo.setSrcDb(srcDb);

@@ -2,6 +2,7 @@ package cn.cloudcharts.service.impl;
 
 import cn.cloudcharts.common.exception.ServiceException;
 import cn.cloudcharts.common.utils.AssertUtil;
+import cn.cloudcharts.common.utils.GsonUtils;
 import cn.cloudcharts.common.utils.StringUtils;
 import cn.cloudcharts.common.utils.sql.SqlUtil;
 import cn.cloudcharts.metadata.driver.Driver;
@@ -130,7 +131,7 @@ public class ExecuteServiceImpl implements ExecuteService {
                 OptimizeResult optimizeResult = optimizeSql(driver,sql,tblList,sqlRequest.getSchemaFromCatalogName());
                 sql = optimizeResult.getSql();
 
-                if(optimizeResult.getTblNotExsitList().size() > 1){
+                if(optimizeResult.getTblNotExsitList().size() > 0){
                     driver.syncTbl(optimizeResult.getTblNotExsitList(),sqlRequest.getSchemaFromCatalogName(),sqlRequest.getSchemaFromCatalogDsType(),true,true,null);
                 }
             }
@@ -172,10 +173,33 @@ public class ExecuteServiceImpl implements ExecuteService {
 
         if( tblNotExsitSet.size() > 0 ){
             for (Table table : tblList) {
+
+                //如果存在unkown_type的字段类型，且SQL查询了该字段或者作为查询条件，则抛出异常[SR的缺陷]
+                List<Map<String,Object>> cloumns = driver.queryAllColumns(srcCatalog,table.getDb(),table.getTblName());
+                String finalSql = sql;
+                long cnt = cloumns.stream().filter(map -> {
+                    if("UNKNOWN_TYPE".equals(String.valueOf(map.getOrDefault("Type","")))){
+                        String fieldName = String.valueOf(map.get("Field"));
+                       /* String nullName = "'' as "+fieldName;
+                        finalSql.replaceAll(fieldName,nullName);
+                        finalSql.replaceAll(fieldName.toLowerCase(),nullName);
+                        finalSql.replaceAll(fieldName.toUpperCase(),nullName);*/
+                        if(finalSql.contains(fieldName) || finalSql.contains(fieldName.toLowerCase()) || finalSql.contains(fieldName.toUpperCase())){
+                           return true;
+                        }
+                    }
+                    return false;
+                }).count();
+
+                if(cnt > 0){
+                   throw new ServiceException("OLAP引擎正在同步以下表元数据，请稍后再试:"+ GsonUtils.gsonString(tblList));
+                }
+
                 String olds = (StringUtils.isEmpty(table.getCatalog())?"":table.getCatalog().concat(".")).concat(table.getDb()).concat(".").concat(table.getTblName());
                 String news = srcCatalog.concat(".").concat(table.getDb()).concat(".").concat(table.getTblName());
                 sql = sql.replaceAll(olds,news);
             }
+
             log.info("转换的SQL：{}",sql);
         }
 

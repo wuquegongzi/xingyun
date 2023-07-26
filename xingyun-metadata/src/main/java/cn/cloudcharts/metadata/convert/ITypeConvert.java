@@ -72,6 +72,10 @@ public interface ITypeConvert {
 
         sortColumnList.addAll(fieldList);
 
+        sortColumnList = sortColumnList.parallelStream().map(s -> {
+            return "`"+s+"`";
+        }).collect(Collectors.toList());
+
         return  sortColumnList.stream().collect(Collectors.joining(",", "", ""));
     }
 

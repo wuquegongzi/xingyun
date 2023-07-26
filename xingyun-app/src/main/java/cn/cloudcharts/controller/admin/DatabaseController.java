@@ -8,6 +8,7 @@ import cn.cloudcharts.model.entity.Database;
 import cn.cloudcharts.model.request.DataBaseRequest;
 import cn.cloudcharts.service.IDatabaseService;
 import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -56,6 +57,13 @@ public class DatabaseController {
     @Operation(summary = "添加数据源")
     @PostMapping(value ="/add")
     public R add(@RequestBody Database database){
+
+        LambdaQueryWrapper<Database> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Database::getName,database.getName());
+        Database exsit = databaseService.getOne(queryWrapper);
+        if(ObjectUtil.isNotEmpty(exsit)){
+            throw new RuntimeException("["+database.getName()+"]:A data source with this name already exists!");
+        }
 
         return R.ok(databaseService.save(database));
     }
